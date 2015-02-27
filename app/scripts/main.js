@@ -1,6 +1,6 @@
 require.config({
   baseUrl: 'app',
-  paths:{
+  paths: {
     jquery: 'lib/jquery',
     json: 'lib/json',
     d3: 'lib/d3',
@@ -8,7 +8,7 @@ require.config({
   }
 });
 
-require(['lib/knockout', 'd3'], function(ko, d3) {
+require(['lib/knockout', 'd3', 'json!../data/data.json'], function (ko, d3, skills_data) {
   'use strict';
   var radius = 960 / 2;
 
@@ -16,7 +16,9 @@ require(['lib/knockout', 'd3'], function(ko, d3) {
     .size([360, radius - 120]);
 
   var diagonal = d3.svg.diagonal.radial()
-    .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
+    .projection(function (d) {
+      return [d.y, d.x / 180 * Math.PI];
+    });
 
   var svg = d3.select("body").append("svg")
     .attr("width", radius * 2)
@@ -24,33 +26,7 @@ require(['lib/knockout', 'd3'], function(ko, d3) {
     .append("g")
     .attr("transform", "translate(" + radius + "," + radius + ")");
 
-  var root = {
-    title: 'Skill A',
-    url: 'http://skilla.com',
-    children: [{
-      title: 'Skill B',
-      url: 'http://skillb.com',
-      rating: 3,
-      children: [{
-        title: 'Skill D',
-        url: 'http://skilld.com',
-        rating: 3
-      }, {
-        title: 'Skill E',
-        url: 'http://skilld.com',
-        rating: 3,
-        children: [{
-          title: 'Skill F',
-          url: 'http://skilld.com',
-          rating: 3
-        }]
-      }]
-    }, {
-      title: 'Skill C',
-      url: 'http://skillc.com',
-      rating: 3
-    }]
-  };
+  var root = skills_data;
 
   var nodes = cluster.nodes(root),
     links = cluster.links(nodes);
@@ -70,17 +46,19 @@ require(['lib/knockout', 'd3'], function(ko, d3) {
     .data(nodes)
     .enter().append("g")
     .attr("class", "node")
-    .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
+    .attr("transform", function (d) {
+      return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")rotate(" + (-d.x + 90) + ")";
+    });
 
   node.append("circle")
-    .attr("r", 20);
+    .attr("r", 2);
 
   node.append("text")
     .attr("dx", function (d) {
       return d.children ? -50 : 20;
     })
     .attr("class", "skill")
-    .attr("data-bind",function () {
+    .attr("data-bind", function () {
       return "click: sample";
     })
     .text(function (d) {
@@ -88,12 +66,12 @@ require(['lib/knockout', 'd3'], function(ko, d3) {
     });
 
   d3.select(self.frameElement).style("height", radius * 2 + "px");
-  var ViewModel = function() {
+  var ViewModel = function () {
     var self = this;
     self.sample = function () {
       console.log("click");
     };
   };
-	var vm = new ViewModel();
+  var vm = new ViewModel();
   ko.applyBindings(vm);
 });
