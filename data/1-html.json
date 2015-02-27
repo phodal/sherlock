@@ -1,0 +1,37 @@
+[
+  {
+    "id": 0,
+    "title": "Computer",
+    "title_zh": "计算机",
+    "description": "计算机（computer）俗称电脑，是一种用于高速计算的电子计算机器，可以进行数值计算，又可以进行逻辑计算，还具有存储记忆功能。是能够按照程序运行，自动、高速处理海量数据的现代化智能电子设备。由硬件系统和软件系统所组成，没有安装任何软件的计算机称为裸机",
+    "rankDescriptions": [
+      "熟练操作电脑"
+    ]
+  },
+  {
+    "id": 1,
+    "title": "HTML",
+    "title_zh": "HTML(超文本标记语言)",
+    "description": "Internet主要由从服务器通过HTTP协议向浏览器发送的HTML文档组成。HTML被用来结构化信息——例如标题、段落和列表等等，也可用来在一定程度上描述文档的外观和语义。",
+    "rankDescriptions": [
+      "理解如何创建和浏览一个基本的网页",
+      "理解网页间是如何链接的、如何设计多列布局，可以处理表单字段和媒体元素"
+    ],
+    "links": [
+      {
+        "label": "无处不在的html",
+        "url": "http://www.phodal.com/blog/be-a-geek-chapter-1-anywhere-html/"
+      }
+    ],
+    "books": [
+      {
+        "label": "Head First HTML与CSS",
+        "url": "http://www.amazon.cn/Head-First-HTML%E4%B8%8ECSS-%E7%BD%97%E5%B8%83%E6%A3%AE/dp/B00FF3P8FY/ref=sr_1_1?ie=UTF8&qid=1424182950&sr=8-1&keywords=html"
+      },
+      {
+        "label": "图灵程序设计丛书:HTML5权威指南",
+        "url": "http://www.amazon.cn/%E5%9B%BE%E7%81%B5%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1…9B%BC/dp/B00H706BIG/ref=sr_1_4?ie=UTF8&qid=1424220765&sr=8-4&keywords=html"
+      }
+    ]
+  }
+]

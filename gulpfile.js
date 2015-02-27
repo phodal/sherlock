@@ -9,6 +9,17 @@ gulp.task('test', function () {
     .pipe(mocha());
 });
 
+gulp.task('contact', function () {
+  var jsonConcat = require("json-concat");
+
+  jsonConcat({
+    src: ["data/0.json", "data/1-html.json"],
+    dest: "./data/data.json"
+  }, function (json) {
+    console.log(json);
+  });
+});
+
 gulp.task('jshint', function () {
   return gulp.src('app/scripts/**/*.js')
     .pipe($.jshint())
