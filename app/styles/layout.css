@@ -10,3 +10,12 @@
   fill: none;
   stroke: #ccc;
 }
+text.skill {
+  font-size: 18pt;
+}
+text.skill.active {
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  -webkit-opacity: 0;
+  opacity: 0;
+}

@@ -40,7 +40,7 @@ require(['lib/knockout', 'd3'], function(ko, d3) {
         url: 'http://skilld.com',
         rating: 3,
         children: [{
-          title: 'Skill E',
+          title: 'Skill F',
           url: 'http://skilld.com',
           rating: 3
         }]
@@ -79,11 +79,21 @@ require(['lib/knockout', 'd3'], function(ko, d3) {
     .attr("dx", function (d) {
       return d.children ? -50 : 20;
     })
+    .attr("class", "skill")
+    .attr("data-bind",function () {
+      return "click: sample";
+    })
     .text(function (d) {
       return d.title;
     });
 
   d3.select(self.frameElement).style("height", radius * 2 + "px");
-	//var vm = new ViewModel("Planet", "Earth");
-  //ko.applyBindings(vm);
+  var ViewModel = function() {
+    var self = this;
+    self.sample = function () {
+      console.log("click");
+    };
+  };
+	var vm = new ViewModel();
+  ko.applyBindings(vm);
 });
