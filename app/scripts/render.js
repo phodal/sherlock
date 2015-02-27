@@ -7,14 +7,18 @@ define(['d3', 'lib/knockout', 'text!templates/example.html'], function (d3, ko, 
       .projection(function (d) {
         return [d.y, d.x / 180 * Math.PI];
       });
+
     var svg = d3.select("body").append("svg")
       .attr("width", radius * 2)
       .attr("height", radius * 2)
       .append("g")
       .attr("transform", "translate(" + radius + "," + radius + ")");
+
     var root = skills_data;
+
     var nodes = cluster.nodes(root),
       links = cluster.links(nodes);
+
     var link = svg.selectAll(".link")
       .data(links)
       .enter().append("path")
@@ -24,6 +28,7 @@ define(['d3', 'lib/knockout', 'text!templates/example.html'], function (d3, ko, 
         return 3;
       })
       .attr("d", diagonal);
+
     var node = svg.selectAll("g.node")
       .data(nodes)
       .enter().append("g")
@@ -31,13 +36,13 @@ define(['d3', 'lib/knockout', 'text!templates/example.html'], function (d3, ko, 
       .attr("transform", function (d) {
         return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")rotate(" + (-d.x + 90) + ")";
       });
+
     node.append("circle")
       .attr("r", 2);
 
     node.append("foreignObject")
-      .attr("width", 280)
+      .attr("width", 480)
       .attr("height", 500)
-      .append("xhtml:body")
       .style("font", "14px 'Helvetica Neue'")
       .html(example);
 
