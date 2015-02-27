@@ -1,4 +1,4 @@
-define(['d3', 'lib/knockout'], function (d3, ko) {
+define(['d3', 'lib/knockout', 'text!templates/example.html'], function (d3, ko, example) {
   function renderPage(skills_data) {
     var radius = 960 / 2;
     var cluster = d3.layout.cluster()
@@ -33,6 +33,14 @@ define(['d3', 'lib/knockout'], function (d3, ko) {
       });
     node.append("circle")
       .attr("r", 2);
+
+    node.append("foreignObject")
+      .attr("width", 280)
+      .attr("height", 500)
+      .append("xhtml:body")
+      .style("font", "14px 'Helvetica Neue'")
+      .html(example);
+
     node.append("text")
       .attr("dx", function (d) {
         return d.children ? -50 : 20;
@@ -44,6 +52,7 @@ define(['d3', 'lib/knockout'], function (d3, ko) {
       .text(function (d) {
         return d.title;
       });
+
     d3.select(self.frameElement).style("height", radius * 2 + "px");
   }
 
