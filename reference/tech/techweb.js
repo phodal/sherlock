@@ -1,5 +1,2565 @@
-var unitData={Worker:{Tech:"Habitation",Cost:60,Moves:2,Domain:"Land",Type:"Civilian",Description:"Constructs Improvements on land and at sea, increasing the effectiveness of tiles when worked by a City's population"},Explorer:{Tech:"Habitation",Cost:40,Moves:2,Strength:3,Domain:"Land",Type:"Exploration",Description:"Ideal for scouting the terrain, opposing forces, and alien activity. Its light Combat Strength gives it modest defense, but it is not suited to full-scale warfare."},Soldier:{Tech:"Habitation",Cost:50,Moves:2,Strength:10,Domain:"Land",Type:"Melee",Description:"A basic unit that is easy to build. It begins weak, but can be upgraded to increase its effectiveness and fight alongside more advanced units."},"Trade Vessel":{Tech:"Pioneering",Cost:70,Moves:3,Domain:"Sea",Type:"Trade",Description:"Used to establish Trade Routes by sea between your cities and other Cities, Outposts, or Stations. Trade Routes generate yields or increased outpost growth rate for trading partners, but Trade Units are vulnerable to attack and their routes must be protected by Military Units."},"Trade Convoy":{Tech:"Pioneering",Cost:60,Moves:2,Domain:"Land",Type:"Trade",Description:"Used to establish Trade Routes by land between your cities and other Cities, Outposts, or Stations. Trade Routes generate yields or increased outpost growth rate for trading partners, but Trade Units are vulnerable to attack and their routes must be protected by Military Units."},Colonist:{Tech:"Pioneering",Cost:186,Moves:2,Domain:"Land",Type:"Civilian",Description:"Can establish an Outpost, which transforms into a full City once time passes and it acquires all territory adjacent to it. [newline] [newline] While  producing this Unit, a City's [food] Growth temporarily stops. [newline] Colonists may only be built in Cities with at least 2 [citizens] Citizens.","Halts Growth":1,"Requires Pop":2},"Miasmic Repulsor":{Tech:"Ecology",Cost:80,Duration:6,"Effect Range":2,Domain:"Orbital",Type:"Civilian",Description:"Clears Miasma from affected tiles, starting from the center.",Effect:{Tile:{Miasma:-1}}},Ranger:{Tech:"Physics",Cost:50,Moves:2,"Attack Range":2,"Ranged Strength":8,Strength:3,Domain:"Land",Type:"Ranged",Description:"Attacks at range to avoid close quarters combat."},"Combat Rover":{Tech:"Engineering",Cost:80,Moves:3,Strength:12,Domain:"Land",Type:"Melee",Description:"Specializing in mobility, it excels in battlefield positioning, chasing down enemy units, reconaissance, and exploration."},"Missile Rover":{Tech:"Computing",Cost:100,Moves:2,"Attack Range":2,"Ranged Strength":12,Strength:3,Domain:"Land",Type:"Ranged",Description:"Specializes in reducing defenses of Cities and Outposts from afar, but has limited mobility."},Gunboat:{Tech:"Computing",Cost:120,Moves:3,"Attack Range":2,"Ranged Strength":16,Strength:6,Domain:"Sea",Type:"Ranged",Description:"Uses ranged weaponry to attack enemies at sea, or bombard enemies on nearby coasts."},"Solar Collector":{Tech:"Photosystems",Cost:80,Duration:60,"Effect Range":1,Domain:"Orbital",Type:"Civilian",Description:"+1 [energy] Energy on tiles you own. Any City in range also receives +20% [energy] Energy overall.",Effect:{City:{Energy:.2},Tile:{Energy:1}}},"Xeno Swarm":{Tech:"Alien Adaptation",Unique:"Harmony",Cost:120,Moves:2,Strength:34,Requires:{Xenomass:1,Harmony:4},Type:"Melee",Domain:"Land",Description:"A mixed squad of human soldiers and adapted alien lifeforms. Simple, versatile melee assult unit."},"Miasmic Condenser":{Tech:"Alien Ecology",Cost:130,Duration:10,"Effect Range":2,Requires:{Petroleum:3,Xenomass:1},Domain:"Orbital",Type:"Civilian",Description:"Generates Miasma on affected tiles, starting from the center.",Effect:{Tile:{Miasma:1}}},"Weather Controller":{Tech:"Climate Control",Cost:130,Duration:60,"Effect Range":1,Requires:{Petroleum:2,Titanium:1},Domain:"Orbital",Type:"Civilian",Description:"+1 [food] Food on tiles you own. Generates 1 to 2 new Basic Resources on unimproved tiles across its lifespan.",Effect:{Tile:{Food:1,"Add Basic Resource Min":1,"Add Basic Resource Max":2}}},"Tacnet Hub":{Tech:"Communications",Cost:80,Duration:60,"Effect Range":2,Domain:"Orbital",Type:"Military",Description:"Provides +20% [strength] Strength, +20% [ranged] Ranged Strength, and +5 HP heal every turn to friendly Units.",Effect:{Units:{Strength:.2,"Ranged Strength":.2,Heal:5}}},"Lasercom Satellite":{Tech:"Orbital Networks",Cost:130,Duration:60,"Effect Range":1,Requires:{Petroleum:2,Titanium:1},Domain:"Orbital",Type:"Civilian",Description:"Once in orbit, establishes contact with Old Earth, which is part of Emancipation Victory and  Promised Land Victory. Any City in range also receives +15% [science] Science overall.",Effect:{City:{Science:.15}}},SABR:{Tech:"Synthetic Thought",Unique:"Supremacy",Cost:320,Moves:1,"Max Range":3,"Ranged Strength":58,Strength:16,Requires:{Firaxite:4,Supremacy:9},Type:"Siege",Domain:"Land",Description:"A high-precision robotic artillery platform with exceptional range and accuracy. Slow but powerful ranged and siege unit."},Carrier:{Tech:"Fabrication",Cost:160,Moves:3,Strength:18,Type:"Support",Domain:"Sea",Description:"Has no attack capability of its own, but serves as a base for air units to launch operations."},Holomatrix:{Tech:"Civil Support",Cost:130,Duration:60,"Effect Range":1,Requires:{Petroleum:3,Floatstone:1},Domain:"Orbital",Type:"Civilian",Description:"+2 [culture] Culture on tiles you own. Any City in range receives 50% less Intrigue from enemy Covert Agent activity.",Effect:{City:{Intrigue:-.5},Tile:{Culture:2}}},"LEV Tank":{Tech:"Mobile LEV",Unique:"Purity",Cost:300,Moves:2,"Attack Range":2,"Ranged Strength":52,Strength:28,Requires:{Floatstone:4,Purity:9},Type:"Ranged",Domain:"Hover",Description:"An armored assult vehicle that hovers above the terrain, allowing it to traverse canyons and water. Powerful mobile ranged unit."},Tacjet:{Tech:"Robotics",Cost:100,"Attack Range":4,"Ranged Strength":10,Type:"Ranged",Domain:"Air",Description:"Attacks at range from a base, such as a City or Carrier."},CNDR:{Tech:"Mobile LEV",Unique:"Supremacy",Cost:155,Moves:2,Strength:38,Requires:{Firaxite:1,Supremacy:4},Type:"Melee",Domain:"Land",Description:"A limited but reliable robotic drone soldier. Simple, hardy defensive melee unit."},Battlesuit:{Tech:"Servomachinery",Unique:"Purity",Cost:160,Moves:2,Strength:40,Requires:{Titanium:1,Purity:4},Type:"Melee",Domain:"Land",Description:"A soldier armored in augmented armor. Tough melee shock unit."},Rocktopus:{Tech:"Civil Support",Unique:"Harmony",Cost:280,Duration:10,"Effect Range":2,"Ranged Strength":60,Requires:{Xenomass:3,Floatstone:1,Harmony:9},Domain:"Orbital",Type:"Military",Description:"A bioengineered, living orbital unit that can move between orbital deployments and provide limited orbital coverage around it's location."},"Xeno Titan":{Tech:"Alien Evolution",Unique:"Harmony",Ultimate:1,Cost:400,Moves:2,Strength:96,Requires:{Xenomass:7,Harmony:12},Type:"Melee",Domain:"Land",Description:"A bioengineered, monstrous creature based on alien lifeforms. Enormous, very powerful melee siege unit."},"Xeno Cavalry":{Tech:"Alien Domestication",Unique:"Harmony",Cost:210,Moves:3,Strength:48,Requires:{Xenomass:2,Harmony:7},Type:"Melee",Domain:"Land",Description:"Human soldiers mounted on domesticated alien lifeforms. Agile melee fast attack unit."},"Orbital Fabricator":{Tech:"Geoscaping",Cost:130,Duration:60,"Effect Range":1,Requires:{Petroleum:2,Titanium:1},Domain:"Orbital",Type:"Civilian",Description:"+1 [production] Production on the tiles you own. Generates 1 to 2 new Strategic Resources on unimproved tiles across its lifespan.",Effect:{Tile:{Production:1,"Add Strategic Resource Min":1,"Add Strategic Resource Max":2}}},ANGEL:{Tech:"Neural Uploading",Unique:"Supremacy",Ultimate:1,Cost:370,Moves:2,"Attack Range":1,"Ranged Strength":88,Strength:88,Requires:{Firaxite:6,Supremacy:12},Type:"Ranged",Domain:"Walker",Description:"A highly-advanced robotic walker with heavy armaments and exceptional agility that can traverse canyons and shallow water. Extremely versatile unit suited to any battlefield role."},"Orbital Laser":{Tech:"Cybernetics",Cost:130,Duration:60,"Effect Range":2,"Ranged Strength":50,Requires:{Petroleum:2},Domain:"Orbital",Type:"Military",Description:"Bombards hostile Units with moderate strength."},"Phasal Transporter":{Tech:"Cybernetics",Cost:130,Duration:30,"Effect Range":1,Requires:{Petroleum:2,Titanium:1},Domain:"Orbital",Type:"Civilian",Description:"Enables Units to perform a one-way Phasal Teleport from any friendly City to any affected tile.",Effect:{Units:{Teleport:1,Restriction:"From City"}}},CARVR:{Tech:"Autogyros",Unique:"Supremacy",Cost:220,Moves:2,Strength:50,Requires:{Firaxite:3,Supremacy:7},Type:"Melee",Domain:"Land",Description:"A sophisticated, fully autonomous robotic drone soldier. Versatile recon and melee assault unit."},"Planet Carver":{Tech:"Astrodynamics",Cost:200,Duration:30,"Effect Range":2,"Ranged Strength":120,Requires:{Petroleum:4,Titanium:1},Domain:"Orbital",Type:"Military",Description:"Bombards hostile Units with pulverizing power."},"Deep Space Telescope":{Tech:"Orbital Automation",Cost:200,Duration:60,"Effect Range":2,Requires:{Petroleum:2,Firaxite:1},Effect:{City:{Science:.25}},Domain:"Orbital",Type:"Military",Description:"Once in orbit, eventually leads to discovery of The Signal, which is part of Contact Victory. Any City in range also receives +25% [science] Science overall."},"All-Seer":{Tech:"Dark Networks",Cost:200,Duration:30,"Effect Range":1,Requires:{Petroleum:4,Titanium:1},Domain:"Orbital",Type:"Military",Description:"Removes all Covert Agents and Intrigue from any City in range. Prevents any Covert Agent activity or Intrigue increase as long as it orbits."},"LEV Destroyer":{Tech:"Nanotechnology",Unique:"Purity",Ultimate:1,Cost:380,Moves:2,"Attack Range":2,"Ranged Strength":84,Strength:50,Requires:{Floatstone:7,Purity:12},Type:"Ranged",Domain:"Hover",Description:"A gigantic, heavily-armed assault  platform that hovers above the terrain, allowing it to traverse canyons and water. Very powerful ranged and siege unit."},Aegis:{Tech:"Surrogacy",Unique:"Purity",Cost:180,Moves:2,"Attack Range":2,"Ranged Strength":40,Strength:20,Requires:{Titanium:1,Floatstone:1,Purity:7},Type:"Ranged",Domain:"Land",Description:"A light, mechanized walker with a variety of mounted weapons. Armored ranged unit with versatile fire support capabilities."}};var techs={Habitation:{Position:{Node:0,Oclock:0,Leaf:0},Enables:{Engineering:1,Physics:1,Chemistry:1,Genetics:1,Ecology:1},Buildings:{"Old Earth Relic":1,Clinic:1},Units:{Worker:1,Explorer:1,Soldier:1},Leaf:{Pioneering:1,"Planetary Survey":1}},Pioneering:{Position:{Node:0,Oclock:0,Leaf:1},Science:80,Node:"Habitation",Buildings:{"Trade Depot":1},Units:{Colonist:1,"Trade Convoy":1,"Trade Vessel":1}},"Planetary Survey":{Position:{Node:0,Oclock:0,Leaf:2},Science:80,Node:"Habitation",Effect:{Units:{Description:"Allows land units to embark and cross water tiles."}},"Tile Improvement":{"Work Barge":{Units:"Worker",Coral:{Science:1,Production:1},Algae:{Food:1},Description:"{Tile Improvement|yellow} buildable by {Worker|pink} units on {Coral|orange} and {Algae|orange} resources. Provides: [newline] [list-item] 1 [science] Science, 1 [production] Production on [coral] Coral. [list-item] 1 [food] Food on [algae] Algae."}}},Ecology:{Position:{Node:1,Oclock:4,Leaf:0},Enables:{Computing:1,Terraforming:1,"Alien Sciences":1},Science:95,Buildings:{Vivarium:1,"Ultrasonic Fence":1},Units:{"Miasmic Repulsor":1},Leaf:{Geophysics:1,"Alien Biology":1}},Geophysics:{Position:{Node:1,Oclock:4,Leaf:1},Science:249,Node:"Ecology","Tile Improvement":{"Geothermal Well":{Description:"GEOTHERMAL WELL [linebreak] {Tile Improvement|yellow} buildable by {Worker|pink} units on {Geothermal|orange} resources. [newline] [newline] Adds the [geothermal] {Geothermal|orange} quantity to your global total."}},Resource:"Geothermal"},"Alien Biology":{Position:{Node:1,Oclock:4,Leaf:2},Science:249,Node:"Ecology",Affinity:{Harmony:12},"Tile Improvement":{"Clear Miasma":{Units:"Worker",Description:"Clear Miasma."}},Effect:{Miasma:{Immunity:1,Description:"Allows {green} Worker Miasma Immunity {white} [newline] [newline] (Worker Units Take No Damage From Miasma.)"}},Description:"Grants Worker units {yellow} immunity to Miasma damage."},Genetics:{Position:{Node:1,Oclock:2,Leaf:0},Enables:{"Alien Sciences":1,"Genetic Design":1,Cognition:1},Science:95,Buildings:{Cytonursery:1,Pharmalab:1},Leaf:{"Alien Lifeforms":1,"Genetic Mapping":1}},"Alien Lifeforms":{Position:{Node:1,Oclock:2,Leaf:1},Science:249,Node:"Genetics",Buildings:{"Alien Preserve":1},Effect:{Paddock:{Culture:1}}},"Genetic Mapping":{Position:{Node:1,Oclock:2,Leaf:2},Science:249,Node:"Genetics",Buildings:{"Gene Vault":1},Affinity:{Purity:12}},Chemistry:{Position:{Node:1,Oclock:12,Leaf:0},Enables:{Biology:1,Organics:1},Science:95,Buildings:{Laboratory:1,Recycler:1},Leaf:{Biochemistry:1},Resource:"Petroleum","Tile Improvement":{"Petroleum Well":{Units:"Worker",Maintenance:2,Health:-1,Resource:{Petroleum:"x"},Description:"PETROLEUM WELL [linebreak] {Tile Improvement|yellow} buildable by {Worker|pink} units on {Petroleum|orange} resources. [newline] [newline] Adds the [petroleum] {Petroleum|orange} quantity to your global total. [linebreak] Maintenance: [energy] 2 [unhealth] 1"}}},Biochemistry:{Position:{Node:1,Oclock:12,Leaf:1},Science:249,Node:"Chemistry",Buildings:{"Water Refinery":1,"Petrochemical Plant":1}},Physics:{Position:{Node:1,Oclock:10,Leaf:0},Enables:{Bionics:1,Robotics:1},Science:95,Buildings:{Observatory:1,"Launch Complex":1},Units:{Ranger:1},Leaf:{Ballistics:1},Effect:{Quarry:{Production:1}}},Ballistics:{Position:{Node:1,Oclock:10,Leaf:1},Science:249,Node:"Physics",Buildings:{"Rocket Battery":1,"Stellar Codex":1}},Engineering:{Position:{Node:1,Oclock:8,Leaf:0},Enables:{Robotics:1,Computing:1,Fabrication:1},Science:95,Buildings:{"Thorium Reactor":1,"Repair Facility":1},Units:{"Combat Rover":1},Resource:"Titanium",Leaf:{"Power Systems":1,"Defense Grid":1}},"Power Systems":{Position:{Node:1,Oclock:8,Leaf:1},Science:249,Node:"Engineering",Effect:{"Geothermal Well":{Energy:1},Quarry:{Production:1}},Affinity:{Supremacy:12}},"Defense Grid":{Position:{Node:1,Oclock:8,Leaf:2},Science:249,Node:"Engineering",Buildings:{"Defense Perimeter":1,Panopticon:1}},Computing:{Position:{Node:1,Oclock:6,Leaf:0},Enables:{Ecology:1,Engineering:1,Communications:1,"Artificial Intelligence":1},Science:380,Buildings:{"Spy Agency":1,Network:1},Units:{"Missile Rover":1,Gunboat:1},Leaf:{"Autonomous Systems":1,"Transcendental Math":1}},"Autonomous Systems":{Position:{Node:1,Oclock:6,Leaf:1},Science:770,Node:"Computing",Affinity:{Supremacy:18},Buildings:{"Master Control":1},"Tile Improvement":{Node:{Units:"Worker",Terrain:"Any",Effect:{"Adjacent Unit Heal 20":1},Energy:2,Description:"NODE [linebreak] {Tile Improvement|yellow} buildable by {Worker|pink} units on any terrain. Provides [newline] [list-item] +20 HP heal for adjacent units every turn [linebreak] {Yields:|green} [energy] 2"}}},"Transcendental Math":{Position:{Node:1,Oclock:6,Leaf:2},Science:770,Node:"Computing",Buildings:{"Transcendental Equation":1},Description:"Allows discovery of the Transcendental Equation and commencement of the Contact Victory."},Biology:{Position:{Node:2,Oclock:11,Leaf:0},Enables:{Chemistry:1,Bionics:1,Bioengineering:1,Organics:1},Science:770,Buildings:{"Biofuel Plant":1,Growlab:1},"Tile Improvement":{Dome:{Units:"Worker",Terrain:"Any",Description:"[Tile Improvement] buildable by [Worker] units on any terrain. Provides: +10 City Hit Points.",Effect:{"City Hit Points 10":1},Yields:{Culture:2},Maintenance:2}},Leaf:{"Vertical Farming":1}},"Vertical Farming":{Position:{Node:2,Oclock:11,Leaf:1},Science:1160,Node:"Biology",Affinity:{Purity:25},Effect:{Farm:{Energy:1,Food:1}}},Organics:{Position:{Node:2,Oclock:12,Leaf:0},Enables:{Chemistry:1,Biology:1,Bioengineering:1,Synergetics:1,Cognition:1},Science:770,Buildings:{Biofactory:1,"Mass Digester":1},Effect:{Generator:{Energy:1}},Leaf:{Photosystems:1}},Photosystems:{Position:{Node:2,Oclock:12,Leaf:1},Science:1160,Node:"Organics",Affinity:{Harmony:25},Units:{"Solar Collector":1},Effect:{Plantation:{Food:1}}},Cognition:{Position:{Node:2,Oclock:1,Leaf:0},Enables:{Genetics:1,Organics:1,"Social Dynamics":1},Science:770,Buildings:{Neurolab:1,Holosuite:1},"Tile Improvement":{Academy:{Units:"Worker",Terrain:"Any",Description:"[Tile Improvement] buildable by [Worker] units on any terrain. Provides: +2 Science Points.",Effect:{"City Hit Points 10":1},Yields:{Science:3},Maintenance:2}},Leaf:{"Collaborative Thought":1}},"Collaborative Thought":{Position:{Node:2,Oclock:1,Leaf:1},Science:1160,Node:"Cognition",Affinity:{Supremacy:25},Buildings:{"Precog Project":1},Description:"Unlocks the Precog Project Wonder."},"Genetic Design":{Position:{Node:2,Oclock:2,Leaf:0},Enables:{Genetics:1,"Social Dynamics":1,Transgenics:1},Science:254,Buildings:{"Gene Garden":1,"Cloning Plant":1,"Ectogenesis Pod":1},Leaf:{"Alien Genetics":1}},"Alien Genetics":{Position:{Node:2,Oclock:2,Leaf:1},Science:770,Node:"Genetic Design",Affinity:{Purity:18},Effect:{Biowell:{Culture:1},"Xenomass Well":{Science:1}}},"Alien Sciences":{Position:{Node:2,Oclock:3,Leaf:0},Enables:{Genetics:1,Ecology:1,"Alien Ethics":1},Science:254,Buildings:{"Xenofuel Plant":1,Xenonursery:1},Leaf:{"Alien Adaptation":1,"Alien Ecology":1},"Tile Improvement":{"Xenomass Well":{Description:"Tile Improvement buildable by Worker units on Xenomass resources.",Effect:{Description:"Adds the Xenomass quantity to your global total."},Maintenance:2}}},"Alien Adaptation":{Position:{Node:2,Oclock:3,Leaf:1},Science:770,Node:"Alien Sciences",Affinity:{Harmony:18},Units:{"Xeno Swarm":1}},"Alien Ecology":{Position:{Node:2,Oclock:3,Leaf:2},Science:770,Node:"Alien Sciences",Units:{"Miasmic Condenser":1},"Tile Improvement":{"Add Miasma":{Description:"Allows Workers to Add Miasma on any tile.",Effect:{Miasma:1}}}},Terraforming:{Position:{Node:2,Oclock:4,Leaf:0},Enables:{Ecology:1,"Planetary Engineering":1},Science:770,Buildings:{"Gaian Well":1},Leaf:{Biospheres:1,"Climate Control":1},"Tile Improvement":{Terrascape:{Description:"Tile Improvement buildable by Worker units on any terrain. Provides:",Food:2,Production:2,Culture:2,Yields:{Food:2,Production:2,Culture:2},Maintenance:6,Description:"{red} Cannot coexist with Miasma."},"Floatstone Quarry":{Description:"Tile Improvement buildable by Worker units on Floatstone resources.",Effect:{Description:"Adds the Xenomass quantity to your global total."}}}},Biospheres:{Position:{Node:2,Oclock:4,Leaf:1},Science:1160,Node:"Terraforming",Affinity:{Purity:25},Effect:{City:{"Food Carryover":.1,Description:"+10% [food] Food carried over after city growth in all cities."},Dome:{Energy:1}},Description:"Carries over 10% of a City's [food] Food after City Growth."},"Climate Control":{Position:{Node:2,Oclock:4,Leaf:2},Science:1160,Node:"Terraforming",Affinity:{Supremacy:25},Units:{"Weather Controller":1}},Communications:{Position:{Node:2,Oclock:5,Leaf:0},Enables:{"Field Theory":1},Science:770,Leaf:{"Orbital Networks":1},Units:{"Tacnet Hub":1},Buildings:{"Command Center":1,"Feedsite Hub":1},"Tile Improvement":{Array:{Description:"Tile Improvement buildable by Worker units on any terrain. Provides:",Effect:{City:{"Orbital Coverage":1},Description:"+1 City Orbital Coverage"},Yields:{Science:1,Energy:1}}}},"Orbital Networks":{Position:{Node:2,Oclock:5,Leaf:1},Science:1160,Node:"Communications",Buildings:{Memetwork:1},Units:{"Lasercom Satellite":1}},"Artificial Intelligence":{Position:{Node:2,Oclock:6,Leaf:0},Enables:{Computing:1,Fabrication:1,Hypercomputing:1},Science:770,Leaf:{"Synthetic Thought":1,"Swarm Intelligence":1},Buildings:{"CEL Cradle":1,"Surveillance Web":1,"Markov Eclipse":1}},"Synthetic Thought":{Position:{Node:2,Oclock:6,Leaf:1},Science:1160,Node:"Artificial Intelligence",Affinity:{Supremacy:25},Buildings:{Cynosure:1},Units:{SABR:1}},"Swarm Intelligence":{Position:{Node:2,Oclock:6,Leaf:2},Science:1160,Node:"Artificial Intelligence",Affinity:{Harmony:25},Buildings:{Bytegeist:1}},Fabrication:{Position:{Node:2,Oclock:7,Leaf:0},Enables:{Engineering:1,"Artificial Intelligence":1,Mechatronics:1,Cybernetics:1},Science:770,Leaf:{"Civil Support":1},Buildings:{"Alloy Foundry":1},Units:{Carrier:1},"Tile Improvement":{Magrail:{Description:"Construct Magrail"}}},"Civil Support":{Position:{Node:2,Oclock:7,Leaf:1},Science:1160,Node:"Fabrication",Affinity:{Purity:25},Units:{Holomatrix:1}},Mechatronics:{Position:{Node:2,Oclock:8,Leaf:0},Enables:{Robotics:1,Fabrication:1,Astrodynamics:1},Science:1160,Leaf:{"Mobile LEV":1,"Ballistic LEV":1},Buildings:{"LEV Plant":1,"Optical Surgery":1,Crawler:1}},"Mobile LEV":{Position:{Node:2,Oclock:8,Leaf:1},Science:1820,Node:"Mechatronics",Affinity:{Purity:32},Units:{"LEV Tank":1}},"Ballistic LEV":{Position:{Node:2,Oclock:8,Leaf:2},Science:1820,Node:"Mechatronics",Buildings:{"Mass Driver":1}},Robotics:{Position:{Node:2,Oclock:9,Leaf:0},Enables:{Engineering:1,Physics:1,Mechatronics:1,Bionics:1,Nanotechnology:1},Science:254,Leaf:{"Tactical Robotics":1,"Swarm Robotics":1},Buildings:{Autoplant:1},Units:{Tacjet:1},"Tile Improvement":{"Firaxite Mine":{Description:"Tile Improvement buildable by Worker units on Firaxite resources.",Units:"Worker",Resource:"Firaxite",Effect:{"Adds the Firaxite quantity to your global total.":1},Maintenance:2},Manufactory:{Description:"Tile Improvement buildable by Worker units on any terrain. Provides:",Units:"Worker",Production:2,Yields:{Production:3},Maintenance:2,Health:-2}}},"Tactical Robotics":{Position:{Node:2,Oclock:9,Leaf:1},Science:770,Node:"Robotics",Affinity:{Supremacy:18},Units:{CNDR:1}},"Swarm Robotics":{Position:{Node:2,Oclock:9,Leaf:2},Science:770,Node:"Robotics",Affinity:{Harmony:18},Buildings:{"Drone Sphere":1},Discovery:{"Transcendence victory":1},Description:"Required to complete the Transcendence victory."},Bionics:{Position:{Node:2,Oclock:10,Leaf:0},Enables:{Physics:1,Robotics:1,Biology:1,Augmentation:1},Science:770,Leaf:{Servomachinery:1,"Tissue Engineering":1},Buildings:{"Bionics Lab":1,Institute:1},"Tile Improvement":{Biowell:{Description:"Tile Improvement buildable by Worker units on any terrain. Provides:",Units:"Worker",Health:1,Yeilds:{Food:2},Maintenance:2}}},Servomachinery:{Position:{Node:2,Oclock:10,Leaf:1},Science:1160,Node:"Bionics",Affinity:{Purity:25},Units:{Battlesuit:1}},"Tissue Engineering":{Position:{Node:2,Oclock:10,Leaf:2},Science:1160,Node:"Bionics",Affinity:{Harmony:25},Effect:{Units:{Heal:10,Restriction:"None",Description:"+10 Healing for all units."}},Description:"Allows units to heal faster."},Bioengineering:{Position:{Node:3,Oclock:11.5,Leaf:0},Enables:{Biology:1,Organics:1},Science:2480,Leaf:{"Industrial Ecology":1,Biometallurgy:1},Buildings:{"Molecular Forge":1,"Bioglass Furnace":1,Xenomalleum:1}},"Industrial Ecology":{Position:{Node:3,Oclock:11.5,Leaf:1},Science:3216,Node:"Bioengineering",Affinity:{Purity:40},Effect:{Farm:{Production:1}}},Biometallurgy:{Position:{Node:3,Oclock:11.5,Leaf:2},Science:3216,Node:"Bioengineering",Affinity:{Supremacy:40},Effect:{Generator:{Science:1},Mine:{Energy:1}}},Synergetics:{Position:{Node:3,Oclock:.5,Leaf:0},Science:2480,Leaf:{"Designer Lifeforms":1},Buildings:{"Microbial Mine":1,"Organ Printer":1,Armasail:1}},"Designer Lifeforms":{Position:{Node:3,Oclock:.5,Leaf:1},Science:3216,Node:"Synergetics",Affinity:{Harmony:40},Units:{Rocktopus:1}},"Social Dynamics":{Position:{Node:3,Oclock:1.5,Leaf:0},Enables:{Cognition:1,"Genetic Design":1},Science:2480,Leaf:{"Human Idealism":1,"Human Conservation":1,Euthenics:1},Buildings:{"Civil Creche":1,"Soma Distillery":1,"Terra Vault":1}},"Human Idealism":{Position:{Node:3,Oclock:1.5,Leaf:1},Science:3216,Node:"Social Dynamics",Buildings:{"New Terran Myth":1}},"Human Conservation":{Position:{Node:3,Oclock:1.5,Leaf:2},Science:3216,Node:"Social Dynamics",Affinity:{Purity:40},Buildings:{"Deep Memory":1}},Euthenics:{Position:{Node:3,Oclock:1.5,Leaf:3},Science:3216,Node:"Social Dynamics",Affinity:{Supremacy:40},Buildings:{"Human Hive":1}},Transgenics:{Position:{Node:3,Oclock:2.5,Leaf:0},Enables:{"Genetic Design":1,"Artificial Evolution":1},Science:1160,Leaf:{Photogenetics:1,"Alien Hybridization":1},Buildings:{"Gene Smelter":1,Promethean:1},Description:"Required to complete the Transcendence victory."},Photogenetics:{Position:{Node:3,Oclock:2.5,Leaf:1},Science:1820,Node:"Transgenics",Affinity:{Supremacy:32},Effect:{Academy:{Culture:1}}},"Alien Hybridization":{Position:{Node:3,Oclock:2.5,Leaf:2},Science:1820,Node:"Transgenics",Affinity:{Harmony:32},Effect:{Miasma:{Heal:10,Description:"+10 Healing for all units in Miasma, and immunity from Miasma"}},Description:"Allows Units to heal in Miasma."},"Artificial Evolution":{Position:{Node:4,Oclock:2.75,Leaf:0},Enables:{Transgenics:1,"Alien Ethics":1},Science:2480,Leaf:{"Alien Evolution":1,"Alien Materials":1},Buildings:{"Progenitor Garden":1,"Resurrection Device":1},Effect:{Farm:{Science:1}}},"Alien Evolution":{Position:{Node:4,Oclock:2.75,Leaf:1},Science:3216,Node:"Artificial Evolution",Affinity:{Harmony:40},Units:{"Xeno Titan":1}},"Alien Materials":{Position:{Node:4,Oclock:2.75,Leaf:2},Science:1820,Node:"Artificial Evolution",Affinity:{Supremacy:40},Buildings:{Xenonova:1}},"Alien Ethics":{Position:{Node:3,Oclock:3.25,Leaf:0},Enables:{"Alien Sciences":1,"Planetary Engineering":1,"Artificial Evolution":1},Science:1160,Leaf:{"Alien Domestication":1},Buildings:{"Xeno Sanctuary":1,"Mind Stem":1,Xenodrome:1}},"Alien Domestication":{Position:{Node:3,Oclock:3.25,Leaf:1},Science:1820,Node:"Alien Ethics",Affinity:{Harmony:32},Units:{"Xeno Cavalry":1},Effect:{"Xenomass Well":{Culture:1}}},"Planetary Engineering":{Position:{Node:3,Oclock:4,Leaf:0},Enables:{Terraforming:1,"Alien Ethics":1},Science:2480,Leaf:{Geoscaping:1,"Seismic Induction":1},Buildings:{Borehole:1},Effect:{Generator:{Production:1}}},Geoscaping:{Position:{Node:3,Oclock:4,Leaf:1},Science:3216,Node:"Planetary Engineering",Affinity:{Supremacy:40},Units:{"Orbital Fabricator":1}},"Seismic Induction":{Position:{Node:3,Oclock:4,Leaf:2},Science:3216,Node:"Planetary Engineering",Affinity:{Purity:40},Buildings:{"Archimedes Lever":1}},"Field Theory":{Position:{Node:3,Oclock:5,Leaf:0},Science:2480,Leaf:{"Exotic Matter":1},Buildings:{"Field Reactor":1,Mantle:1,"Quantum Computer":1}},"Exotic Matter":{Position:{Node:3,Oclock:5,Leaf:1},Science:3216,Node:"Field Theory",Affinity:{Harmony:40},Buildings:{Ansible:1}},Hypercomputing:{Position:{Node:3,Oclock:6,Leaf:0},Science:2480,Leaf:{Hyperconductors:1,"Neural Uploading":1},Buildings:{Hypercore:1,"Emancipation Gate":1},Effect:{Node:{Science:1}}},Hyperconductors:{Position:{Node:3,Oclock:6,Leaf:1},Science:3216,Node:"Hypercomputing",Affinity:{Purity:40},Buildings:{"Holon Chamber":1}},"Neural Uploading":{Position:{Node:3,Oclock:6,Leaf:2},Science:3216,Node:"Hypercomputing",Affinity:{Supremacy:40},Units:{ANGEL:1}},Cybernetics:{Position:{Node:3,Oclock:7,Leaf:0},Science:2480,Leaf:{Autogyros:1,Metamaterials:1},Buildings:{"Node Bank":1},Units:{"Orbital Laser":1,"Phasal Transporter":1}},Autogyros:{Position:{Node:3,Oclock:7,Leaf:1},Science:3216,Node:"Cybernetics",Affinity:{Supremacy:40},Units:{CARVR:1}},Metamaterials:{Position:{Node:3,Oclock:7,Leaf:2},Science:3216,Node:"Cybernetics",Affinity:{Harmony:40},Buildings:{"Tectonic Anvil":1}},Astrodynamics:{Position:{Node:3,Oclock:8,Leaf:0},Science:2480,Leaf:{"Orbital Automation":1,"Dark Networks":1},Buildings:{Neoplanetarium:1,Skycrane:1},Units:{"Planet Carver":1}},"Orbital Automation":{Position:{Node:3,Oclock:8,Leaf:1},Science:3216,Node:"Astrodynamics",Units:{"Deep Space Telescope":1},Effect:{Array:{Science:1}}},"Dark Networks":{Position:{Node:3,Oclock:8,Leaf:2},Science:3216,Node:"Astrodynamics",Units:{"All-Seer":1}},Nanotechnology:{Position:{Node:3,Oclock:9,Leaf:0},Science:2480,Leaf:{"Tactical LEV":1,Nanorobotics:1},Buildings:{Nanopasture:1,Nanothermite:1,"Exodus Gate":1}},"Tactical LEV":{Position:{Node:3,Oclock:9,Leaf:1},Science:3216,Node:"Nanotechnology",Affinity:{Purity:40},Units:{"LEV Destroyer":1}},Nanorobotics:{Position:{Node:3,Oclock:9,Leaf:2},Science:3216,Node:"Nanotechnology",Affinity:{Harmony:40},Effect:{Manufactory:{Science:1}},Description:"Required to complete the Transcendence victory."},Augmentation:{Position:{Node:3,Oclock:10,Leaf:0},Science:2480,Leaf:{Surrogacy:1},Buildings:{Augmentary:1,"Daedalus Ladder":1},Effect:{Generator:{Energy:1}}},Surrogacy:{Position:{Node:3,Oclock:10,Leaf:1},Science:3216,Node:"Augmentation",Affinity:{Purity:40},Units:{Aegis:1},Effect:{Units:{speed:.1,Description:"+10% Worker Speed."}}}};var improvementLookup={"Geothermal Well":1,Mine:1,Farm:1,Generator:1,Biowell:1,"Xenomass Well":1,Dome:1,Node:1,Plantation:1,Academy:1,Manufactory:1,Terrascape:1,Array:1,Paddock:1,Quarry:1,"Floatstone Quarry":1,"Firaxite Mine":1},resourceLookup={Fungus:1,Chitin:1,Algae:1,Oil:1,Firaxite:1,Floatstone:1,Xenomass:1,Resilin:1,Silica:1,Titanium:1,Fiber:1,Fruit:1,Copper:1,Gold:1,Tundra:1,Water:1,Coral:1},improvementData={"Petroleum Well":{Description:"PETROLEUM WELL [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on {orange} Petroleum {white} resources. [newline] [newline] Adds the [petroleum] {orange} Petroleum {white} quantity to your global total. [linebreak] Maintenance: [energy] 2 [unhealth] 1"},Node:{Description:"NODE [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on any terrain. Provides: [newline] [list-item] +20 HP heal for adjacent units every turn [linebreak] {green} Yields: {white} [energy] 2"},Array:{Description:"ARRAY [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on any terrain. Provides: [newline] [list-item] +1 City Orbital Coverage [linebreak] {green} Yields: {white} [science] 1 [energy] 1"},"Floatstone Quarry":{Description:"FLOATSTONE QUARRY [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on {orange} Floatstone {white} resources. [newline] [newline] Adds the [floatstone] {orange} Floatstone {white} quantity to your global total."},"Firaxite Mine":{Description:"FIRAXITE MINE [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on {orange} Firaxite {white} resources. [newline] [newline] Adds the [firaxite] {orange} Firaxite {white} quantity to your global total. [linebreak] Maintenance: [energy] 2"},"Xenomass Well":{Description:"XENOMASS WELL [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on {orange} Xenomass {white} resources. [newline] [newline] Adds the [xenomass] {orange} Xenomass {white} quantity to your global total. [linebreak] Maintenance: [energy] 2"},"Geothermal Well":{Description:"GEOTHERMAL WELL [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on {orange} Geothermal {white} resources. [newline] [newline] Adds the [geothermal] {orange} Geothermal {white} quantity to your global total."},Biowell:{Description:"BIOWELL [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on any terrain. Provides: [newline] [list-item] +1 [health] Health [linebreak] {green} Yields: {white} [food] 2 [linebreak] Maintenance [energy] 2"},Terrascape:{Description:"TERRASCAPE [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on any terrain. Provides: [newline] [list-item] [food] Food: +2 [newline] [list-item] [production] Production: +2 [newline] [list-item] [culture] Culture: +2 [linebreak] {green} Yields: {white} [food] 2 [production] 2 [culture] 2 [linebreak] Maintenance: [energy] 6 [newline] {red} Cannot coexist with Miasma."},Dome:{Description:"DOME [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on any terrain. Provides: [newline] [list-item] +10 City Hit Points [linebreak] {green} Yields: {white} [culture] 2 [linebreak] Maintenance: [energy] 2"},Academy:{Description:"ACADEMY [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on any terrain. Provides: [newline] [list-item] [science] Science: +2 [linebreak] {green} Yields: {white} [science] 3 [linebreak] Maintenance: [energy] 2"},Manufactory:{Description:"MANUFACTORY [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on any terrain. Provides: [newline] [list-item] [production] Production: +2 [linebreak] {green} Yields: {white} [production] 3 [linebreak] Maintenance: [energy] 2 [unhealth] 2"},"Clear Miasma":{Description:"Clear Miasma."},"Work Barge":{Description:"WORK BARGE [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on [coral] {orange} Coral {white} and [algae] {orange} Algae {white} resources. Provides: [newline] [list-item] 1 [science] Science, 1 [production] Production on [coral] Coral [newline] [list-item] 1 [food] on [algae] Algae"},"Add Miasma":{Description:"Add Miasma."},Magrail:{Description:"Construct Magrail."}};var buildingData={"Old Earth Relic":{Tech:"Habitation",Cost:{Production:40,Maintenance:1},Effect:{City:{Culture:2}}},Clinic:{Tech:"Habitation",Cost:{Production:60,Maintenance:1},Effect:{City:{Science:1,Health:1}}},"Trade Depot":{Tech:"Pioneering",Cost:{Production:60,Maintenance:1},Effect:{City:{Production:1,"Trade Routes":2}}},Vivarium:{Tech:"Ecology",Cost:{Production:80,Maintenance:1},Effect:{City:{Food:2,Desert:{Food:1}}},Description:"+1 [food] Food from Desert."},"Ultrasonic Fence":{Tech:"Ecology",Cost:{Production:120,Maintenance:1},Effect:{City:{"Prevents Alien units from approaching within 2 tiles of this City.":1}},Description:"Prevents Alien units from approaching within 2 tiles of this City."},Pharmalab:{Tech:"Genetics",Cost:{Production:95,Maintenance:1},Effect:{City:{Health:2}}},Cytonursery:{Tech:"Genetics",Cost:{Production:90,Maintenance:1},Effect:{City:{Science:1,Health:1,Marsh:{Food:1}}},"Description": "+1 [food] Food from Marsh."},"Alien Preserve":{Tech:"Alien Lifeforms",Cost:{Production:125,Maintenance:1},Effect:{City:{Culture:2}}},"Gene Vault":{Tech:"Genetic Mapping",Cost:{Production:205},Wonder:1,Effect:{City:{Food:4,Culture:1,gMod:.1}},Description:"+10% [food] Growth in all cities."},Laboratory:{Tech:"Chemistry",Cost:{Production:80,Maintenance:1},Effect:{City:{Science:2}}},Recycler:{Tech:"Chemistry",Cost:{Production:75,Maintenance:1},Effect:{City:{Production:2,"Trade Route":{Production:1}}},Description:"+1 [production] Production from internal City or Station Trade Routes."},"Water Refinery":{Tech:"Biochemistry",Cost:{Production:150,Maintenance:1},Effect:{City:{}},Requires:{Description:"Can only be constructed in coastal cities."},Description:"+1 [food] Food and +1 [production] Production from Water tiles."},"Petrochemical Plant":{Tech:"Biochemistry",Cost:{Production:160,Maintenance:1},Effect:{City:{Petroleum:{Production:1,Energy:1},Specialist:{Trader:1}}},Requires:{Petroleum:1},Description:"+1 [production] Production from [petroleum] Petroleum [newline] +1 [energy] Energy from [petroleum] Petroleum"},Observatory:{Tech:"Physics",Cost:{Production:100,Maintenance:1},Effect:{City:{Science:2,Firaxite:{Science:1}}},Requires:{Firaxite:1}},"Launch Complex":{Tech:"Physics",Cost:{Production:130,Maintenance:1},Effect:{City:{"Orbital Coverage":3}},Description:"Orbital Coverage around this city increased by 3."},"Thorium Reactor":{Tech:"Engineering",Cost:{Production:105},Effect:{City:{Energy:3,Specialist:{Trader:2}}}},"Repair Facility":{Tech:"Engineering",Cost:{Production:90,Maintenance:1},Effect:{City:{pMod:.1,Restriction:"Land Unit"}}},"Rocket Battery":{Tech:"Ballistics",Cost:{Production:125,Maintenance:1},Effect:{City:{Defense:18,"Hit Points":15,"Anti-Orbital Range":3}},Description:"+3 Range for Anti-Orbital Strike."},"Stellar Codex":{Tech:"Ballistics",Cost:{Production:225},Wonder:1,Effect:{City:{Science:3}},Description:"+10% [production] Production for Orbital Units. [newline] Orbital Coverage around this city increased by 4."},"Defense Perimeter":{Tech:"Defense Grid",Cost:{Production:150,Maintenance:1},Effect:{City:{Defense:10,"Hit Points":40}}},Panopticon:{Tech:"Defense Grid",Cost:{Production:250},Wonder:1,Effect:{City:{Culture:1},Units:{Military:{Sight:1}}},Description:"All Military Units receive +1 Sight."},"Spy Agency":{Tech:"Computing",Cost:{Production:200},Wonder:1,Effect:{City:{"Recruit Spies":1}},Description:"Allows Spies to be recruited."},Network:{Tech:"Computing",Cost:{Production:185,Maintenance:1},Effect:{City:{Science:3,Copper:{Science:1}}}},"Master Control":{Tech:"Autonomous Systems",Cost:{Production:225},Wonder:1,Effect:{City:{Culture:1,Buildings:{Network:1}},Units:{Worker:{Movement:1}}},Description:"All Worker Units receive +1 [movement] movement. Provides a free Network in the City in which it is built."},"Transcendental Equation":{Tech:"Transcendental Math",Cost:{Production:450},Project:1,Effect:{"The Signal":1,Project:{"Decode Signal":1}},Description:"Reveals The Signal and allows the Decode Signal project to be constructed."},"Biofuel Plant":{Tech:"Biology",Cost:{Production:220},Effect:{City:{Energy:3,Algae:{Energy:1},Specialist:{Trader:2}}},Requires:{Algae:1}},Growlab:{Tech:"Biology",Cost:{Production:265,Maintenance:1},Effect:{City:{Food:3,Fungus:{Food:1}}},Requires:{Fungus:1,Harmony:4}},Biofactory:{Tech:"Organics",Cost:{Production:290,Maintenance:1},Effect:{City:{Production:3,Chitin:{Production:1}}},Requires:{Petroleum:1,Harmony:4}},"Mass Digester":{Tech:"Organics",Cost:{Production:255,Maintenance:1},Effect:{City:{Tundra:{Energy:1},Specialist:{Grower:4}}}},Neurolab:{Tech:"Cognition",Cost:{Production:255,Maintenance:1},Effect:{City:{sMod:.1,Firaxite:{Science:1}}},Requires:{Firaxite:1,Supremacy:4}},Holosuite:{Tech:"Cognition",Cost:{Production:245,Maintenance:1},Effect:{City:{Culture:2,Firaxite:{Culture:1},Specialist:{Artist:2}}},Requires:{Firaxite:1}},"Precog Project":{Tech:"Collaborative Thought",Cost:{Production:450},Wonder:1,Effect:{City:{Culture:2,Health:2},Units:{sMod:.15,rMod:.15,Restriction:"Friendly Territory"}},Description:"+15% [strength] Combat Strength and +15% [ranged] Ranged Strength against Military Units in friendly territory."},"Gene Garden":{Tech:"Genetic Design",Cost:{Production:200,Maintenance:1},Effect:{City:{Science:1,Health:2}},Requires:{Purity:2}},"Cloning Plant":{Tech:"Genetic Design",Cost:{Production:210,Maintenance:1},Effect:{City:{Food:2,Xenomass:{Production:1},Specialist:{Grower:1}}},Requires:{Xenomass:1}},"Ectogenesis Pod":{Tech:"Genetic Design",Cost:{Production:300},Wonder:1,Effect:{City:{Food:3,Production:3,Farm:{Food:1}}},Description:"All {yellow} Farms {white} produce +1 [food] Food"},"Xenofuel Plant":{Tech:"Alien Sciences",Cost:{Production:190,Maintenance:1},Effect:{City:{Energy:3,Xenomass:{Energy:1},Specialist:{Trader:2}}},Requires:{Xenomass:1,Harmony:2}},Xenonursery:{Tech:"Alien Sciences",Cost:{Production:180,Maintenance:1},Effect:{City:{sMod:.1,Xenomass:{Science:1},Specialist:{Scientist:1}}},Requires:{Xenomass:1,Harmony:2}},"Gaian Well":{Tech:"Terraforming",Cost:{Production:265},Effect:{City:{Energy:3}},Requires:{Geothermal:1,Purity:4}},"Command Center":{Tech:"Communications",Cost:{Production:310,Maintenance:1},Effect:{City:{Defense:20,"Hit Points":20}}},"Feedsite Hub":{Tech:"Communications",Cost:{Production:225,Maintenance:1},Effect:{City:{Culture:3}},Description:"+1 [science] Science from international City or Station Trade Routes.",Requires:{Supremacy:2}},Memetwork:{Tech:"Orbital Networks",Cost:{Production:700},Wonder:1,Effect:{City:{Culture:4,cMod:.25,Health:2}},Description:"+25% [culture] Culture in the City in which it is built."},"CEL Cradle":{Tech:"Artificial Intelligence",Cost:{Production:310,Maintenance:1},Effect:{City:{Specialist:{Artist:4}}},Requires:{Supremacy:4}},"Surveillance Web":{Tech:"Artificial Intelligence",Cost:{Production:235,Maintenance:1},Effect:{City:{"Hit Points":5,"Max Intrigue":-2}},Description:"Maximum Covert Ops Intrigue for this city reduced by 2."},"Markov Eclipse":{Tech:"Artificial Intelligence",Cost:{Production:1050},Wonder:1,Effect:{City:{Science:4,Culture:1},Units:{xMod:.5}},Description:"Military Units gain experience 50% faster."},Cynosure:{Tech:"Synthetic Thought",Cost:{Production:1550},Wonder:1,Effect:{City:{Science:7},Units:{"Veterancy Max":1}},Description:"Allows an additional level of Veterancy for Military Units."},Bytegeist:{Tech:"Swarm Intelligence",Cost:{Production:1250},Wonder:1,Effect:{City:{Science:2,Culture:4},Virtue:{Cost:{cMod:-.15}}},Description:"-15% [culture] Culture cost for Virtues"},"Alloy Foundry":{Tech:"Fabrication",Cost:{Production:310,Maintenance:1},Effect:{City:{Production:2,Titanium:{Production:2},Specialist:{Engineer:2}}},Requires:{Titanium:1}},"LEV Plant":{Tech:"Mechatronics",Cost:{Production:390,Floatstone:2,Maintenance:1},Effect:{City:{Production:4}},Requires:{Purity:5}},"Optical Surgery":{Tech:"Mechatronics",Cost:{Production:370,Firaxite:2,Maintenance:1},Effect:{City:{Health:4,Silica:{Health:1}}},Requires:{Supremacy:5}},Crawler:{Tech:"Mechatronics",Cost:{Production:1250},Wonder:1,Effect:{City:{Culture:1},"Wonder Production":.25},Description:"+25% [production] Production for Wonders."},"Mass Driver":{Tech:"Ballistic LEV",Cost:{Production:950},Wonder:1,Effect:{Strike:{Strength:.25,Orbital:{Range:5}}},Description:"+5 Range for Anti-Orbial Strike. [newline] +25% City Strike Strength. +5 City Orbital Strike Range."},Autoplant:{Tech:"Robotics",Cost:{Production:210,Maintenance:1},Effect:{City:{Production:2,Specialist:{Engineer:2}}},Description:"+1 [energy] Energy from international City or Station Trade Routes."},"Drone Sphere":{Tech:"Swarm Robotics",Cost:{Production:650},Wonder:1,Effect:{City:{Science:2,Buildings:"Surveillance Web"},Units:{Healing:{"Friendly Territory":10}}},Description:"+10 Healing for Military Units in friendly territory. Provides a free Surveillance Web in the City in which it is built."},"Bionics Lab":{Tech:"Bionics",Cost:{Production:265,Maintenance:1},Effect:{City:{hMod:.2,Resilin:{Production:1}}},Requires:{Resilin:1,Purity:4}},Institute:{Tech:"Bionics",Cost:{Production:310,Maintenance:1},Effect:{City:{Specialist:{Scientist:3}}}},"Molecular Forge":{Tech:"Bioengineering",Cost:{Production:390,Maintenance:1},Effect:{City:{Food:5}},Requires:{Harmony:8}},"Bioglass Furnace":{Tech:"Bioengineering",Cost:{Production:470,Firaxite:2,Maintenance:1},Effect:{City:{Production:2,pMod:.15}},Requires:{Supremacy:8}},Xenomalleum:{Tech:"Bioengineering",Cost:{Production:1050},Wonder:1,Effect:{City:{Energy:7},Generator:{Energy:2}}},"Microbial Mine":{Tech:"Synergetics",Cost:{Production:430,Xenomass:2,Maintenance:1},Effect:{City:{Production:3,pMod:.1}},Requires:{Harmony:7}},"Organ Printer":{Tech:"Synergetics",Cost:{Production:390,Maintenance:1},Effect:{City:{sMod:.15}},Requires:{Supremacy:8}},Armasail:{Tech:"Synergetics",Cost:{Production:1250},Wonder:1,Effect:{City:{Production:4,"Hit Points":100}}},"Civil Creche":{Tech:"Social Dynamics",Cost:{Production:445,Maintenance:1},Effect:{City:{Food:2,Specialist:{Grower:2}}}},"Soma Distillery":{Tech:"Social Dynamics",Cost:{Production:400,Maintenance:1},Effect:{City:{Health:4,Specialist:{Artist:2}}}},"Terra Vault":{Tech:"Social Dynamics",Cost:{Production:390,Maintenance:1},Effect:{City:{cMod:.15}},Requires:{Purity:7}},"New Terran Myth":{Tech:"Human Idealism",Cost:{Production:750},Wonder:1,Effect:{City:{Culture:4}}},"Deep Memory":{Tech:"Human Conservation",Cost:{Production:1450},Wonder:1,Effect:{City:{Culture:7},Virtue:2},Description:"Two Free Virtues"},"Human Hive":{Tech:"Euthenics",Cost:{Production:1150},Wonder:1,Effect:{City:{Production:3,"Max Intrigue":-4}},Description:"Maximum Covert Ops Intrigue for this city reduced by 4."},"Gene Smelter":{Tech:"Transgenics",Cost:{Production:350,Maintenance:1},Effect:{City:{Health:3,Specialist:{Scientist:2}}}},Promethean:{Tech:"Transgenics",Cost:{Production:950},Wonder:1,Effect:{City:{Culture:2,Health:4},Virtue:1},Description:"Free Virtue."},"Progenitor Garden":{Tech:"Artificial Evolution",Cost:{Production:430,Xenomass:4,Maintenance:1},Effect:{City:{hMod:.2}},Requires:{Harmony:10}},"Resurrection Device":{Tech:"Artificial Evolution",Cost:{Production:1350},Wonder:1,Effect:{City:{Health:8}}},Xenonova:{Tech:"Alien Materials",Cost:{Production:1150},Wonder:1,Effect:{City:{Food:7,Health:2}}},"Xeno Sanctuary":{Tech:"Alien Ethics",Cost:{Production:330,Xenomass:1,Maintenance:1},Effect:{City:{Culture:4},Transcendence:1},Requires:{Harmony:5},Description:"Adds one point per turn to Transcendence Victory progress."},"Mind Stem":{Tech:"Alien Ethics",Cost:{Production:600,Maintenance:1},Effect:{City:{Culture:4},Transcendence:1},Description:"Adds one point per turn to Transcendence Victory progress."},Xenodrome:{Tech:"Alien Materials",Cost:{Production:750,Geothermal:3},Wonder:1,Effect:{City:{Culture:4,Buildings:{"Xeno Sanctuary":1}}},Description:"Provides a free Xeno Sanctuary in the City in which it is built."},Borehole:{Tech:"Planetary Engineering",Cost:{Production:500,Maintenance:1},Effect:{City:{Production:5}},Requires:{Purity:8}},"Archimedes Lever":{Tech:"Seismic Induction",Cost:{Production:1250,Geothermal:5},Wonder:1,Effect:{City:{Production:4,Culture:1,Defense:50}}},"Field Reactor":{Tech:"Field Theory",Cost:{Production:500},Effect:{City:{Energy:2,eMod:.1,Specialist:{Trader:2}}}},Mantle:{Tech:"Field Theory",Cost:{Production:470,Floatstone:4,Maintenance:1},Effect:{City:{Science:3,sMod:.1}},Requires:{Purity:8}},"Quantum Computer":{Tech:"Field Theory",Cost:{Production:1050},Wonder:1,Effect:{City:{Science:5},Tech:1},Description:"Free Technology"},Ansible:{Tech:"Field Theory",Cost:{Production:1500},Wonder:1,Effect:{City:{Energy:4,Science:4,Buildings:"Feedsite Hub"}},Description:"Provides a free Feedsite Hub in the City in which it is built."},"Emancipation Gate":{Tech:"Hypercomputing",Cost:{Production:1750},Wonder:1,Planetary:1,Effect:{Emancipation:1},Effect:{City:{1:1}},Requires:{Supremacy:13},Description:"Planetary Wonder. used to send military Units through a warp gate to Earth. Leads to the Emancipation Victory."},Hypercore:{Tech:"Hypercomputing",Cost:{Production:470,Firaxite:4,Maintenance:1},Effect:{City:{Science:2,sMod:.15}},Requires:{Supremacy:10}},"Holon Chamber":{Tech:"Seismic Induction",Cost:{Production:1050},Wonder:1,Effect:{City:{Science:5}}},"Node Bank":{Tech:"Cybernetics",Cost:{Production:375,Maintenance:1},Effect:{City:{Defense:24,"Hit Points":10,Specialist:{Engineer:2}}}},"Tectonic Anvil":{Tech:"Metamaterials",Cost:{Production:1550,Geothermal:5},Wonder:1,Effect:{City:{Production:9}},Requires:{Description:"City must have at least one Canyon within 2 tiles."}},Neoplanetarium:{Tech:"Astrodynamics",Cost:{Production:500,Maintenance:1},Effect:{City:{pOrbitalMod:{"Orbital Units":.4},"Orbital Coverage":10}},Description:"+40% [production] Production for Orbital Units. [newline] Orbital Coverage around this city increased by 3."},Skycrane:{Tech:"Astrodynamics",Cost:{Production:470,Floatstone:4,Maintenance:1},Effect:{City:{pMod:.15}},Requires:{Purity:10}},Nanopasture:{Tech:"Nanotechnology",Cost:{Production:415,Maintenance:1},Effect:{City:{"Food Carryover":.3,Specialist:{Scientist:2}}},Description:"30% [food] Food carried over after City Growth"},Nanothermite:{Tech:"Nanotechnology",Cost:{Production:1050},Wonder:1,Effect:{City:{Energy:4,Defense:30}}},"Exodus Gate":{Tech:"Nanotechnology",Cost:{Production:1750},Wonder:1,Planetary:1,Effect:{City:{1:1}},Requires:{Purity:13},Description:"Planetary Wonder. Used to bring Earthling Settlers through a warp gate from Earth. Leads to the Promised Land Victory."},Augmentary:{Tech:"Augmentation",Cost:{Production:500},Effect:{City:{Food:1,Production:1,Energy:1,Science:1,Culture:1}},Requires:{Supremacy:7}},"Daedalus Ladder":{Tech:"Augmentation",Cost:{Production:1550,Geothermal:2},Wonder:1,Planetary:1,Effect:{City:{Food:2,Health:3}}}};var affinityData={Harmony:{Description:"Your Colony devotes itself further to the Harmony Affinity, earning points towards unit upgrades, and unlocking additional Harmony-specific benefits."},Purity:{Description:"Your Colony devotes itself further to the Purity Affinity, earning points towards unit upgrades, and unlocking additional Purity-specific benefits."},Supremacy:{Description:"Your Colony devotes itself further to the Supremacy Affinity, earning points towards unit upgrades, and unlocking additional Supremacy-specific benefits."}},scienceTooltip={Science:{Description:"[science] Blah Blah Blah"}},affinityBonuses={Harmony:{Description:"[harmony] 1: Alien aggression level returns to neutral twice as quickly. [newline] [harmony] 3: Units take 5HP less damage from Miasma. [newline] [harmony] 6: Units heal 5HP in Miasma. [newline] [harmony] 8: 4 [xenomass] Xenomass resources for free. [newline] [harmony] 11: Call Worm Strike Operation can be performed by Covert Agents. [newline] [harmony] 13: Mind Flower can be constructed for Transcendence Victory Quest."},Purity:{Description:"[purity] 1: Aliens will not attack tiles with Explorer Units. [newline] [purity] 3: +20% [strength] Strength and [ranged-strength] Ranged Strength when attacking or defending against Aliens. [newline] [purity] 6: +2 Orbital Coverage in all Cities. [newline] [purity] 8: 4 [floatstone] Floatstone resources for free. [newline] [purity] 11: Dirty Bomb Operation can be performed by Covert Agents. [newline] [purity] 13: Exodus Gate can be constructed for Promised Land Victory Quest."},Supremacy:{Description:"[supremacy] 1: Explorer Units can build an additional Expedition. [newline] [supremacy] 3: Roads and Magrails do not cost any [energy] Energy to maintain. [newline] [supremacy] 6: Orbital Coverage on and next to any tile with [firaxite] Firaxite. [newline] [supremacy] 8: 4 [firaxite] Firaxite resources for free. [newline] [supremacy] 11: Sabotag Operation can be performed by Covert Agents. [newline] [supremacy] 13: Emancipation Gate can be constructed for Emancipation Victory Quest."}},affinityLevels={Dominant:[0,11,12,13,14,16,17,18,19,20,21,22,23,24,26,27,28,29,30],NonDominant:[0,11,12,13,16,20,23,26,29,32,35,38,41,44,48,51,54,57,60]};var UiCounter=function(){PIXI.DisplayObjectContainer.call(this)};UiCounter.prototype=Object.create(PIXI.DisplayObjectContainer.prototype),UiCounter.prototype.constructor=UiCounter,UiCounter.prototype.build=function(t,i,o,s,h){this.name=t,this.interactive=!0;var n=309;if("left"===s){this.separator=PIXI.Sprite.fromFrame("ui-bar-separator.png"),this.separator.position.x=h,this.separator.position.y=0,this.addChild(this.separator),this.icon=PIXI.Sprite.fromFrame("tip-"+t.toLowerCase()+".png"),this.icon.position.x=h+10,this.icon.position.y=2,this.icon.interactive=!0,this.addChild(this.icon),this.txt=new PIXI.Text(i,{font:"16px Arial",fill:o,align:"left"}),this.txt.position.x=h+35,this.txt.position.y=6,this.addChild(this.txt),this.textId=this.children.length-1;var e=30;this.tooltip=new Tooltip,this.tooltip.parentPtr=this,this.tooltip.build(t,1,affinityBonuses[t],"affinityCounter",n),this.tooltip.position.x=this.icon.position.x+e,this.tooltip.position.y=this.icon.position.y+e,this.tooltip.name=t,this.addChild(this.tooltip),this.tooltip.id=this.children.length-1,this.icon.mouseover=function(){this.parent.isOver=!0,this.parent.children[this.parent.tooltip.id].show(),this.parent.alphaWas=this.parent.alpha,this.parent.alpha=1},this.icon.mouseout=function(){this.parent.isOver=!1,this.parent.children[this.parent.tooltip.id].hide(),this.parent.alpha=this.parent.alphaWas}}else this.separator=PIXI.Sprite.fromFrame("ui-bar-separator-right.png"),this.separator.position.x=-h,this.separator.position.y=0,this.addChild(this.separator),this.icon=PIXI.Sprite.fromFrame("tip-"+t.toLowerCase()+".png"),this.icon.position.x=-h+10,this.icon.position.y=2,this.icon.interactive=!0,this.addChild(this.icon),this.txt=new PIXI.Text(i,{font:"16px Arial",fill:o,align:"left"}),this.txt.position.x=-h+35,this.txt.position.y=6,this.addChild(this.txt),this.textId=this.children.length-1};var Tooltip=function(){PIXI.DisplayObjectContainer.call(this)};Tooltip.prototype=Object.create(PIXI.DisplayObjectContainer.prototype),Tooltip.prototype.constructor=Tooltip,Tooltip.prototype.build=function(t,e,i,o,p){this.name=t,this.alpha=0,this.alphaStep=.05,this.alphaWait=200,this.xOffset=32,this.yOffset=32,this.offsetStep=this.xOffset*this.alphaStep,this.xDirection=1,this.yDirection=1,this.position.x=this.xOffset*this.xDirection,this.position.y=this.yOffset*this.yDirection,this.width=309;var s=19,n=10,r=10,u="#FFFFFF",h="#DD3333",a="#559955",l="#FF8899",y="#92A8CE",f="#CEADD8",x="#D9E288",c="#D6B084",d={white:"#FFFFFF",red:"#DD3333",green:"#559955",pink:"#FF8899",blue:"#92A8CE",purple:"#CEADD8",yellow:"#D9E288",orange:"#D6B084"},w=[],m=!1,v=!1;if("tech"===o){var g=!1;if(w.push({type:"text",text:t.toUpperCase(),color:"white"}),1===e?(w.push({type:"newline"}),w.push({type:"text",text:"RESEARCHED",color:a})):(w.push({type:"newline"}),w.push({type:"text",text:"0 / "+i.Science,color:u}),w.push({type:"icon",name:"tip-science.png"})),"undefined"!=typeof i.Affinity)for(affinity in i.Affinity)w.push({type:"newline"}),w.push({type:"text",text:"+"+i.Affinity[affinity]+" Affinity XP towards",color:u}),w.push({type:"xAdjust",adjust:-3}),w.push({type:"icon",name:"tip-"+affinity.toLowerCase().replace(/ /g,"-")+".png"}),w.push({type:"xAdjust",adjust:-3}),w.push({type:"text",text:affinity,color:u});w.push({type:"newline"}),w.push({type:"newline"});var A=0,j=0,C=[],D=[];if("undefined"!=typeof i.Buildings){for(var E in i.Buildings)"undefined"!=typeof buildingData[E]&&("undefined"!=typeof buildingData[E].Wonder?D[A++]=E:C[j++]=E);if(j){var b=0,T="";g=!0,w.push({type:"text",text:"Allows the",color:u});for(building in C)b&&w.push({type:"text",text:"and",color:u}),w.push({type:"text",text:C[building],color:y}),b++;b>1&&(T="s"),w.push({type:"text",text:"building"+T+".",color:u})}if(A){var F=0;T="",g=!0,w.push({type:"text",text:"Unlocks the",color:u});for(wonder in D)F&&w.push({type:"text",text:"and",color:u}),w.push({type:"text",text:D[wonder],color:f}),F++;F>1&&(T="s"),w.push({type:"text",text:"Wonder"+T+".",color:u})}}var I=0;if("undefined"!=typeof i.Units){var P=!1,S=!1,k=!1,L=!1;w.push({type:"text",text:"Allows the",color:u});for(unit in i.Units)I>0?(I++,T="s",w.push({type:"text",text:"and",color:u})):(I++,T=""),w.push({type:"text",text:unit,color:l}),"undefined"!=typeof unitData[unit]&&("undefined"!=typeof unitData[unit].Domain&&("Orbital"===unitData[unit].Domain&&(P=!0),"Melee"===unitData[unit].Type||"Ranged"===unitData[unit].Type||"Siege"===unitData[unit].Type?k=!0:L=!0),"undefined"!=typeof unitData[unit].Unique&&(S=unitData[unit].Unique));S?w.push({type:"text",text:"unique",color:u}):P?w.push({type:"text",text:"orbital",color:u}):k&&!L&&w.push({type:"text",text:"military",color:u}),w.push({type:"text",text:"unit"+T+".",color:u})}var R=0;if("undefined"!=typeof i.Effect)for(var M in i.Effect)"undefined"==typeof improvementLookup[M]&&("Embark"===M&&(w.push({type:"text",text:"Allows units to",color:u}),w.push({type:"text",text:"Embark",color:a}),w.push({type:"text",text:"and cross deep water.",color:u})),"Immunity to Miasma damage"===M&&(w.push({type:"text",text:"Grants Worker units",color:u}),w.push({type:"text",text:"immunity to Miasma damage",color:x}),w.push({type:"period"})));var _=0;if("undefined"!=typeof i["Tile Improvement"]){count=0;for(improvement in i["Tile Improvement"])0===count&&(w.push("Add Miasma"===improvement?{type:"text",text:"Allows Workers to",color:u}:{type:"text",text:"Allows Workers to build the",color:u}),count++),_&&w.push({type:"text",text:"and",color:u}),w.push({type:"text",text:improvement,color:x}),_++;T=_>1?"s":"",w.push("Add Miasma"===improvement?{type:"text",text:"on any tile.",color:u}:{type:"text",text:"tile improvement"+T+".",color:u})}if("undefined"!=typeof i.Resource&&(w.push({type:"text",text:"Reveals the",color:u}),w.push({type:"text",text:i.Resource,color:c}),w.push({type:"text",text:"resource on the map.",color:u})),"undefined"!=typeof i.Description&&w.push({type:"colorText",text:i.Description,color:u}),R=0,"undefined"!=typeof i.Effect)for(var M in i.Effect)if("undefined"!=typeof improvementLookup[M])for(var q in i.Effect[M])w.push(R?{type:"text",text:"and the ",color:u}:{type:"text",text:"Improves the ",color:u}),R++,w.push({type:"xAdjust",adjust:-8}),w.push({type:"tip-icon",name:"tip-"+q.toLowerCase().replace(/ /g,"-")+".png"}),w.push({type:"xAdjust",adjust:-4}),w.push({type:"text",text:q,color:u}),w.push({type:"text",text:"output of your",color:u}),"ry"==M.match("ry$")&&(M=M.substring(0,M.length-1),M+="ie"),w.push({type:"text",text:M+"s",color:x})}else if("building"===o){w.push({type:"text",text:t.toUpperCase(),color:"white"}),w.push({type:"linebreak"});for(var B in i.Cost)m&&w.push({type:"newline"}),m=!0,v=!1,"Production"===B?(w.push({type:"text",text:"Cost:",color:"white"}),w.push({type:"xAdjust",adjust:3}),w.push({type:"icon",name:"tip-production.png"}),w.push({type:"xAdjust",adjust:2}),w.push({type:"text",text:i.Cost[B],color:"white"})):"Maintenance"!==B?(w.push({type:"text",text:B+":",color:"white"}),w.push({type:"xAdjust",adjust:3}),w.push({type:"icon",name:"tip-"+B.toLowerCase().replace(/ /g,"-")+".png"}),w.push({type:"xAdjust",adjust:2}),w.push({type:"text",text:i.Cost[B],color:"white"})):"Maintenance"===B&&(w.push({type:"text",text:"Maintenance:",color:"white"}),w.push({type:"xAdjust",adjust:3}),w.push({type:"icon",name:"tip-energy.png"}),w.push({type:"xAdjust",adjust:2}),w.push({type:"text",text:i.Cost[B],color:"white"}));if(w.push({type:"linebreak"}),m=!1,v=!1,"undefined"!=typeof i.Effect)if("undefined"!=typeof i.Effect.City){for(var X in i.Effect.City)if("Production"===X||"Energy"===X||"Culture"===X||"Food"===X||"Science"===X||"Health"===X||"pMod"===X||"eMod"===X||"sMod"===X||"hMod"===X||"cMod"===X||"Hit Points"===X||"Defense"===X){var U=i.Effect.City[X];if("pMod"===X){U=Math.floor(100*U);var H="production",O="Production: +"+U+"%"}else if("eMod"===X){U=Math.floor(100*U);var H="energy",O="Energy: +"+U+"%"}else if("sMod"===X){U=Math.floor(100*U);var H="science",O="Science: +"+U+"%"}else if("hMod"===X){U=Math.floor(100*U);var H="health",O="Health: +"+U+"%"}else if("cMod"===X){U=Math.floor(100*U);var H="culture",O="Culture: +"+U+"%"}else if("Hit Points"===X)var H="strength",O="City Hit Points: +"+U;else if("Defense"===X)var H="strength",O="City Defense: +"+U;else var H=X.toLowerCase().replace(/ /g,"-"),O=X+": +"+U;"undefined"!=typeof i.Effect.City.Restriction?(m&&w.push({type:"newline"}),m=!0,w.push({type:"text",text:"+"+U+"%",color:"white"}),w.push({type:"xAdjust",adjust:0}),w.push({type:"icon",name:"tip-"+H+".png"}),w.push({type:"xAdjust",adjust:0}),w.push({type:"text",text:H.charAt(0).toUpperCase()+H.slice(1)+" for "+i.Effect.City.Restriction+"s.",color:"white"})):(m&&w.push({type:"newline"}),m=!0,w.push({type:"xAdjust",adjust:0}),w.push({type:"icon",name:"tip-"+H+".png"}),w.push({type:"xAdjust",adjust:0}),w.push({type:"text",text:O,color:"white"})),v=!0}else"Trade Routes"===X?(w.push({type:"newline"}),w.push({type:"newline"}),w.push({type:"text",text:"Allows "+i.Effect.City[X]+" "+X+" to be established from this City.",color:"white"})):"Water"===X&&(w.push({type:"newline"}),w.push({type:"newline"}),w.push({type:"text",text:"Allows "+i.Restriction.Description,color:h}));for(var W in improvementLookup)if("undefined"!=typeof i.Effect[W])for(var q in i.Effect[W]){var U=i.Effect[W][q];v?(w.push({type:"newline"}),w.push({type:"newline"})):m&&w.push({type:"newline"}),v=!1,m=!1,w.push({type:"text",text:"All",color:"white"}),"y"==W.match("y$")&&(W=W.substring(0,W.length-1),W+="ie"),w.push({type:"text",text:W+"s",color:x}),w.push({type:"text",text:"produce +"+U,color:"white"}),w.push({type:"xAdjust",adjust:0}),w.push({type:"icon",name:"tip-"+q.toLowerCase().replace(/ /g,"-")+".png"}),w.push({type:"xAdjust",adjust:0}),w.push({type:"text",text:q,color:"white"})}for(var N in resourceLookup)if("undefined"!=typeof i.Effect.City[N])for(var q in i.Effect.City[N]){var U=i.Effect.City[N][q];v&&(w.push({type:"newline"}),w.push({type:"newline"})),v=!1,m=!0,w.push({type:"text",text:"+"+U,color:"white"}),w.push({type:"xAdjust",adjust:0}),w.push({type:"icon",name:"tip-"+q.toLowerCase().replace(/ /g,"-")+".png"}),w.push({type:"xAdjust",adjust:0}),w.push({type:"text",text:q,color:"white"}),w.push({type:"text",text:"from",color:"white"}),"Tundra"!=N&&(w.push({type:"xAdjust",adjust:0}),w.push({type:"icon",name:"tip-"+N.toLowerCase().replace(/ /g,"-")+".png"}),w.push({type:"xAdjust",adjust:0})),w.push({type:"text",text:N,color:"white"})}if("undefined"!=typeof i.Description&&(v?(w.push({type:"newline"}),w.push({type:"newline"})):m&&w.push({type:"newline"}),w.push({type:"colorText",text:i.Description,color:"white"}),v=!1,m=!0),"undefined"!=typeof i.Effect.City.Specialist)for(var G in i.Effect.City.Specialist){var q,U=i.Effect.City.Specialist[G];"Trader"===G?q="energy":"Scientist"===G?q="science":"Engineer"===G?q="production":"Grower"===G?q="food":"Artist"===G&&(q="culture"),v?(w.push({type:"newline"}),w.push({type:"newline"})):m&&w.push({type:"newline"}),v=!1,m=!1,w.push({type:"text",text:U,color:"white"}),w.push({type:"xAdjust",adjust:0}),w.push({type:"icon",name:"tip-"+q+".png"}),w.push({type:"xAdjust",adjust:0}),w.push({type:"text",text:G+" Specialist slots",color:"white"})}}else"undefined"!=typeof i.Effect.Strike&&w.push({type:"colorText",text:i.Description,color:"white"});if("undefined"!=typeof i.Requires){w.push({type:"linebreak"}),isNewline=!1;for(var $ in i.Requires)if("Purity"===$||"Harmony"===$||"Supremacy"===$){if(isNewline&&w.push({type:"newline"}),isNewline=!0,"Purity"===$)var z="#F10B38";else if("Supremacy"===$)var z="#E7AC21";else if("Harmony"===$)var z="#21C5BA";w.push({type:"text",text:"Requires:",color:"white"}),w.push({type:"text",text:"Level "+i.Requires[$]+" in",color:z}),w.push({type:"xAdjust",adjust:-1}),w.push({type:"icon",name:"tip-"+$.toLowerCase()+".png"}),w.push({type:"xAdjust",adjust:-1}),w.push({type:"text",text:$,color:z})}else"Description"===$?(isNewline&&w.push({type:"newline"}),isNewline=!0,w.push({type:"text",text:i.Requires[$],color:h})):"City"!==$&&(isNewline&&w.push({type:"newline"}),isNewline=!0,w.push({type:"text",text:"Requires a workable, improved source of",color:h}),w.push({type:"xAdjust",adjust:-1}),w.push({type:"icon",name:"tip-"+$.toLowerCase().replace(/ /g,"-")+".png"}),w.push({type:"xAdjust",adjust:-1}),w.push({type:"text",text:$,color:h}))}}else if("unit"===o){var J={Cost:1,Moves:1,"Attack Range":1,Duration:1,"Effect Range":1,"Ranged Strength":1,Strength:1};w.push({type:"text",text:t.toUpperCase(),color:"white"}),w.push({type:"linebreak"});for(var K in J)if("undefined"!=typeof i[K]){U=i[K],m&&w.push({type:"newline"}),m=!0;var Q=K;"Moves"===K?Q="movement":"Cost"===K&&(Q="production"),w.push({type:"xAdjust",adjust:3}),w.push({type:"icon",name:"tip-"+Q.toLowerCase().replace(/ /g,"-")+".png"}),w.push({type:"xAdjust",adjust:2}),w.push({type:"text",text:K+":",color:"white"}),w.push({type:"text",text:i[K],color:"white"})}if("undefined"!=typeof i.Requires)for(var $ in i.Requires)if(U=i.Requires[$],m&&w.push({type:"newline"}),m=!0,"undefined"!=typeof affinityData[$]){if("Harmony"===$)var z="#21C5BA";else if("Supremacy"===$)var z="#E7AC21";else if("Purity"===$)var z="#F10B38";w.push({type:"text",text:"Requires",color:u}),w.push({type:"text",text:"Level "+i.Requires[$]+" in",color:z}),w.push({type:"xAdjust",adjust:-2}),w.push({type:"icon",name:"tip-"+$.toLowerCase().replace(/ /g,"-")+".png"}),w.push({type:"xAdjust",adjust:-2}),w.push({type:"text",text:$,color:z})}else w.push({type:"xAdjust",adjust:3}),w.push({type:"icon",name:"tip-list-item.png"}),w.push({type:"xAdjust",adjust:2}),w.push({type:"text",text:"Required:",color:u}),w.push({type:"text",text:i.Requires[$],color:u}),w.push({type:"xAdjust",adjust:3}),w.push({type:"icon",name:"tip-"+$.toLowerCase().replace(/ /g,"-")+".png"}),w.push({type:"xAdjust",adjust:2}),w.push({type:"text",text:$,color:u});if(w.push({type:"linebreak"}),"undefined"!=typeof i.Unique){var V=i.Unique;if("Harmony"===V)var z="#21C5BA";else if("Supremacy"===V)var z="#E7AC21";else if("Purity"===V)var z="#F10B38";"undefined"!=typeof i.Ultimate&&w.push({type:"text",text:"Ultimate",color:z}),w.push({type:"xAdjust",adjust:-2}),w.push({type:"icon",name:"tip-"+V.toLowerCase().replace(/ /g,"-")+".png"}),w.push({type:"xAdjust",adjust:-2}),w.push({type:"text",text:V,color:z}),w.push({type:"text",text:"Unique unit",color:z}),w.push({type:"period"})}else"undefined"!=typeof i.Type&&"undefined"!=typeof i.Domain&&w.push("Orbital"===i.Domain?{type:"text",text:i.Domain+" unit.",color:u}:{type:"text",text:i.Type+" unit.",color:u});"undefined"!=typeof i.Description&&w.push({type:"colorText",text:i.Description,color:u})}else if("improvement"===o)"undefined"!=typeof i&&w.push({type:"colorText",text:i.Description,color:"white"});else if("resource"===o)w.push({type:"text",text:"Reveals "+t+" on the map.",color:"white"});else if("effect"===o)if("undefined"!=typeof improvementLookup[t])for(eff in i)w.push({type:"text",text:"+"+i[eff],color:u}),w.push({type:"xAdjust",adjust:3}),w.push({type:"icon",name:"tip-"+eff.toLowerCase().replace(/ /g,"-")+".png"}),w.push({type:"xAdjust",adjust:3}),w.push({type:"text",text:eff+" from",color:u}),w.push({type:"text",text:t,color:x}),w.push({type:"text",text:"Improvements.",color:u});else("Miasma"===t||"City"===t||"Units"===t)&&"undefined"!=typeof i.Description&&w.push({type:"colorText",text:i.Description,color:u});else if("affinity"===o){if("Purity"===t)var z="#F10B38";else if("Supremacy"===t)var z="#E7AC21";else if("Harmony"===t)var z="#21C5BA";w.push({type:"text",text:t,color:z}),w.push({type:"text",text:"Affinity",color:z}),w.push({type:"newline"}),w.push({type:"newline"}),w.push({type:"colorText",text:i.Description,color:"white"})}else if("affinityCounter"===o){var Y=this.parentPtr.parentPtr,Y=this.parentPtr.parentPtr,Z=Y.affinity.dominant[t],te=Y.affinity.levels[t],ee=te+1,ie=affinityLevels[Z][te],oe=affinityLevels[Z][ee]-ie,pe=Y.affinity.points[t]-ie;if("Purity"===t)var z="#F10B38";else if("Supremacy"===t)var z="#E7AC21";else if("Harmony"===t)var z="#21C5BA";w.push({type:"icon",name:"tip-"+t.toLowerCase()+".png"}),w.push({type:"text",text:t,color:z}),w.push({type:"text",text:"Level "+Y.affinity.levels[t],color:"white"}),w.push({type:"newline"}),w.push({type:"newline"});for(var V in affinityBonuses[t])w.push({type:"colorText",text:affinityBonuses[t].Description,color:"white"}),w.push({type:"newline"});w.push({type:"newline"}),w.push({type:"text",text:pe+"/"+oe,color:"white"}),w.push({type:"xAdjust",adjust:5}),w.push({type:"text",text:"Affinity XP towards next Level",color:"white"})}else if("science"===o){var z="#0000FF";w.push({type:"text",text:t,color:z}),w.push({type:"text",text:"Affinity",color:z}),w.push({type:"newline"}),w.push({type:"newline"}),w.push({type:"colorText",text:i.Description,color:"white"})}this.background=PIXI.Sprite.fromFrame("tooltip-background.png"),this.background.width=p,this.addChild(this.background);var se=n,ne=r,re=4,ue=4,he=20;for(var H in w){var ae=w[H];if("xAdjust"===ae.type&&(se+=ae.adjust),"linebreak"===ae.type)se>he&&(he=se),ne+=s/2,se=n,text=new PIXI.Text("_______",{font:"14px Arial",fill:"white",align:"left"}),text.position.x=se,text.position.y=ne,this.addChild(text),ne+=s+s/2;else if("newline"===ae.type)se>he&&(he=se),ne+=s,se=n;else if("icon"===ae.type)icon=PIXI.Sprite.fromFrame(ae.name),icon.position.x=se,icon.position.y=ne-ue,this.addChild(icon),se+=icon.width+re,se>he&&(he=se);else if("tip-icon"===ae.type)icon=PIXI.Sprite.fromFrame(ae.name),icon.position.x=se,icon.position.y=ne-ue,this.addChild(icon),se+=icon.width+re+re,se>he&&(he=se);else if("period"===ae.type)text=new PIXI.Text(".",{font:"13px Arial",fill:"white",align:"left"}),text.position.x=se-re,text.position.y=ne,this.addChild(text),se+=text.width+re,se>he&&(he=se);else if("colorText"===ae.type){var le=ae.text.toString().split(/[ ]+/),ye="#FFFFFF";for(word in le)if("{"===le[word].charAt(0))ye=d[le[word].slice(1,-1)];else if("["===le[word].charAt(0)&&"[newline]"===le[word])se=n,ne+=s;else if("["===le[word].charAt(0)&&"[linebreak]"===le[word])ne+=s/2,se=n,text=new PIXI.Text("_______",{font:"14px Arial",fill:"white",align:"left"}),text.position.x=se,text.position.y=ne,this.addChild(text),ne+=s+s/2;else if("["===le[word].charAt(0)&&"[object"!==le[word]){var Q=le[word].slice(1,-1);"ranged"===le[word].slice(1,-1)&&(Q="ranged-strength"),icon=PIXI.Sprite.fromFrame("tip-"+Q+".png"),icon.position.x=se,icon.position.y=ne-ue,this.addChild(icon),se+=icon.width+re+re,"list-item"===Q&&(se-=5),se>he&&(he=se)}else text=new PIXI.Text(le[word],{font:"13px Arial",fill:ye,align:"left"}),se+text.width+n>this.width&&(se=n,ne+=s),text.position.x=se,text.position.y=ne,this.addChild(text),se+=text.width+re,se>he&&(he=se)}else if("text"===ae.type){var le=ae.text.toString().split(/[ ]+/);for(word in le)if("{"===le[word].charAt(0)){var fe=le[word].slice(1,-1),xe=fe.toLowerCase();if("undefined"!==improvementLookup[xe])var ce=x;text=new PIXI.Text(fe,{font:"13px Arial",fill:ce,align:"left"}),se+text.width+n>this.width&&(se=n,ne+=s),text.position.x=se,text.position.y=ne,this.addChild(text),se+=text.width+re,se>he&&(he=se)}else if("["===le[word].charAt(0)&&"[newline]"===le[word])se=n,ne+=s;else if("["===le[word].charAt(0)&&"[linebreak]"===le[word])ne+=s/2,se=n,text=new PIXI.Text("_______",{font:"14px Arial",fill:"white",align:"left"}),text.position.x=se,text.position.y=ne,this.addChild(text),ne+=s+s/2;else if("["===le[word].charAt(0)&&"[object"!==le[word]){var Q=le[word].slice(1,-1);"ranged"===le[word].slice(1,-1)&&(Q="ranged-strength"),icon=PIXI.Sprite.fromFrame("tip-"+Q+".png"),icon.position.x=se,icon.position.y=ne-ue,this.addChild(icon),se+=icon.width+re+re,se>he&&(he=se)}else text=new PIXI.Text(le[word],{font:"13px Arial",fill:ae.color,align:"left"}),se+text.width+n>this.width&&(se=n,ne+=s),text.position.x=se,text.position.y=ne,this.addChild(text),se+=text.width+re,se>he&&(he=se)}}this.background.height=ne+s+r,this.background.width=he+n},Tooltip.prototype.show=function(){this.hiding=!1,this.showing=!0,this.alpha<1&&(this.alpha+=this.alphaStep,this.alpha>1&&(this.alpha=1),setTimeout(this.show(this.xDirection),this.alphaWait))},Tooltip.prototype.hide=function(){this.hiding=!0,this.showing=!1,this.alpha>0&&(this.alpha-=this.alphaStep,this.alpha<0&&(this.alpha=0),setTimeout(this.hide(this.xDirection),this.alphaWait))};
+var unitData = {
+  Worker: {
+    Tech: "Habitation",
+    Cost: 60,
+    Moves: 2,
+    Domain: "Land",
+    Type: "Civilian",
+    Description: "Constructs Improvements on land and at sea, increasing the effectiveness of tiles when worked by a City's population"
+  },
+  Explorer: {
+    Tech: "Habitation",
+    Cost: 40,
+    Moves: 2,
+    Strength: 3,
+    Domain: "Land",
+    Type: "Exploration",
+    Description: "Ideal for scouting the terrain, opposing forces, and alien activity. Its light Combat Strength gives it modest defense, but it is not suited to full-scale warfare."
+  },
+  Soldier: {
+    Tech: "Habitation",
+    Cost: 50,
+    Moves: 2,
+    Strength: 10,
+    Domain: "Land",
+    Type: "Melee",
+    Description: "A basic unit that is easy to build. It begins weak, but can be upgraded to increase its effectiveness and fight alongside more advanced units."
+  },
+  "Trade Vessel": {
+    Tech: "Pioneering",
+    Cost: 70,
+    Moves: 3,
+    Domain: "Sea",
+    Type: "Trade",
+    Description: "Used to establish Trade Routes by sea between your cities and other Cities, Outposts, or Stations. Trade Routes generate yields or increased outpost growth rate for trading partners, but Trade Units are vulnerable to attack and their routes must be protected by Military Units."
+  },
+  "Trade Convoy": {
+    Tech: "Pioneering",
+    Cost: 60,
+    Moves: 2,
+    Domain: "Land",
+    Type: "Trade",
+    Description: "Used to establish Trade Routes by land between your cities and other Cities, Outposts, or Stations. Trade Routes generate yields or increased outpost growth rate for trading partners, but Trade Units are vulnerable to attack and their routes must be protected by Military Units."
+  },
+  Colonist: {
+    Tech: "Pioneering",
+    Cost: 186,
+    Moves: 2,
+    Domain: "Land",
+    Type: "Civilian",
+    Description: "Can establish an Outpost, which transforms into a full City once time passes and it acquires all territory adjacent to it. [newline] [newline] While  producing this Unit, a City's [food] Growth temporarily stops. [newline] Colonists may only be built in Cities with at least 2 [citizens] Citizens.",
+    "Halts Growth": 1,
+    "Requires Pop": 2
+  },
+  "Miasmic Repulsor": {
+    Tech: "Ecology",
+    Cost: 80,
+    Duration: 6,
+    "Effect Range": 2,
+    Domain: "Orbital",
+    Type: "Civilian",
+    Description: "Clears Miasma from affected tiles, starting from the center.",
+    Effect: {Tile: {Miasma: -1}}
+  },
+  Ranger: {
+    Tech: "Physics",
+    Cost: 50,
+    Moves: 2,
+    "Attack Range": 2,
+    "Ranged Strength": 8,
+    Strength: 3,
+    Domain: "Land",
+    Type: "Ranged",
+    Description: "Attacks at range to avoid close quarters combat."
+  },
+  "Combat Rover": {
+    Tech: "Engineering",
+    Cost: 80,
+    Moves: 3,
+    Strength: 12,
+    Domain: "Land",
+    Type: "Melee",
+    Description: "Specializing in mobility, it excels in battlefield positioning, chasing down enemy units, reconaissance, and exploration."
+  },
+  "Missile Rover": {
+    Tech: "Computing",
+    Cost: 100,
+    Moves: 2,
+    "Attack Range": 2,
+    "Ranged Strength": 12,
+    Strength: 3,
+    Domain: "Land",
+    Type: "Ranged",
+    Description: "Specializes in reducing defenses of Cities and Outposts from afar, but has limited mobility."
+  },
+  Gunboat: {
+    Tech: "Computing",
+    Cost: 120,
+    Moves: 3,
+    "Attack Range": 2,
+    "Ranged Strength": 16,
+    Strength: 6,
+    Domain: "Sea",
+    Type: "Ranged",
+    Description: "Uses ranged weaponry to attack enemies at sea, or bombard enemies on nearby coasts."
+  },
+  "Solar Collector": {
+    Tech: "Photosystems",
+    Cost: 80,
+    Duration: 60,
+    "Effect Range": 1,
+    Domain: "Orbital",
+    Type: "Civilian",
+    Description: "+1 [energy] Energy on tiles you own. Any City in range also receives +20% [energy] Energy overall.",
+    Effect: {City: {Energy: .2}, Tile: {Energy: 1}}
+  },
+  "Xeno Swarm": {
+    Tech: "Alien Adaptation",
+    Unique: "Harmony",
+    Cost: 120,
+    Moves: 2,
+    Strength: 34,
+    Requires: {Xenomass: 1, Harmony: 4},
+    Type: "Melee",
+    Domain: "Land",
+    Description: "A mixed squad of human soldiers and adapted alien lifeforms. Simple, versatile melee assult unit."
+  },
+  "Miasmic Condenser": {
+    Tech: "Alien Ecology",
+    Cost: 130,
+    Duration: 10,
+    "Effect Range": 2,
+    Requires: {Petroleum: 3, Xenomass: 1},
+    Domain: "Orbital",
+    Type: "Civilian",
+    Description: "Generates Miasma on affected tiles, starting from the center.",
+    Effect: {Tile: {Miasma: 1}}
+  },
+  "Weather Controller": {
+    Tech: "Climate Control",
+    Cost: 130,
+    Duration: 60,
+    "Effect Range": 1,
+    Requires: {Petroleum: 2, Titanium: 1},
+    Domain: "Orbital",
+    Type: "Civilian",
+    Description: "+1 [food] Food on tiles you own. Generates 1 to 2 new Basic Resources on unimproved tiles across its lifespan.",
+    Effect: {Tile: {Food: 1, "Add Basic Resource Min": 1, "Add Basic Resource Max": 2}}
+  },
+  "Tacnet Hub": {
+    Tech: "Communications",
+    Cost: 80,
+    Duration: 60,
+    "Effect Range": 2,
+    Domain: "Orbital",
+    Type: "Military",
+    Description: "Provides +20% [strength] Strength, +20% [ranged] Ranged Strength, and +5 HP heal every turn to friendly Units.",
+    Effect: {Units: {Strength: .2, "Ranged Strength": .2, Heal: 5}}
+  },
+  "Lasercom Satellite": {
+    Tech: "Orbital Networks",
+    Cost: 130,
+    Duration: 60,
+    "Effect Range": 1,
+    Requires: {Petroleum: 2, Titanium: 1},
+    Domain: "Orbital",
+    Type: "Civilian",
+    Description: "Once in orbit, establishes contact with Old Earth, which is part of Emancipation Victory and  Promised Land Victory. Any City in range also receives +15% [science] Science overall.",
+    Effect: {City: {Science: .15}}
+  },
+  SABR: {
+    Tech: "Synthetic Thought",
+    Unique: "Supremacy",
+    Cost: 320,
+    Moves: 1,
+    "Max Range": 3,
+    "Ranged Strength": 58,
+    Strength: 16,
+    Requires: {Firaxite: 4, Supremacy: 9},
+    Type: "Siege",
+    Domain: "Land",
+    Description: "A high-precision robotic artillery platform with exceptional range and accuracy. Slow but powerful ranged and siege unit."
+  },
+  Carrier: {
+    Tech: "Fabrication",
+    Cost: 160,
+    Moves: 3,
+    Strength: 18,
+    Type: "Support",
+    Domain: "Sea",
+    Description: "Has no attack capability of its own, but serves as a base for air units to launch operations."
+  },
+  Holomatrix: {
+    Tech: "Civil Support",
+    Cost: 130,
+    Duration: 60,
+    "Effect Range": 1,
+    Requires: {Petroleum: 3, Floatstone: 1},
+    Domain: "Orbital",
+    Type: "Civilian",
+    Description: "+2 [culture] Culture on tiles you own. Any City in range receives 50% less Intrigue from enemy Covert Agent activity.",
+    Effect: {City: {Intrigue: -.5}, Tile: {Culture: 2}}
+  },
+  "LEV Tank": {
+    Tech: "Mobile LEV",
+    Unique: "Purity",
+    Cost: 300,
+    Moves: 2,
+    "Attack Range": 2,
+    "Ranged Strength": 52,
+    Strength: 28,
+    Requires: {Floatstone: 4, Purity: 9},
+    Type: "Ranged",
+    Domain: "Hover",
+    Description: "An armored assult vehicle that hovers above the terrain, allowing it to traverse canyons and water. Powerful mobile ranged unit."
+  },
+  Tacjet: {
+    Tech: "Robotics",
+    Cost: 100,
+    "Attack Range": 4,
+    "Ranged Strength": 10,
+    Type: "Ranged",
+    Domain: "Air",
+    Description: "Attacks at range from a base, such as a City or Carrier."
+  },
+  CNDR: {
+    Tech: "Mobile LEV",
+    Unique: "Supremacy",
+    Cost: 155,
+    Moves: 2,
+    Strength: 38,
+    Requires: {Firaxite: 1, Supremacy: 4},
+    Type: "Melee",
+    Domain: "Land",
+    Description: "A limited but reliable robotic drone soldier. Simple, hardy defensive melee unit."
+  },
+  Battlesuit: {
+    Tech: "Servomachinery",
+    Unique: "Purity",
+    Cost: 160,
+    Moves: 2,
+    Strength: 40,
+    Requires: {Titanium: 1, Purity: 4},
+    Type: "Melee",
+    Domain: "Land",
+    Description: "A soldier armored in augmented armor. Tough melee shock unit."
+  },
+  Rocktopus: {
+    Tech: "Civil Support",
+    Unique: "Harmony",
+    Cost: 280,
+    Duration: 10,
+    "Effect Range": 2,
+    "Ranged Strength": 60,
+    Requires: {Xenomass: 3, Floatstone: 1, Harmony: 9},
+    Domain: "Orbital",
+    Type: "Military",
+    Description: "A bioengineered, living orbital unit that can move between orbital deployments and provide limited orbital coverage around it's location."
+  },
+  "Xeno Titan": {
+    Tech: "Alien Evolution",
+    Unique: "Harmony",
+    Ultimate: 1,
+    Cost: 400,
+    Moves: 2,
+    Strength: 96,
+    Requires: {Xenomass: 7, Harmony: 12},
+    Type: "Melee",
+    Domain: "Land",
+    Description: "A bioengineered, monstrous creature based on alien lifeforms. Enormous, very powerful melee siege unit."
+  },
+  "Xeno Cavalry": {
+    Tech: "Alien Domestication",
+    Unique: "Harmony",
+    Cost: 210,
+    Moves: 3,
+    Strength: 48,
+    Requires: {Xenomass: 2, Harmony: 7},
+    Type: "Melee",
+    Domain: "Land",
+    Description: "Human soldiers mounted on domesticated alien lifeforms. Agile melee fast attack unit."
+  },
+  "Orbital Fabricator": {
+    Tech: "Geoscaping",
+    Cost: 130,
+    Duration: 60,
+    "Effect Range": 1,
+    Requires: {Petroleum: 2, Titanium: 1},
+    Domain: "Orbital",
+    Type: "Civilian",
+    Description: "+1 [production] Production on the tiles you own. Generates 1 to 2 new Strategic Resources on unimproved tiles across its lifespan.",
+    Effect: {Tile: {Production: 1, "Add Strategic Resource Min": 1, "Add Strategic Resource Max": 2}}
+  },
+  ANGEL: {
+    Tech: "Neural Uploading",
+    Unique: "Supremacy",
+    Ultimate: 1,
+    Cost: 370,
+    Moves: 2,
+    "Attack Range": 1,
+    "Ranged Strength": 88,
+    Strength: 88,
+    Requires: {Firaxite: 6, Supremacy: 12},
+    Type: "Ranged",
+    Domain: "Walker",
+    Description: "A highly-advanced robotic walker with heavy armaments and exceptional agility that can traverse canyons and shallow water. Extremely versatile unit suited to any battlefield role."
+  },
+  "Orbital Laser": {
+    Tech: "Cybernetics",
+    Cost: 130,
+    Duration: 60,
+    "Effect Range": 2,
+    "Ranged Strength": 50,
+    Requires: {Petroleum: 2},
+    Domain: "Orbital",
+    Type: "Military",
+    Description: "Bombards hostile Units with moderate strength."
+  },
+  "Phasal Transporter": {
+    Tech: "Cybernetics",
+    Cost: 130,
+    Duration: 30,
+    "Effect Range": 1,
+    Requires: {Petroleum: 2, Titanium: 1},
+    Domain: "Orbital",
+    Type: "Civilian",
+    Description: "Enables Units to perform a one-way Phasal Teleport from any friendly City to any affected tile.",
+    Effect: {Units: {Teleport: 1, Restriction: "From City"}}
+  },
+  CARVR: {
+    Tech: "Autogyros",
+    Unique: "Supremacy",
+    Cost: 220,
+    Moves: 2,
+    Strength: 50,
+    Requires: {Firaxite: 3, Supremacy: 7},
+    Type: "Melee",
+    Domain: "Land",
+    Description: "A sophisticated, fully autonomous robotic drone soldier. Versatile recon and melee assault unit."
+  },
+  "Planet Carver": {
+    Tech: "Astrodynamics",
+    Cost: 200,
+    Duration: 30,
+    "Effect Range": 2,
+    "Ranged Strength": 120,
+    Requires: {Petroleum: 4, Titanium: 1},
+    Domain: "Orbital",
+    Type: "Military",
+    Description: "Bombards hostile Units with pulverizing power."
+  },
+  "Deep Space Telescope": {
+    Tech: "Orbital Automation",
+    Cost: 200,
+    Duration: 60,
+    "Effect Range": 2,
+    Requires: {Petroleum: 2, Firaxite: 1},
+    Effect: {City: {Science: .25}},
+    Domain: "Orbital",
+    Type: "Military",
+    Description: "Once in orbit, eventually leads to discovery of The Signal, which is part of Contact Victory. Any City in range also receives +25% [science] Science overall."
+  },
+  "All-Seer": {
+    Tech: "Dark Networks",
+    Cost: 200,
+    Duration: 30,
+    "Effect Range": 1,
+    Requires: {Petroleum: 4, Titanium: 1},
+    Domain: "Orbital",
+    Type: "Military",
+    Description: "Removes all Covert Agents and Intrigue from any City in range. Prevents any Covert Agent activity or Intrigue increase as long as it orbits."
+  },
+  "LEV Destroyer": {
+    Tech: "Nanotechnology",
+    Unique: "Purity",
+    Ultimate: 1,
+    Cost: 380,
+    Moves: 2,
+    "Attack Range": 2,
+    "Ranged Strength": 84,
+    Strength: 50,
+    Requires: {Floatstone: 7, Purity: 12},
+    Type: "Ranged",
+    Domain: "Hover",
+    Description: "A gigantic, heavily-armed assault  platform that hovers above the terrain, allowing it to traverse canyons and water. Very powerful ranged and siege unit."
+  },
+  Aegis: {
+    Tech: "Surrogacy",
+    Unique: "Purity",
+    Cost: 180,
+    Moves: 2,
+    "Attack Range": 2,
+    "Ranged Strength": 40,
+    Strength: 20,
+    Requires: {Titanium: 1, Floatstone: 1, Purity: 7},
+    Type: "Ranged",
+    Domain: "Land",
+    Description: "A light, mechanized walker with a variety of mounted weapons. Armored ranged unit with versatile fire support capabilities."
+  }
+};
+var techs = {
+  Habitation: {
+    Position: {Node: 0, Oclock: 0, Leaf: 0},
+    Enables: {Engineering: 1, Physics: 1, Chemistry: 1, Genetics: 1, Ecology: 1},
+    Buildings: {"Old Earth Relic": 1, Clinic: 1},
+    Units: {Worker: 1, Explorer: 1, Soldier: 1},
+    Leaf: {Pioneering: 1, "Planetary Survey": 1}
+  },
+  Pioneering: {
+    Position: {Node: 0, Oclock: 0, Leaf: 1},
+    Science: 80,
+    Node: "Habitation",
+    Buildings: {"Trade Depot": 1},
+    Units: {Colonist: 1, "Trade Convoy": 1, "Trade Vessel": 1}
+  },
+  "Planetary Survey": {
+    Position: {Node: 0, Oclock: 0, Leaf: 2},
+    Science: 80,
+    Node: "Habitation",
+    Effect: {Units: {Description: "Allows land units to embark and cross water tiles."}},
+    "Tile Improvement": {
+      "Work Barge": {
+        Units: "Worker",
+        Coral: {Science: 1, Production: 1},
+        Algae: {Food: 1},
+        Description: "{Tile Improvement|yellow} buildable by {Worker|pink} units on {Coral|orange} and {Algae|orange} resources. Provides: [newline] [list-item] 1 [science] Science, 1 [production] Production on [coral] Coral. [list-item] 1 [food] Food on [algae] Algae."
+      }
+    }
+  },
+  Ecology: {
+    Position: {Node: 1, Oclock: 4, Leaf: 0},
+    Enables: {Computing: 1, Terraforming: 1, "Alien Sciences": 1},
+    Science: 95,
+    Buildings: {Vivarium: 1, "Ultrasonic Fence": 1},
+    Units: {"Miasmic Repulsor": 1},
+    Leaf: {Geophysics: 1, "Alien Biology": 1}
+  },
+  Geophysics: {
+    Position: {Node: 1, Oclock: 4, Leaf: 1},
+    Science: 249,
+    Node: "Ecology",
+    "Tile Improvement": {"Geothermal Well": {Description: "GEOTHERMAL WELL [linebreak] {Tile Improvement|yellow} buildable by {Worker|pink} units on {Geothermal|orange} resources. [newline] [newline] Adds the [geothermal] {Geothermal|orange} quantity to your global total."}},
+    Resource: "Geothermal"
+  },
+  "Alien Biology": {
+    Position: {Node: 1, Oclock: 4, Leaf: 2},
+    Science: 249,
+    Node: "Ecology",
+    Affinity: {Harmony: 12},
+    "Tile Improvement": {"Clear Miasma": {Units: "Worker", Description: "Clear Miasma."}},
+    Effect: {
+      Miasma: {
+        Immunity: 1,
+        Description: "Allows {green} Worker Miasma Immunity {white} [newline] [newline] (Worker Units Take No Damage From Miasma.)"
+      }
+    },
+    Description: "Grants Worker units {yellow} immunity to Miasma damage."
+  },
+  Genetics: {
+    Position: {Node: 1, Oclock: 2, Leaf: 0},
+    Enables: {"Alien Sciences": 1, "Genetic Design": 1, Cognition: 1},
+    Science: 95,
+    Buildings: {Cytonursery: 1, Pharmalab: 1},
+    Leaf: {"Alien Lifeforms": 1, "Genetic Mapping": 1}
+  },
+  "Alien Lifeforms": {
+    Position: {Node: 1, Oclock: 2, Leaf: 1},
+    Science: 249,
+    Node: "Genetics",
+    Buildings: {"Alien Preserve": 1},
+    Effect: {Paddock: {Culture: 1}}
+  },
+  "Genetic Mapping": {
+    Position: {Node: 1, Oclock: 2, Leaf: 2},
+    Science: 249,
+    Node: "Genetics",
+    Buildings: {"Gene Vault": 1},
+    Affinity: {Purity: 12}
+  },
+  Chemistry: {
+    Position: {Node: 1, Oclock: 12, Leaf: 0},
+    Enables: {Biology: 1, Organics: 1},
+    Science: 95,
+    Buildings: {Laboratory: 1, Recycler: 1},
+    Leaf: {Biochemistry: 1},
+    Resource: "Petroleum",
+    "Tile Improvement": {
+      "Petroleum Well": {
+        Units: "Worker",
+        Maintenance: 2,
+        Health: -1,
+        Resource: {Petroleum: "x"},
+        Description: "PETROLEUM WELL [linebreak] {Tile Improvement|yellow} buildable by {Worker|pink} units on {Petroleum|orange} resources. [newline] [newline] Adds the [petroleum] {Petroleum|orange} quantity to your global total. [linebreak] Maintenance: [energy] 2 [unhealth] 1"
+      }
+    }
+  },
+  Biochemistry: {
+    Position: {Node: 1, Oclock: 12, Leaf: 1},
+    Science: 249,
+    Node: "Chemistry",
+    Buildings: {"Water Refinery": 1, "Petrochemical Plant": 1}
+  },
+  Physics: {
+    Position: {Node: 1, Oclock: 10, Leaf: 0},
+    Enables: {Bionics: 1, Robotics: 1},
+    Science: 95,
+    Buildings: {Observatory: 1, "Launch Complex": 1},
+    Units: {Ranger: 1},
+    Leaf: {Ballistics: 1},
+    Effect: {Quarry: {Production: 1}}
+  },
+  Ballistics: {
+    Position: {Node: 1, Oclock: 10, Leaf: 1},
+    Science: 249,
+    Node: "Physics",
+    Buildings: {"Rocket Battery": 1, "Stellar Codex": 1}
+  },
+  Engineering: {
+    Position: {Node: 1, Oclock: 8, Leaf: 0},
+    Enables: {Robotics: 1, Computing: 1, Fabrication: 1},
+    Science: 95,
+    Buildings: {"Thorium Reactor": 1, "Repair Facility": 1},
+    Units: {"Combat Rover": 1},
+    Resource: "Titanium",
+    Leaf: {"Power Systems": 1, "Defense Grid": 1}
+  },
+  "Power Systems": {
+    Position: {Node: 1, Oclock: 8, Leaf: 1},
+    Science: 249,
+    Node: "Engineering",
+    Effect: {"Geothermal Well": {Energy: 1}, Quarry: {Production: 1}},
+    Affinity: {Supremacy: 12}
+  },
+  "Defense Grid": {
+    Position: {Node: 1, Oclock: 8, Leaf: 2},
+    Science: 249,
+    Node: "Engineering",
+    Buildings: {"Defense Perimeter": 1, Panopticon: 1}
+  },
+  Computing: {
+    Position: {Node: 1, Oclock: 6, Leaf: 0},
+    Enables: {Ecology: 1, Engineering: 1, Communications: 1, "Artificial Intelligence": 1},
+    Science: 380,
+    Buildings: {"Spy Agency": 1, Network: 1},
+    Units: {"Missile Rover": 1, Gunboat: 1},
+    Leaf: {"Autonomous Systems": 1, "Transcendental Math": 1}
+  },
+  "Autonomous Systems": {
+    Position: {Node: 1, Oclock: 6, Leaf: 1},
+    Science: 770,
+    Node: "Computing",
+    Affinity: {Supremacy: 18},
+    Buildings: {"Master Control": 1},
+    "Tile Improvement": {
+      Node: {
+        Units: "Worker",
+        Terrain: "Any",
+        Effect: {"Adjacent Unit Heal 20": 1},
+        Energy: 2,
+        Description: "NODE [linebreak] {Tile Improvement|yellow} buildable by {Worker|pink} units on any terrain. Provides [newline] [list-item] +20 HP heal for adjacent units every turn [linebreak] {Yields:|green} [energy] 2"
+      }
+    }
+  },
+  "Transcendental Math": {
+    Position: {Node: 1, Oclock: 6, Leaf: 2},
+    Science: 770,
+    Node: "Computing",
+    Buildings: {"Transcendental Equation": 1},
+    Description: "Allows discovery of the Transcendental Equation and commencement of the Contact Victory."
+  },
+  Biology: {
+    Position: {Node: 2, Oclock: 11, Leaf: 0},
+    Enables: {Chemistry: 1, Bionics: 1, Bioengineering: 1, Organics: 1},
+    Science: 770,
+    Buildings: {"Biofuel Plant": 1, Growlab: 1},
+    "Tile Improvement": {
+      Dome: {
+        Units: "Worker",
+        Terrain: "Any",
+        Description: "[Tile Improvement] buildable by [Worker] units on any terrain. Provides: +10 City Hit Points.",
+        Effect: {"City Hit Points 10": 1},
+        Yields: {Culture: 2},
+        Maintenance: 2
+      }
+    },
+    Leaf: {"Vertical Farming": 1}
+  },
+  "Vertical Farming": {
+    Position: {Node: 2, Oclock: 11, Leaf: 1},
+    Science: 1160,
+    Node: "Biology",
+    Affinity: {Purity: 25},
+    Effect: {Farm: {Energy: 1, Food: 1}}
+  },
+  Organics: {
+    Position: {Node: 2, Oclock: 12, Leaf: 0},
+    Enables: {Chemistry: 1, Biology: 1, Bioengineering: 1, Synergetics: 1, Cognition: 1},
+    Science: 770,
+    Buildings: {Biofactory: 1, "Mass Digester": 1},
+    Effect: {Generator: {Energy: 1}},
+    Leaf: {Photosystems: 1}
+  },
+  Photosystems: {
+    Position: {Node: 2, Oclock: 12, Leaf: 1},
+    Science: 1160,
+    Node: "Organics",
+    Affinity: {Harmony: 25},
+    Units: {"Solar Collector": 1},
+    Effect: {Plantation: {Food: 1}}
+  },
+  Cognition: {
+    Position: {Node: 2, Oclock: 1, Leaf: 0},
+    Enables: {Genetics: 1, Organics: 1, "Social Dynamics": 1},
+    Science: 770,
+    Buildings: {Neurolab: 1, Holosuite: 1},
+    "Tile Improvement": {
+      Academy: {
+        Units: "Worker",
+        Terrain: "Any",
+        Description: "[Tile Improvement] buildable by [Worker] units on any terrain. Provides: +2 Science Points.",
+        Effect: {"City Hit Points 10": 1},
+        Yields: {Science: 3},
+        Maintenance: 2
+      }
+    },
+    Leaf: {"Collaborative Thought": 1}
+  },
+  "Collaborative Thought": {
+    Position: {Node: 2, Oclock: 1, Leaf: 1},
+    Science: 1160,
+    Node: "Cognition",
+    Affinity: {Supremacy: 25},
+    Buildings: {"Precog Project": 1},
+    Description: "Unlocks the Precog Project Wonder."
+  },
+  "Genetic Design": {
+    Position: {Node: 2, Oclock: 2, Leaf: 0},
+    Enables: {Genetics: 1, "Social Dynamics": 1, Transgenics: 1},
+    Science: 254,
+    Buildings: {"Gene Garden": 1, "Cloning Plant": 1, "Ectogenesis Pod": 1},
+    Leaf: {"Alien Genetics": 1}
+  },
+  "Alien Genetics": {
+    Position: {Node: 2, Oclock: 2, Leaf: 1},
+    Science: 770,
+    Node: "Genetic Design",
+    Affinity: {Purity: 18},
+    Effect: {Biowell: {Culture: 1}, "Xenomass Well": {Science: 1}}
+  },
+  "Alien Sciences": {
+    Position: {Node: 2, Oclock: 3, Leaf: 0},
+    Enables: {Genetics: 1, Ecology: 1, "Alien Ethics": 1},
+    Science: 254,
+    Buildings: {"Xenofuel Plant": 1, Xenonursery: 1},
+    Leaf: {"Alien Adaptation": 1, "Alien Ecology": 1},
+    "Tile Improvement": {
+      "Xenomass Well": {
+        Description: "Tile Improvement buildable by Worker units on Xenomass resources.",
+        Effect: {Description: "Adds the Xenomass quantity to your global total."},
+        Maintenance: 2
+      }
+    }
+  },
+  "Alien Adaptation": {
+    Position: {Node: 2, Oclock: 3, Leaf: 1},
+    Science: 770,
+    Node: "Alien Sciences",
+    Affinity: {Harmony: 18},
+    Units: {"Xeno Swarm": 1}
+  },
+  "Alien Ecology": {
+    Position: {Node: 2, Oclock: 3, Leaf: 2},
+    Science: 770,
+    Node: "Alien Sciences",
+    Units: {"Miasmic Condenser": 1},
+    "Tile Improvement": {"Add Miasma": {Description: "Allows Workers to Add Miasma on any tile.", Effect: {Miasma: 1}}}
+  },
+  Terraforming: {
+    Position: {Node: 2, Oclock: 4, Leaf: 0},
+    Enables: {Ecology: 1, "Planetary Engineering": 1},
+    Science: 770,
+    Buildings: {"Gaian Well": 1},
+    Leaf: {Biospheres: 1, "Climate Control": 1},
+    "Tile Improvement": {
+      Terrascape: {
+        Description: "Tile Improvement buildable by Worker units on any terrain. Provides:",
+        Food: 2,
+        Production: 2,
+        Culture: 2,
+        Yields: {Food: 2, Production: 2, Culture: 2},
+        Maintenance: 6,
+        Description: "{red} Cannot coexist with Miasma."
+      },
+      "Floatstone Quarry": {
+        Description: "Tile Improvement buildable by Worker units on Floatstone resources.",
+        Effect: {Description: "Adds the Xenomass quantity to your global total."}
+      }
+    }
+  },
+  Biospheres: {
+    Position: {Node: 2, Oclock: 4, Leaf: 1},
+    Science: 1160,
+    Node: "Terraforming",
+    Affinity: {Purity: 25},
+    Effect: {
+      City: {
+        "Food Carryover": .1,
+        Description: "+10% [food] Food carried over after city growth in all cities."
+      }, Dome: {Energy: 1}
+    },
+    Description: "Carries over 10% of a City's [food] Food after City Growth."
+  },
+  "Climate Control": {
+    Position: {Node: 2, Oclock: 4, Leaf: 2},
+    Science: 1160,
+    Node: "Terraforming",
+    Affinity: {Supremacy: 25},
+    Units: {"Weather Controller": 1}
+  },
+  Communications: {
+    Position: {Node: 2, Oclock: 5, Leaf: 0},
+    Enables: {"Field Theory": 1},
+    Science: 770,
+    Leaf: {"Orbital Networks": 1},
+    Units: {"Tacnet Hub": 1},
+    Buildings: {"Command Center": 1, "Feedsite Hub": 1},
+    "Tile Improvement": {
+      Array: {
+        Description: "Tile Improvement buildable by Worker units on any terrain. Provides:",
+        Effect: {City: {"Orbital Coverage": 1}, Description: "+1 City Orbital Coverage"},
+        Yields: {Science: 1, Energy: 1}
+      }
+    }
+  },
+  "Orbital Networks": {
+    Position: {Node: 2, Oclock: 5, Leaf: 1},
+    Science: 1160,
+    Node: "Communications",
+    Buildings: {Memetwork: 1},
+    Units: {"Lasercom Satellite": 1}
+  },
+  "Artificial Intelligence": {
+    Position: {Node: 2, Oclock: 6, Leaf: 0},
+    Enables: {Computing: 1, Fabrication: 1, Hypercomputing: 1},
+    Science: 770,
+    Leaf: {"Synthetic Thought": 1, "Swarm Intelligence": 1},
+    Buildings: {"CEL Cradle": 1, "Surveillance Web": 1, "Markov Eclipse": 1}
+  },
+  "Synthetic Thought": {
+    Position: {Node: 2, Oclock: 6, Leaf: 1},
+    Science: 1160,
+    Node: "Artificial Intelligence",
+    Affinity: {Supremacy: 25},
+    Buildings: {Cynosure: 1},
+    Units: {SABR: 1}
+  },
+  "Swarm Intelligence": {
+    Position: {Node: 2, Oclock: 6, Leaf: 2},
+    Science: 1160,
+    Node: "Artificial Intelligence",
+    Affinity: {Harmony: 25},
+    Buildings: {Bytegeist: 1}
+  },
+  Fabrication: {
+    Position: {Node: 2, Oclock: 7, Leaf: 0},
+    Enables: {Engineering: 1, "Artificial Intelligence": 1, Mechatronics: 1, Cybernetics: 1},
+    Science: 770,
+    Leaf: {"Civil Support": 1},
+    Buildings: {"Alloy Foundry": 1},
+    Units: {Carrier: 1},
+    "Tile Improvement": {Magrail: {Description: "Construct Magrail"}}
+  },
+  "Civil Support": {
+    Position: {Node: 2, Oclock: 7, Leaf: 1},
+    Science: 1160,
+    Node: "Fabrication",
+    Affinity: {Purity: 25},
+    Units: {Holomatrix: 1}
+  },
+  Mechatronics: {
+    Position: {Node: 2, Oclock: 8, Leaf: 0},
+    Enables: {Robotics: 1, Fabrication: 1, Astrodynamics: 1},
+    Science: 1160,
+    Leaf: {"Mobile LEV": 1, "Ballistic LEV": 1},
+    Buildings: {"LEV Plant": 1, "Optical Surgery": 1, Crawler: 1}
+  },
+  "Mobile LEV": {
+    Position: {Node: 2, Oclock: 8, Leaf: 1},
+    Science: 1820,
+    Node: "Mechatronics",
+    Affinity: {Purity: 32},
+    Units: {"LEV Tank": 1}
+  },
+  "Ballistic LEV": {
+    Position: {Node: 2, Oclock: 8, Leaf: 2},
+    Science: 1820,
+    Node: "Mechatronics",
+    Buildings: {"Mass Driver": 1}
+  },
+  Robotics: {
+    Position: {Node: 2, Oclock: 9, Leaf: 0},
+    Enables: {Engineering: 1, Physics: 1, Mechatronics: 1, Bionics: 1, Nanotechnology: 1},
+    Science: 254,
+    Leaf: {"Tactical Robotics": 1, "Swarm Robotics": 1},
+    Buildings: {Autoplant: 1},
+    Units: {Tacjet: 1},
+    "Tile Improvement": {
+      "Firaxite Mine": {
+        Description: "Tile Improvement buildable by Worker units on Firaxite resources.",
+        Units: "Worker",
+        Resource: "Firaxite",
+        Effect: {"Adds the Firaxite quantity to your global total.": 1},
+        Maintenance: 2
+      },
+      Manufactory: {
+        Description: "Tile Improvement buildable by Worker units on any terrain. Provides:",
+        Units: "Worker",
+        Production: 2,
+        Yields: {Production: 3},
+        Maintenance: 2,
+        Health: -2
+      }
+    }
+  },
+  "Tactical Robotics": {
+    Position: {Node: 2, Oclock: 9, Leaf: 1},
+    Science: 770,
+    Node: "Robotics",
+    Affinity: {Supremacy: 18},
+    Units: {CNDR: 1}
+  },
+  "Swarm Robotics": {
+    Position: {Node: 2, Oclock: 9, Leaf: 2},
+    Science: 770,
+    Node: "Robotics",
+    Affinity: {Harmony: 18},
+    Buildings: {"Drone Sphere": 1},
+    Discovery: {"Transcendence victory": 1},
+    Description: "Required to complete the Transcendence victory."
+  },
+  Bionics: {
+    Position: {Node: 2, Oclock: 10, Leaf: 0},
+    Enables: {Physics: 1, Robotics: 1, Biology: 1, Augmentation: 1},
+    Science: 770,
+    Leaf: {Servomachinery: 1, "Tissue Engineering": 1},
+    Buildings: {"Bionics Lab": 1, Institute: 1},
+    "Tile Improvement": {
+      Biowell: {
+        Description: "Tile Improvement buildable by Worker units on any terrain. Provides:",
+        Units: "Worker",
+        Health: 1,
+        Yeilds: {Food: 2},
+        Maintenance: 2
+      }
+    }
+  },
+  Servomachinery: {
+    Position: {Node: 2, Oclock: 10, Leaf: 1},
+    Science: 1160,
+    Node: "Bionics",
+    Affinity: {Purity: 25},
+    Units: {Battlesuit: 1}
+  },
+  "Tissue Engineering": {
+    Position: {Node: 2, Oclock: 10, Leaf: 2},
+    Science: 1160,
+    Node: "Bionics",
+    Affinity: {Harmony: 25},
+    Effect: {Units: {Heal: 10, Restriction: "None", Description: "+10 Healing for all units."}},
+    Description: "Allows units to heal faster."
+  },
+  Bioengineering: {
+    Position: {Node: 3, Oclock: 11.5, Leaf: 0},
+    Enables: {Biology: 1, Organics: 1},
+    Science: 2480,
+    Leaf: {"Industrial Ecology": 1, Biometallurgy: 1},
+    Buildings: {"Molecular Forge": 1, "Bioglass Furnace": 1, Xenomalleum: 1}
+  },
+  "Industrial Ecology": {
+    Position: {Node: 3, Oclock: 11.5, Leaf: 1},
+    Science: 3216,
+    Node: "Bioengineering",
+    Affinity: {Purity: 40},
+    Effect: {Farm: {Production: 1}}
+  },
+  Biometallurgy: {
+    Position: {Node: 3, Oclock: 11.5, Leaf: 2},
+    Science: 3216,
+    Node: "Bioengineering",
+    Affinity: {Supremacy: 40},
+    Effect: {Generator: {Science: 1}, Mine: {Energy: 1}}
+  },
+  Synergetics: {
+    Position: {Node: 3, Oclock: .5, Leaf: 0},
+    Science: 2480,
+    Leaf: {"Designer Lifeforms": 1},
+    Buildings: {"Microbial Mine": 1, "Organ Printer": 1, Armasail: 1}
+  },
+  "Designer Lifeforms": {
+    Position: {Node: 3, Oclock: .5, Leaf: 1},
+    Science: 3216,
+    Node: "Synergetics",
+    Affinity: {Harmony: 40},
+    Units: {Rocktopus: 1}
+  },
+  "Social Dynamics": {
+    Position: {Node: 3, Oclock: 1.5, Leaf: 0},
+    Enables: {Cognition: 1, "Genetic Design": 1},
+    Science: 2480,
+    Leaf: {"Human Idealism": 1, "Human Conservation": 1, Euthenics: 1},
+    Buildings: {"Civil Creche": 1, "Soma Distillery": 1, "Terra Vault": 1}
+  },
+  "Human Idealism": {
+    Position: {Node: 3, Oclock: 1.5, Leaf: 1},
+    Science: 3216,
+    Node: "Social Dynamics",
+    Buildings: {"New Terran Myth": 1}
+  },
+  "Human Conservation": {
+    Position: {Node: 3, Oclock: 1.5, Leaf: 2},
+    Science: 3216,
+    Node: "Social Dynamics",
+    Affinity: {Purity: 40},
+    Buildings: {"Deep Memory": 1}
+  },
+  Euthenics: {
+    Position: {Node: 3, Oclock: 1.5, Leaf: 3},
+    Science: 3216,
+    Node: "Social Dynamics",
+    Affinity: {Supremacy: 40},
+    Buildings: {"Human Hive": 1}
+  },
+  Transgenics: {
+    Position: {Node: 3, Oclock: 2.5, Leaf: 0},
+    Enables: {"Genetic Design": 1, "Artificial Evolution": 1},
+    Science: 1160,
+    Leaf: {Photogenetics: 1, "Alien Hybridization": 1},
+    Buildings: {"Gene Smelter": 1, Promethean: 1},
+    Description: "Required to complete the Transcendence victory."
+  },
+  Photogenetics: {
+    Position: {Node: 3, Oclock: 2.5, Leaf: 1},
+    Science: 1820,
+    Node: "Transgenics",
+    Affinity: {Supremacy: 32},
+    Effect: {Academy: {Culture: 1}}
+  },
+  "Alien Hybridization": {
+    Position: {Node: 3, Oclock: 2.5, Leaf: 2},
+    Science: 1820,
+    Node: "Transgenics",
+    Affinity: {Harmony: 32},
+    Effect: {Miasma: {Heal: 10, Description: "+10 Healing for all units in Miasma, and immunity from Miasma"}},
+    Description: "Allows Units to heal in Miasma."
+  },
+  "Artificial Evolution": {
+    Position: {Node: 4, Oclock: 2.75, Leaf: 0},
+    Enables: {Transgenics: 1, "Alien Ethics": 1},
+    Science: 2480,
+    Leaf: {"Alien Evolution": 1, "Alien Materials": 1},
+    Buildings: {"Progenitor Garden": 1, "Resurrection Device": 1},
+    Effect: {Farm: {Science: 1}}
+  },
+  "Alien Evolution": {
+    Position: {Node: 4, Oclock: 2.75, Leaf: 1},
+    Science: 3216,
+    Node: "Artificial Evolution",
+    Affinity: {Harmony: 40},
+    Units: {"Xeno Titan": 1}
+  },
+  "Alien Materials": {
+    Position: {Node: 4, Oclock: 2.75, Leaf: 2},
+    Science: 1820,
+    Node: "Artificial Evolution",
+    Affinity: {Supremacy: 40},
+    Buildings: {Xenonova: 1}
+  },
+  "Alien Ethics": {
+    Position: {Node: 3, Oclock: 3.25, Leaf: 0},
+    Enables: {"Alien Sciences": 1, "Planetary Engineering": 1, "Artificial Evolution": 1},
+    Science: 1160,
+    Leaf: {"Alien Domestication": 1},
+    Buildings: {"Xeno Sanctuary": 1, "Mind Stem": 1, Xenodrome: 1}
+  },
+  "Alien Domestication": {
+    Position: {Node: 3, Oclock: 3.25, Leaf: 1},
+    Science: 1820,
+    Node: "Alien Ethics",
+    Affinity: {Harmony: 32},
+    Units: {"Xeno Cavalry": 1},
+    Effect: {"Xenomass Well": {Culture: 1}}
+  },
+  "Planetary Engineering": {
+    Position: {Node: 3, Oclock: 4, Leaf: 0},
+    Enables: {Terraforming: 1, "Alien Ethics": 1},
+    Science: 2480,
+    Leaf: {Geoscaping: 1, "Seismic Induction": 1},
+    Buildings: {Borehole: 1},
+    Effect: {Generator: {Production: 1}}
+  },
+  Geoscaping: {
+    Position: {Node: 3, Oclock: 4, Leaf: 1},
+    Science: 3216,
+    Node: "Planetary Engineering",
+    Affinity: {Supremacy: 40},
+    Units: {"Orbital Fabricator": 1}
+  },
+  "Seismic Induction": {
+    Position: {Node: 3, Oclock: 4, Leaf: 2},
+    Science: 3216,
+    Node: "Planetary Engineering",
+    Affinity: {Purity: 40},
+    Buildings: {"Archimedes Lever": 1}
+  },
+  "Field Theory": {
+    Position: {Node: 3, Oclock: 5, Leaf: 0},
+    Science: 2480,
+    Leaf: {"Exotic Matter": 1},
+    Buildings: {"Field Reactor": 1, Mantle: 1, "Quantum Computer": 1}
+  },
+  "Exotic Matter": {
+    Position: {Node: 3, Oclock: 5, Leaf: 1},
+    Science: 3216,
+    Node: "Field Theory",
+    Affinity: {Harmony: 40},
+    Buildings: {Ansible: 1}
+  },
+  Hypercomputing: {
+    Position: {Node: 3, Oclock: 6, Leaf: 0},
+    Science: 2480,
+    Leaf: {Hyperconductors: 1, "Neural Uploading": 1},
+    Buildings: {Hypercore: 1, "Emancipation Gate": 1},
+    Effect: {Node: {Science: 1}}
+  },
+  Hyperconductors: {
+    Position: {Node: 3, Oclock: 6, Leaf: 1},
+    Science: 3216,
+    Node: "Hypercomputing",
+    Affinity: {Purity: 40},
+    Buildings: {"Holon Chamber": 1}
+  },
+  "Neural Uploading": {
+    Position: {Node: 3, Oclock: 6, Leaf: 2},
+    Science: 3216,
+    Node: "Hypercomputing",
+    Affinity: {Supremacy: 40},
+    Units: {ANGEL: 1}
+  },
+  Cybernetics: {
+    Position: {Node: 3, Oclock: 7, Leaf: 0},
+    Science: 2480,
+    Leaf: {Autogyros: 1, Metamaterials: 1},
+    Buildings: {"Node Bank": 1},
+    Units: {"Orbital Laser": 1, "Phasal Transporter": 1}
+  },
+  Autogyros: {
+    Position: {Node: 3, Oclock: 7, Leaf: 1},
+    Science: 3216,
+    Node: "Cybernetics",
+    Affinity: {Supremacy: 40},
+    Units: {CARVR: 1}
+  },
+  Metamaterials: {
+    Position: {Node: 3, Oclock: 7, Leaf: 2},
+    Science: 3216,
+    Node: "Cybernetics",
+    Affinity: {Harmony: 40},
+    Buildings: {"Tectonic Anvil": 1}
+  },
+  Astrodynamics: {
+    Position: {Node: 3, Oclock: 8, Leaf: 0},
+    Science: 2480,
+    Leaf: {"Orbital Automation": 1, "Dark Networks": 1},
+    Buildings: {Neoplanetarium: 1, Skycrane: 1},
+    Units: {"Planet Carver": 1}
+  },
+  "Orbital Automation": {
+    Position: {Node: 3, Oclock: 8, Leaf: 1},
+    Science: 3216,
+    Node: "Astrodynamics",
+    Units: {"Deep Space Telescope": 1},
+    Effect: {Array: {Science: 1}}
+  },
+  "Dark Networks": {
+    Position: {Node: 3, Oclock: 8, Leaf: 2},
+    Science: 3216,
+    Node: "Astrodynamics",
+    Units: {"All-Seer": 1}
+  },
+  Nanotechnology: {
+    Position: {Node: 3, Oclock: 9, Leaf: 0},
+    Science: 2480,
+    Leaf: {"Tactical LEV": 1, Nanorobotics: 1},
+    Buildings: {Nanopasture: 1, Nanothermite: 1, "Exodus Gate": 1}
+  },
+  "Tactical LEV": {
+    Position: {Node: 3, Oclock: 9, Leaf: 1},
+    Science: 3216,
+    Node: "Nanotechnology",
+    Affinity: {Purity: 40},
+    Units: {"LEV Destroyer": 1}
+  },
+  Nanorobotics: {
+    Position: {Node: 3, Oclock: 9, Leaf: 2},
+    Science: 3216,
+    Node: "Nanotechnology",
+    Affinity: {Harmony: 40},
+    Effect: {Manufactory: {Science: 1}},
+    Description: "Required to complete the Transcendence victory."
+  },
+  Augmentation: {
+    Position: {Node: 3, Oclock: 10, Leaf: 0},
+    Science: 2480,
+    Leaf: {Surrogacy: 1},
+    Buildings: {Augmentary: 1, "Daedalus Ladder": 1},
+    Effect: {Generator: {Energy: 1}}
+  },
+  Surrogacy: {
+    Position: {Node: 3, Oclock: 10, Leaf: 1},
+    Science: 3216,
+    Node: "Augmentation",
+    Affinity: {Purity: 40},
+    Units: {Aegis: 1},
+    Effect: {Units: {speed: .1, Description: "+10% Worker Speed."}}
+  }
+};
+var improvementLookup = {
+  "Geothermal Well": 1,
+  Mine: 1,
+  Farm: 1,
+  Generator: 1,
+  Biowell: 1,
+  "Xenomass Well": 1,
+  Dome: 1,
+  Node: 1,
+  Plantation: 1,
+  Academy: 1,
+  Manufactory: 1,
+  Terrascape: 1,
+  Array: 1,
+  Paddock: 1,
+  Quarry: 1,
+  "Floatstone Quarry": 1,
+  "Firaxite Mine": 1
+}, resourceLookup = {
+  Fungus: 1,
+  Chitin: 1,
+  Algae: 1,
+  Oil: 1,
+  Firaxite: 1,
+  Floatstone: 1,
+  Xenomass: 1,
+  Resilin: 1,
+  Silica: 1,
+  Titanium: 1,
+  Fiber: 1,
+  Fruit: 1,
+  Copper: 1,
+  Gold: 1,
+  Tundra: 1,
+  Water: 1,
+  Coral: 1
+}, improvementData = {
+  "Petroleum Well": {Description: "PETROLEUM WELL [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on {orange} Petroleum {white} resources. [newline] [newline] Adds the [petroleum] {orange} Petroleum {white} quantity to your global total. [linebreak] Maintenance: [energy] 2 [unhealth] 1"},
+  Node: {Description: "NODE [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on any terrain. Provides: [newline] [list-item] +20 HP heal for adjacent units every turn [linebreak] {green} Yields: {white} [energy] 2"},
+  Array: {Description: "ARRAY [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on any terrain. Provides: [newline] [list-item] +1 City Orbital Coverage [linebreak] {green} Yields: {white} [science] 1 [energy] 1"},
+  "Floatstone Quarry": {Description: "FLOATSTONE QUARRY [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on {orange} Floatstone {white} resources. [newline] [newline] Adds the [floatstone] {orange} Floatstone {white} quantity to your global total."},
+  "Firaxite Mine": {Description: "FIRAXITE MINE [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on {orange} Firaxite {white} resources. [newline] [newline] Adds the [firaxite] {orange} Firaxite {white} quantity to your global total. [linebreak] Maintenance: [energy] 2"},
+  "Xenomass Well": {Description: "XENOMASS WELL [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on {orange} Xenomass {white} resources. [newline] [newline] Adds the [xenomass] {orange} Xenomass {white} quantity to your global total. [linebreak] Maintenance: [energy] 2"},
+  "Geothermal Well": {Description: "GEOTHERMAL WELL [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on {orange} Geothermal {white} resources. [newline] [newline] Adds the [geothermal] {orange} Geothermal {white} quantity to your global total."},
+  Biowell: {Description: "BIOWELL [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on any terrain. Provides: [newline] [list-item] +1 [health] Health [linebreak] {green} Yields: {white} [food] 2 [linebreak] Maintenance [energy] 2"},
+  Terrascape: {Description: "TERRASCAPE [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on any terrain. Provides: [newline] [list-item] [food] Food: +2 [newline] [list-item] [production] Production: +2 [newline] [list-item] [culture] Culture: +2 [linebreak] {green} Yields: {white} [food] 2 [production] 2 [culture] 2 [linebreak] Maintenance: [energy] 6 [newline] {red} Cannot coexist with Miasma."},
+  Dome: {Description: "DOME [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on any terrain. Provides: [newline] [list-item] +10 City Hit Points [linebreak] {green} Yields: {white} [culture] 2 [linebreak] Maintenance: [energy] 2"},
+  Academy: {Description: "ACADEMY [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on any terrain. Provides: [newline] [list-item] [science] Science: +2 [linebreak] {green} Yields: {white} [science] 3 [linebreak] Maintenance: [energy] 2"},
+  Manufactory: {Description: "MANUFACTORY [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on any terrain. Provides: [newline] [list-item] [production] Production: +2 [linebreak] {green} Yields: {white} [production] 3 [linebreak] Maintenance: [energy] 2 [unhealth] 2"},
+  "Clear Miasma": {Description: "Clear Miasma."},
+  "Work Barge": {Description: "WORK BARGE [linebreak] {yellow} Tile Improvement {white} buildable by {pink} Worker {white} units on [coral] {orange} Coral {white} and [algae] {orange} Algae {white} resources. Provides: [newline] [list-item] 1 [science] Science, 1 [production] Production on [coral] Coral [newline] [list-item] 1 [food] on [algae] Algae"},
+  "Add Miasma": {Description: "Add Miasma."},
+  Magrail: {Description: "Construct Magrail."}
+};
+var buildingData = {
+  "Old Earth Relic": {
+    Tech: "Habitation",
+    Cost: {Production: 40, Maintenance: 1},
+    Effect: {City: {Culture: 2}}
+  },
+  Clinic: {Tech: "Habitation", Cost: {Production: 60, Maintenance: 1}, Effect: {City: {Science: 1, Health: 1}}},
+  "Trade Depot": {
+    Tech: "Pioneering",
+    Cost: {Production: 60, Maintenance: 1},
+    Effect: {City: {Production: 1, "Trade Routes": 2}}
+  },
+  Vivarium: {
+    Tech: "Ecology",
+    Cost: {Production: 80, Maintenance: 1},
+    Effect: {City: {Food: 2, Desert: {Food: 1}}},
+    Description: "+1 [food] Food from Desert."
+  },
+  "Ultrasonic Fence": {
+    Tech: "Ecology",
+    Cost: {Production: 120, Maintenance: 1},
+    Effect: {City: {"Prevents Alien units from approaching within 2 tiles of this City.": 1}},
+    Description: "Prevents Alien units from approaching within 2 tiles of this City."
+  },
+  Pharmalab: {Tech: "Genetics", Cost: {Production: 95, Maintenance: 1}, Effect: {City: {Health: 2}}},
+  Cytonursery: {
+    Tech: "Genetics",
+    Cost: {Production: 90, Maintenance: 1},
+    Effect: {City: {Science: 1, Health: 1, Marsh: {Food: 1}}},
+    "Description": "+1 [food] Food from Marsh."
+  },
+  "Alien Preserve": {Tech: "Alien Lifeforms", Cost: {Production: 125, Maintenance: 1}, Effect: {City: {Culture: 2}}},
+  "Gene Vault": {
+    Tech: "Genetic Mapping",
+    Cost: {Production: 205},
+    Wonder: 1,
+    Effect: {City: {Food: 4, Culture: 1, gMod: .1}},
+    Description: "+10% [food] Growth in all cities."
+  },
+  Laboratory: {Tech: "Chemistry", Cost: {Production: 80, Maintenance: 1}, Effect: {City: {Science: 2}}},
+  Recycler: {
+    Tech: "Chemistry",
+    Cost: {Production: 75, Maintenance: 1},
+    Effect: {City: {Production: 2, "Trade Route": {Production: 1}}},
+    Description: "+1 [production] Production from internal City or Station Trade Routes."
+  },
+  "Water Refinery": {
+    Tech: "Biochemistry",
+    Cost: {Production: 150, Maintenance: 1},
+    Effect: {City: {}},
+    Requires: {Description: "Can only be constructed in coastal cities."},
+    Description: "+1 [food] Food and +1 [production] Production from Water tiles."
+  },
+  "Petrochemical Plant": {
+    Tech: "Biochemistry",
+    Cost: {Production: 160, Maintenance: 1},
+    Effect: {City: {Petroleum: {Production: 1, Energy: 1}, Specialist: {Trader: 1}}},
+    Requires: {Petroleum: 1},
+    Description: "+1 [production] Production from [petroleum] Petroleum [newline] +1 [energy] Energy from [petroleum] Petroleum"
+  },
+  Observatory: {
+    Tech: "Physics",
+    Cost: {Production: 100, Maintenance: 1},
+    Effect: {City: {Science: 2, Firaxite: {Science: 1}}},
+    Requires: {Firaxite: 1}
+  },
+  "Launch Complex": {
+    Tech: "Physics",
+    Cost: {Production: 130, Maintenance: 1},
+    Effect: {City: {"Orbital Coverage": 3}},
+    Description: "Orbital Coverage around this city increased by 3."
+  },
+  "Thorium Reactor": {
+    Tech: "Engineering",
+    Cost: {Production: 105},
+    Effect: {City: {Energy: 3, Specialist: {Trader: 2}}}
+  },
+  "Repair Facility": {
+    Tech: "Engineering",
+    Cost: {Production: 90, Maintenance: 1},
+    Effect: {City: {pMod: .1, Restriction: "Land Unit"}}
+  },
+  "Rocket Battery": {
+    Tech: "Ballistics",
+    Cost: {Production: 125, Maintenance: 1},
+    Effect: {City: {Defense: 18, "Hit Points": 15, "Anti-Orbital Range": 3}},
+    Description: "+3 Range for Anti-Orbital Strike."
+  },
+  "Stellar Codex": {
+    Tech: "Ballistics",
+    Cost: {Production: 225},
+    Wonder: 1,
+    Effect: {City: {Science: 3}},
+    Description: "+10% [production] Production for Orbital Units. [newline] Orbital Coverage around this city increased by 4."
+  },
+  "Defense Perimeter": {
+    Tech: "Defense Grid",
+    Cost: {Production: 150, Maintenance: 1},
+    Effect: {City: {Defense: 10, "Hit Points": 40}}
+  },
+  Panopticon: {
+    Tech: "Defense Grid",
+    Cost: {Production: 250},
+    Wonder: 1,
+    Effect: {City: {Culture: 1}, Units: {Military: {Sight: 1}}},
+    Description: "All Military Units receive +1 Sight."
+  },
+  "Spy Agency": {
+    Tech: "Computing",
+    Cost: {Production: 200},
+    Wonder: 1,
+    Effect: {City: {"Recruit Spies": 1}},
+    Description: "Allows Spies to be recruited."
+  },
+  Network: {
+    Tech: "Computing",
+    Cost: {Production: 185, Maintenance: 1},
+    Effect: {City: {Science: 3, Copper: {Science: 1}}}
+  },
+  "Master Control": {
+    Tech: "Autonomous Systems",
+    Cost: {Production: 225},
+    Wonder: 1,
+    Effect: {City: {Culture: 1, Buildings: {Network: 1}}, Units: {Worker: {Movement: 1}}},
+    Description: "All Worker Units receive +1 [movement] movement. Provides a free Network in the City in which it is built."
+  },
+  "Transcendental Equation": {
+    Tech: "Transcendental Math",
+    Cost: {Production: 450},
+    Project: 1,
+    Effect: {"The Signal": 1, Project: {"Decode Signal": 1}},
+    Description: "Reveals The Signal and allows the Decode Signal project to be constructed."
+  },
+  "Biofuel Plant": {
+    Tech: "Biology",
+    Cost: {Production: 220},
+    Effect: {City: {Energy: 3, Algae: {Energy: 1}, Specialist: {Trader: 2}}},
+    Requires: {Algae: 1}
+  },
+  Growlab: {
+    Tech: "Biology",
+    Cost: {Production: 265, Maintenance: 1},
+    Effect: {City: {Food: 3, Fungus: {Food: 1}}},
+    Requires: {Fungus: 1, Harmony: 4}
+  },
+  Biofactory: {
+    Tech: "Organics",
+    Cost: {Production: 290, Maintenance: 1},
+    Effect: {City: {Production: 3, Chitin: {Production: 1}}},
+    Requires: {Petroleum: 1, Harmony: 4}
+  },
+  "Mass Digester": {
+    Tech: "Organics",
+    Cost: {Production: 255, Maintenance: 1},
+    Effect: {City: {Tundra: {Energy: 1}, Specialist: {Grower: 4}}}
+  },
+  Neurolab: {
+    Tech: "Cognition",
+    Cost: {Production: 255, Maintenance: 1},
+    Effect: {City: {sMod: .1, Firaxite: {Science: 1}}},
+    Requires: {Firaxite: 1, Supremacy: 4}
+  },
+  Holosuite: {
+    Tech: "Cognition",
+    Cost: {Production: 245, Maintenance: 1},
+    Effect: {City: {Culture: 2, Firaxite: {Culture: 1}, Specialist: {Artist: 2}}},
+    Requires: {Firaxite: 1}
+  },
+  "Precog Project": {
+    Tech: "Collaborative Thought",
+    Cost: {Production: 450},
+    Wonder: 1,
+    Effect: {City: {Culture: 2, Health: 2}, Units: {sMod: .15, rMod: .15, Restriction: "Friendly Territory"}},
+    Description: "+15% [strength] Combat Strength and +15% [ranged] Ranged Strength against Military Units in friendly territory."
+  },
+  "Gene Garden": {
+    Tech: "Genetic Design",
+    Cost: {Production: 200, Maintenance: 1},
+    Effect: {City: {Science: 1, Health: 2}},
+    Requires: {Purity: 2}
+  },
+  "Cloning Plant": {
+    Tech: "Genetic Design",
+    Cost: {Production: 210, Maintenance: 1},
+    Effect: {City: {Food: 2, Xenomass: {Production: 1}, Specialist: {Grower: 1}}},
+    Requires: {Xenomass: 1}
+  },
+  "Ectogenesis Pod": {
+    Tech: "Genetic Design",
+    Cost: {Production: 300},
+    Wonder: 1,
+    Effect: {City: {Food: 3, Production: 3, Farm: {Food: 1}}},
+    Description: "All {yellow} Farms {white} produce +1 [food] Food"
+  },
+  "Xenofuel Plant": {
+    Tech: "Alien Sciences",
+    Cost: {Production: 190, Maintenance: 1},
+    Effect: {City: {Energy: 3, Xenomass: {Energy: 1}, Specialist: {Trader: 2}}},
+    Requires: {Xenomass: 1, Harmony: 2}
+  },
+  Xenonursery: {
+    Tech: "Alien Sciences",
+    Cost: {Production: 180, Maintenance: 1},
+    Effect: {City: {sMod: .1, Xenomass: {Science: 1}, Specialist: {Scientist: 1}}},
+    Requires: {Xenomass: 1, Harmony: 2}
+  },
+  "Gaian Well": {
+    Tech: "Terraforming",
+    Cost: {Production: 265},
+    Effect: {City: {Energy: 3}},
+    Requires: {Geothermal: 1, Purity: 4}
+  },
+  "Command Center": {
+    Tech: "Communications",
+    Cost: {Production: 310, Maintenance: 1},
+    Effect: {City: {Defense: 20, "Hit Points": 20}}
+  },
+  "Feedsite Hub": {
+    Tech: "Communications",
+    Cost: {Production: 225, Maintenance: 1},
+    Effect: {City: {Culture: 3}},
+    Description: "+1 [science] Science from international City or Station Trade Routes.",
+    Requires: {Supremacy: 2}
+  },
+  Memetwork: {
+    Tech: "Orbital Networks",
+    Cost: {Production: 700},
+    Wonder: 1,
+    Effect: {City: {Culture: 4, cMod: .25, Health: 2}},
+    Description: "+25% [culture] Culture in the City in which it is built."
+  },
+  "CEL Cradle": {
+    Tech: "Artificial Intelligence",
+    Cost: {Production: 310, Maintenance: 1},
+    Effect: {City: {Specialist: {Artist: 4}}},
+    Requires: {Supremacy: 4}
+  },
+  "Surveillance Web": {
+    Tech: "Artificial Intelligence",
+    Cost: {Production: 235, Maintenance: 1},
+    Effect: {City: {"Hit Points": 5, "Max Intrigue": -2}},
+    Description: "Maximum Covert Ops Intrigue for this city reduced by 2."
+  },
+  "Markov Eclipse": {
+    Tech: "Artificial Intelligence",
+    Cost: {Production: 1050},
+    Wonder: 1,
+    Effect: {City: {Science: 4, Culture: 1}, Units: {xMod: .5}},
+    Description: "Military Units gain experience 50% faster."
+  },
+  Cynosure: {
+    Tech: "Synthetic Thought",
+    Cost: {Production: 1550},
+    Wonder: 1,
+    Effect: {City: {Science: 7}, Units: {"Veterancy Max": 1}},
+    Description: "Allows an additional level of Veterancy for Military Units."
+  },
+  Bytegeist: {
+    Tech: "Swarm Intelligence",
+    Cost: {Production: 1250},
+    Wonder: 1,
+    Effect: {City: {Science: 2, Culture: 4}, Virtue: {Cost: {cMod: -.15}}},
+    Description: "-15% [culture] Culture cost for Virtues"
+  },
+  "Alloy Foundry": {
+    Tech: "Fabrication",
+    Cost: {Production: 310, Maintenance: 1},
+    Effect: {City: {Production: 2, Titanium: {Production: 2}, Specialist: {Engineer: 2}}},
+    Requires: {Titanium: 1}
+  },
+  "LEV Plant": {
+    Tech: "Mechatronics",
+    Cost: {Production: 390, Floatstone: 2, Maintenance: 1},
+    Effect: {City: {Production: 4}},
+    Requires: {Purity: 5}
+  },
+  "Optical Surgery": {
+    Tech: "Mechatronics",
+    Cost: {Production: 370, Firaxite: 2, Maintenance: 1},
+    Effect: {City: {Health: 4, Silica: {Health: 1}}},
+    Requires: {Supremacy: 5}
+  },
+  Crawler: {
+    Tech: "Mechatronics",
+    Cost: {Production: 1250},
+    Wonder: 1,
+    Effect: {City: {Culture: 1}, "Wonder Production": .25},
+    Description: "+25% [production] Production for Wonders."
+  },
+  "Mass Driver": {
+    Tech: "Ballistic LEV",
+    Cost: {Production: 950},
+    Wonder: 1,
+    Effect: {Strike: {Strength: .25, Orbital: {Range: 5}}},
+    Description: "+5 Range for Anti-Orbial Strike. [newline] +25% City Strike Strength. +5 City Orbital Strike Range."
+  },
+  Autoplant: {
+    Tech: "Robotics",
+    Cost: {Production: 210, Maintenance: 1},
+    Effect: {City: {Production: 2, Specialist: {Engineer: 2}}},
+    Description: "+1 [energy] Energy from international City or Station Trade Routes."
+  },
+  "Drone Sphere": {
+    Tech: "Swarm Robotics",
+    Cost: {Production: 650},
+    Wonder: 1,
+    Effect: {City: {Science: 2, Buildings: "Surveillance Web"}, Units: {Healing: {"Friendly Territory": 10}}},
+    Description: "+10 Healing for Military Units in friendly territory. Provides a free Surveillance Web in the City in which it is built."
+  },
+  "Bionics Lab": {
+    Tech: "Bionics",
+    Cost: {Production: 265, Maintenance: 1},
+    Effect: {City: {hMod: .2, Resilin: {Production: 1}}},
+    Requires: {Resilin: 1, Purity: 4}
+  },
+  Institute: {Tech: "Bionics", Cost: {Production: 310, Maintenance: 1}, Effect: {City: {Specialist: {Scientist: 3}}}},
+  "Molecular Forge": {
+    Tech: "Bioengineering",
+    Cost: {Production: 390, Maintenance: 1},
+    Effect: {City: {Food: 5}},
+    Requires: {Harmony: 8}
+  },
+  "Bioglass Furnace": {
+    Tech: "Bioengineering",
+    Cost: {Production: 470, Firaxite: 2, Maintenance: 1},
+    Effect: {City: {Production: 2, pMod: .15}},
+    Requires: {Supremacy: 8}
+  },
+  Xenomalleum: {
+    Tech: "Bioengineering",
+    Cost: {Production: 1050},
+    Wonder: 1,
+    Effect: {City: {Energy: 7}, Generator: {Energy: 2}}
+  },
+  "Microbial Mine": {
+    Tech: "Synergetics",
+    Cost: {Production: 430, Xenomass: 2, Maintenance: 1},
+    Effect: {City: {Production: 3, pMod: .1}},
+    Requires: {Harmony: 7}
+  },
+  "Organ Printer": {
+    Tech: "Synergetics",
+    Cost: {Production: 390, Maintenance: 1},
+    Effect: {City: {sMod: .15}},
+    Requires: {Supremacy: 8}
+  },
+  Armasail: {
+    Tech: "Synergetics",
+    Cost: {Production: 1250},
+    Wonder: 1,
+    Effect: {City: {Production: 4, "Hit Points": 100}}
+  },
+  "Civil Creche": {
+    Tech: "Social Dynamics",
+    Cost: {Production: 445, Maintenance: 1},
+    Effect: {City: {Food: 2, Specialist: {Grower: 2}}}
+  },
+  "Soma Distillery": {
+    Tech: "Social Dynamics",
+    Cost: {Production: 400, Maintenance: 1},
+    Effect: {City: {Health: 4, Specialist: {Artist: 2}}}
+  },
+  "Terra Vault": {
+    Tech: "Social Dynamics",
+    Cost: {Production: 390, Maintenance: 1},
+    Effect: {City: {cMod: .15}},
+    Requires: {Purity: 7}
+  },
+  "New Terran Myth": {Tech: "Human Idealism", Cost: {Production: 750}, Wonder: 1, Effect: {City: {Culture: 4}}},
+  "Deep Memory": {
+    Tech: "Human Conservation",
+    Cost: {Production: 1450},
+    Wonder: 1,
+    Effect: {City: {Culture: 7}, Virtue: 2},
+    Description: "Two Free Virtues"
+  },
+  "Human Hive": {
+    Tech: "Euthenics",
+    Cost: {Production: 1150},
+    Wonder: 1,
+    Effect: {City: {Production: 3, "Max Intrigue": -4}},
+    Description: "Maximum Covert Ops Intrigue for this city reduced by 4."
+  },
+  "Gene Smelter": {
+    Tech: "Transgenics",
+    Cost: {Production: 350, Maintenance: 1},
+    Effect: {City: {Health: 3, Specialist: {Scientist: 2}}}
+  },
+  Promethean: {
+    Tech: "Transgenics",
+    Cost: {Production: 950},
+    Wonder: 1,
+    Effect: {City: {Culture: 2, Health: 4}, Virtue: 1},
+    Description: "Free Virtue."
+  },
+  "Progenitor Garden": {
+    Tech: "Artificial Evolution",
+    Cost: {Production: 430, Xenomass: 4, Maintenance: 1},
+    Effect: {City: {hMod: .2}},
+    Requires: {Harmony: 10}
+  },
+  "Resurrection Device": {
+    Tech: "Artificial Evolution",
+    Cost: {Production: 1350},
+    Wonder: 1,
+    Effect: {City: {Health: 8}}
+  },
+  Xenonova: {Tech: "Alien Materials", Cost: {Production: 1150}, Wonder: 1, Effect: {City: {Food: 7, Health: 2}}},
+  "Xeno Sanctuary": {
+    Tech: "Alien Ethics",
+    Cost: {Production: 330, Xenomass: 1, Maintenance: 1},
+    Effect: {City: {Culture: 4}, Transcendence: 1},
+    Requires: {Harmony: 5},
+    Description: "Adds one point per turn to Transcendence Victory progress."
+  },
+  "Mind Stem": {
+    Tech: "Alien Ethics",
+    Cost: {Production: 600, Maintenance: 1},
+    Effect: {City: {Culture: 4}, Transcendence: 1},
+    Description: "Adds one point per turn to Transcendence Victory progress."
+  },
+  Xenodrome: {
+    Tech: "Alien Materials",
+    Cost: {Production: 750, Geothermal: 3},
+    Wonder: 1,
+    Effect: {City: {Culture: 4, Buildings: {"Xeno Sanctuary": 1}}},
+    Description: "Provides a free Xeno Sanctuary in the City in which it is built."
+  },
+  Borehole: {
+    Tech: "Planetary Engineering",
+    Cost: {Production: 500, Maintenance: 1},
+    Effect: {City: {Production: 5}},
+    Requires: {Purity: 8}
+  },
+  "Archimedes Lever": {
+    Tech: "Seismic Induction",
+    Cost: {Production: 1250, Geothermal: 5},
+    Wonder: 1,
+    Effect: {City: {Production: 4, Culture: 1, Defense: 50}}
+  },
+  "Field Reactor": {
+    Tech: "Field Theory",
+    Cost: {Production: 500},
+    Effect: {City: {Energy: 2, eMod: .1, Specialist: {Trader: 2}}}
+  },
+  Mantle: {
+    Tech: "Field Theory",
+    Cost: {Production: 470, Floatstone: 4, Maintenance: 1},
+    Effect: {City: {Science: 3, sMod: .1}},
+    Requires: {Purity: 8}
+  },
+  "Quantum Computer": {
+    Tech: "Field Theory",
+    Cost: {Production: 1050},
+    Wonder: 1,
+    Effect: {City: {Science: 5}, Tech: 1},
+    Description: "Free Technology"
+  },
+  Ansible: {
+    Tech: "Field Theory",
+    Cost: {Production: 1500},
+    Wonder: 1,
+    Effect: {City: {Energy: 4, Science: 4, Buildings: "Feedsite Hub"}},
+    Description: "Provides a free Feedsite Hub in the City in which it is built."
+  },
+  "Emancipation Gate": {
+    Tech: "Hypercomputing",
+    Cost: {Production: 1750},
+    Wonder: 1,
+    Planetary: 1,
+    Effect: {Emancipation: 1},
+    Effect: {City: {1: 1}},
+    Requires: {Supremacy: 13},
+    Description: "Planetary Wonder. used to send military Units through a warp gate to Earth. Leads to the Emancipation Victory."
+  },
+  Hypercore: {
+    Tech: "Hypercomputing",
+    Cost: {Production: 470, Firaxite: 4, Maintenance: 1},
+    Effect: {City: {Science: 2, sMod: .15}},
+    Requires: {Supremacy: 10}
+  },
+  "Holon Chamber": {Tech: "Seismic Induction", Cost: {Production: 1050}, Wonder: 1, Effect: {City: {Science: 5}}},
+  "Node Bank": {
+    Tech: "Cybernetics",
+    Cost: {Production: 375, Maintenance: 1},
+    Effect: {City: {Defense: 24, "Hit Points": 10, Specialist: {Engineer: 2}}}
+  },
+  "Tectonic Anvil": {
+    Tech: "Metamaterials",
+    Cost: {Production: 1550, Geothermal: 5},
+    Wonder: 1,
+    Effect: {City: {Production: 9}},
+    Requires: {Description: "City must have at least one Canyon within 2 tiles."}
+  },
+  Neoplanetarium: {
+    Tech: "Astrodynamics",
+    Cost: {Production: 500, Maintenance: 1},
+    Effect: {City: {pOrbitalMod: {"Orbital Units": .4}, "Orbital Coverage": 10}},
+    Description: "+40% [production] Production for Orbital Units. [newline] Orbital Coverage around this city increased by 3."
+  },
+  Skycrane: {
+    Tech: "Astrodynamics",
+    Cost: {Production: 470, Floatstone: 4, Maintenance: 1},
+    Effect: {City: {pMod: .15}},
+    Requires: {Purity: 10}
+  },
+  Nanopasture: {
+    Tech: "Nanotechnology",
+    Cost: {Production: 415, Maintenance: 1},
+    Effect: {City: {"Food Carryover": .3, Specialist: {Scientist: 2}}},
+    Description: "30% [food] Food carried over after City Growth"
+  },
+  Nanothermite: {Tech: "Nanotechnology", Cost: {Production: 1050}, Wonder: 1, Effect: {City: {Energy: 4, Defense: 30}}},
+  "Exodus Gate": {
+    Tech: "Nanotechnology",
+    Cost: {Production: 1750},
+    Wonder: 1,
+    Planetary: 1,
+    Effect: {City: {1: 1}},
+    Requires: {Purity: 13},
+    Description: "Planetary Wonder. Used to bring Earthling Settlers through a warp gate from Earth. Leads to the Promised Land Victory."
+  },
+  Augmentary: {
+    Tech: "Augmentation",
+    Cost: {Production: 500},
+    Effect: {City: {Food: 1, Production: 1, Energy: 1, Science: 1, Culture: 1}},
+    Requires: {Supremacy: 7}
+  },
+  "Daedalus Ladder": {
+    Tech: "Augmentation",
+    Cost: {Production: 1550, Geothermal: 2},
+    Wonder: 1,
+    Planetary: 1,
+    Effect: {City: {Food: 2, Health: 3}}
+  }
+};
+var affinityData = {
+  Harmony: {Description: "Your Colony devotes itself further to the Harmony Affinity, earning points towards unit upgrades, and unlocking additional Harmony-specific benefits."},
+  Purity: {Description: "Your Colony devotes itself further to the Purity Affinity, earning points towards unit upgrades, and unlocking additional Purity-specific benefits."},
+  Supremacy: {Description: "Your Colony devotes itself further to the Supremacy Affinity, earning points towards unit upgrades, and unlocking additional Supremacy-specific benefits."}
+}, scienceTooltip = {Science: {Description: "[science] Blah Blah Blah"}}, affinityBonuses = {
+  Harmony: {Description: "[harmony] 1: Alien aggression level returns to neutral twice as quickly. [newline] [harmony] 3: Units take 5HP less damage from Miasma. [newline] [harmony] 6: Units heal 5HP in Miasma. [newline] [harmony] 8: 4 [xenomass] Xenomass resources for free. [newline] [harmony] 11: Call Worm Strike Operation can be performed by Covert Agents. [newline] [harmony] 13: Mind Flower can be constructed for Transcendence Victory Quest."},
+  Purity: {Description: "[purity] 1: Aliens will not attack tiles with Explorer Units. [newline] [purity] 3: +20% [strength] Strength and [ranged-strength] Ranged Strength when attacking or defending against Aliens. [newline] [purity] 6: +2 Orbital Coverage in all Cities. [newline] [purity] 8: 4 [floatstone] Floatstone resources for free. [newline] [purity] 11: Dirty Bomb Operation can be performed by Covert Agents. [newline] [purity] 13: Exodus Gate can be constructed for Promised Land Victory Quest."},
+  Supremacy: {Description: "[supremacy] 1: Explorer Units can build an additional Expedition. [newline] [supremacy] 3: Roads and Magrails do not cost any [energy] Energy to maintain. [newline] [supremacy] 6: Orbital Coverage on and next to any tile with [firaxite] Firaxite. [newline] [supremacy] 8: 4 [firaxite] Firaxite resources for free. [newline] [supremacy] 11: Sabotag Operation can be performed by Covert Agents. [newline] [supremacy] 13: Emancipation Gate can be constructed for Emancipation Victory Quest."}
+}, affinityLevels = {
+  Dominant: [0, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30],
+  NonDominant: [0, 11, 12, 13, 16, 20, 23, 26, 29, 32, 35, 38, 41, 44, 48, 51, 54, 57, 60]
+};
 
-var UI=function(){PIXI.DisplayObjectContainer.call(this)};UI.prototype=Object.create(PIXI.DisplayObjectContainer.prototype),UI.prototype.constructor=UI,UI.prototype.build=function(){var i="#F10B38",t="#E7AC21",n="#21C5BA";this.affinity={},this.affinity.names={Harmony:!0,Purity:!0,Supremacy:!0},this.affinity.points={Harmony:0,Purity:0,Supremacy:0},this.affinity.levels={Harmony:0,Purity:0,Supremacy:0},this.affinity.dominant={Harmony:"Dominant",Purity:"Dominant",Supremacy:"Dominant"},this.affinity.ids={Harmony:0,Purity:0,Supremacy:0};var e=12;this.bar=PIXI.Sprite.fromFrame("ui-bar.png"),this.bar.position.x=-200,this.bar.position.y=0,this.bar.width=screen.width+400,this.addChild(this.bar),this.harmony=new UiCounter,this.harmony.parentPtr=this,this.harmony.build("Harmony",0,n,"left",e),this.addChild(this.harmony),this.affinity.ids.Harmony=this.children.length-1,this.purity=new UiCounter,this.purity.parentPtr=this,this.purity.build("Purity",0,i,"left",e+56),this.addChild(this.purity),this.affinity.ids.Purity=this.children.length-1,this.supremacy=new UiCounter,this.supremacy.parentPtr=this,this.supremacy.build("Supremacy",0,t,"left",e+112),this.addChild(this.supremacy),this.affinity.ids.Supremacy=this.children.length-1,this.zoomin=PIXI.Sprite.fromFrame("plus.png"),this.zoomin.position.y=0,this.zoomin.interactive=!0,this.addChild(this.zoomin),this.zoomin.mousedown=this.zoomin.touchstart=function(){tw.zoomin()},this.zoomtxt=new PIXI.Text("Zoom",{font:"16px Arial",fill:"#808080",align:"left"}),this.zoomtxt.position.y=6,this.zoomtxt.interactive=!0,this.addChild(this.zoomtxt),this.zoomtxt.mousedown=this.zoomtxt.touchstart=function(){tw.unzoom()},this.zoomout=PIXI.Sprite.fromFrame("minus.png"),this.zoomout.position.y=0,this.zoomout.interactive=!0,this.addChild(this.zoomout),this.zoomout.mousedown=this.zoomout.touchstart=function(){tw.zoomout()},this.fullscreen=!1,this.fullscreen=PIXI.Sprite.fromFrame("full-screen.png"),this.fullscreen.position.y=3,this.fullscreen.interactive=!0,inIframe()&&(this.fullscreen.visible=!1),this.addChild(this.fullscreen),this.notfullscreen=PIXI.Sprite.fromFrame("no-full-screen.png"),this.notfullscreen.position.y=3,this.notfullscreen.visible=!1,this.notfullscreen.mousedown=this.notfullscreen.touchstart=function(){tw.nofullscreen(),this.parent.fullscreen.visible=!0,this.parent.fullscreen.interactive=!0,this.parent.notfullscreen.visible=!1,this.parent.notfullscreen.interactive=!1},this.fullscreen.mousedown=this.fullscreen.touchstart=function(){tw.fullscreen(),this.parent.fullscreen.visible=!1,this.parent.fullscreen.interactive=!1,this.parent.notfullscreen.visible=!0,this.parent.notfullscreen.interactive=!0},this.addChild(this.notfullscreen),this.science=new UiCounter,this.science.parentPtr=this,this.science.build("Science",0,"#0099DD","right",10),this.science.interactive=!0,this.addChild(this.science)},UI.prototype.resetAffinity=function(){for(var i in this.affinity.names)this.affinity.points[i]=0,this.affinity.levels[i]=0,this.affinity.dominant[i]="Dominant";this.updateAffinityText()},UI.prototype.updateAffinityText=function(){this.harmony.children[2].setText(this.affinity.levels.Harmony),this.purity.children[2].setText(this.affinity.levels.Purity),this.supremacy.children[2].setText(this.affinity.levels.Supremacy),this.updateAffinityTooltip("Harmony",this.affinity.levels.Harmony,this.affinity.points.Harmony,this.harmony.children[this.harmony.tooltip.id]),this.updateAffinityTooltip("Purity",this.affinity.levels.Purity,this.affinity.points.Purity,this.purity.children[this.purity.tooltip.id]),this.updateAffinityTooltip("Supremacy",this.affinity.levels.Supremacy,this.affinity.points.Supremacy,this.supremacy.children[this.supremacy.tooltip.id])},UI.prototype.updateAffinityTooltip=function(i,t,n,e){var s=this.affinity.dominant[i],o=affinityLevels[s][t+1];e.children[4].setText(this.affinity.levels[i]),e.children[e.children.length-6].setText(isNaN(o)?"0/0":n+"/"+o)},UI.prototype.updateDominant=function(i){if("Dominant"!==this.affinity.dominant[i]){var t=0,n=0;for(var e in this.affinity.levels)t<this.affinity.levels[e]?(t=this.affinity.levels[e],n=this.affinity.points[e]):t===this.affinity.levels[e]&&n<this.affinity.points[e]&&(n=this.affinity.points[e]);for(var e in this.affinity.levels)this.affinity.dominant[e]=this.affinity.levels[e]<t?"NonDominant":this.affinity.levels[e]===t&&this.affinity.points[e]<n?"NonDominant":"Dominant"}else for(var e in this.affinity.dominant)e!=i&&(this.affinity.dominant[e]="NonDominant")},UI.prototype.updateAffinity=function(i,t){for(var n=affinityLevels[this.affinity.dominant[i]][this.affinity.levels[i]+1]-this.affinity.points[i],e=0;t>=e;e++)e===n?(this.affinity.levels[i]++,this.affinity.points[i]=0,this.updateDominant(i),n+=affinityLevels[this.affinity.dominant[i]][this.affinity.levels[i]+1]):(this.affinity.points[i]++,this.updateDominant(i));this.updateAffinityText()};
 
-function TechWeb(i,t){function e(){1===R.alpha?(T.render(L),setTimeout(e,2e3),T.render(L),R.alpha-=.05):R.alpha>.1?(T.render(L),setTimeout(e,30),R.alpha-=.05,T.render(L)):(R.visible=!1,requestAnimFrame(e),T.render(L))}function o(){tw.ui=new UI,tw.ui.build(),tw.ui.zoomin.position.x=T.width/2-60,tw.ui.zoomtxt.position.x=T.width/2-25,tw.ui.zoomout.position.x=T.width/2+20,L.addChild(tw.ui),tw.ui.fullscreen.position.x=T.width-35,tw.ui.notfullscreen.position.x=T.width-35,tw.ui.science.position.x=T.width-190;for(var i in techs){var t=n(i,techs[i]);_.addChild(t)}for(var i in _.children){var o=_.children[i].name;y[o]=i}f(),_.position.x=Math.floor(A),_.position.y=Math.floor(F),requestAnimFrame(e)}function n(i,t){var e=new PIXI.DisplayObjectContainer;e.interactive=!0,e=g(e),e.techData=t,e.name=i;var o=[0,0,6,0],n=[12,11,11,4],a=[39,0,31,0],s=[39,33,0,0],h=PIXI.Sprite.fromFrame("tech-disabled.png"),l=PIXI.Sprite.fromFrame("tech-disabled-small.png"),r=PIXI.Sprite.fromFrame("tech-enabled.png"),d=PIXI.Sprite.fromFrame("tech-enabled-small.png"),p=PIXI.Sprite.fromFrame("tech-selected.png"),c=PIXI.Sprite.fromFrame("tech-selected-small.png"),f=PIXI.Sprite.fromFrame("leaf-title.png"),v=PIXI.Sprite.fromFrame("node-icons.png"),w=PIXI.Sprite.fromFrame("node-title.png");if(f.alpha=1,h.name="tech-disabled.png",l.name="tech-disabled-small.png",r.name="tech-enabled.png",d.name="tech-enabled-small.png",p.name="tech-selected.png",c.name="tech-selected-small.png",f.name="leaf-title.png",v.name="node-icons.png",w.name="node-title.png",l.position.x=o[2],d.position.x=o[2],c.position.x=o[2],w.position.x=a[0],w.position.y=a[1],v.position.x=s[0],v.position.y=s[1],f.position.x=a[2],f.position.y=a[3],r.alpha=0,d.alpha=0,p.alpha=0,c.alpha=0,e.isOn=!1,e.isEnabled=!1,"Habitation"===i?e.isOn=!0:"undefined"!=typeof I[i]&&(e.isEnabled=!0),"undefined"!=typeof t.Node){var y=2,C=t.Node.toLowerCase().replace(/ /g,"-")+".png";d.alpha=e.isEnabled,c.alpha=e.isOn,e.addChild(f),e.addChild(l),e.addChild(d),e.addChild(c)}else{var y=0,C=i.toLowerCase().replace(/ /g,"-")+".png";r.alpha=e.isEnabled,p.alpha=e.isOn,e.addChild(w),e.addChild(v),e.addChild(h),e.addChild(r),e.addChild(p)}var P=PIXI.Sprite.fromFrame(C);P.position.x=n[y],P.position.y=n[y+1],P.interactive=!0,P.alpha=.5,P.alphaWas=.5,e.position.x=u(e.techData.Position),e.position.y=m(e.techData.Position);var O=new PIXI.Text(i.toUpperCase(),{font:"14px Arial",fill:"white",align:"left"}),X=new PIXI.Text("0",{font:"28px Arial",fill:"white",align:"right"});X.visible=!1,"undefined"!=typeof t.Node?(iconOffsetY=22,techMarginX=62,techMarginY=7,X.position.x=245,X.position.y=1):(iconOffsetY=33,techMarginX=71,techMarginY=7,X.position.x=262,X.position.y=1),O.position.x=techMarginX,O.position.y=techMarginY,e.addChild(O),e.addChild(P),e.addChild(X),e.orderedId=e.children.length-1,e.tooltipLookup=[],e.iconLookup=[];var A=40,F=30,z=30;if("undefined"!=typeof t.Affinity)for(var L in t.Affinity){var T=PIXI.Sprite.fromFrame(L.toLowerCase().replace(/ /g,"-")+".png");T.position.x=techMarginX,T.position.y=iconOffsetY+1,T.interactive=!0,T.alpha=1===I[i]?M:W,e.addChild(T),e.iconLookup[L]=e.children.length-1;var D=new Tooltip;D.build(L,1,affinityData[L],"affinity",S),D.position.x=e.position.x+T.position.x+F,D.position.y=e.position.y+T.position.y+z,D.name=L,J.addChild(D),T.tooltip=J.children.length-1,techMarginX+=A,T.mouseover=function(){this.isOver=!0,J.children[this.tooltip].show(),this.alphaWas=this.alpha,this.alpha=1,this.isdown},T.mouseout=function(){this.isOver=!1,J.children[this.tooltip].hide(),this.alpha=this.alphaWas,this.isdown}}if("undefined"!=typeof t.Units)for(var k in t.Units){var j=PIXI.Sprite.fromFrame(k.toLowerCase().replace(/ /g,"-")+".png");j.position.x=techMarginX,j.position.y=iconOffsetY+2,j.interactive=!0,j.alpha=1===I[i]?M:E,e.addChild(j),e.iconLookup[k]=e.children.length-1;var R=new Tooltip;R.build(k,1,unitData[k],"unit",S),R.position.x=e.position.x+j.position.x+F,R.position.y=e.position.y+j.position.y+z,R.name=k,J.addChild(R),j.tooltip=J.children.length-1,techMarginX+=A,j.mouseover=function(){this.isOver=!0,J.children[this.tooltip].show(),this.alphaWas=this.alpha,this.alpha=1,this.isdown},j.mouseout=function(){this.isOver=!1,J.children[this.tooltip].hide(),this.alpha=this.alphaWas,this.isdown}}if("undefined"!=typeof t.Buildings)for(var Y in t.Buildings){var H=PIXI.Sprite.fromFrame(Y.toLowerCase().replace(/ /g,"-")+".png");H.position.x=techMarginX,H.position.y=iconOffsetY,H.interactive=!0,H.alpha=1===I[i]?M:E,e.addChild(H),e.iconLookup[Y]=e.children.length-1;var q=new Tooltip;q.build(Y,1,buildingData[Y],"building",S),q.position.x=e.position.x+H.position.x+F,q.position.y=e.position.y+H.position.y+z,q.name=Y,J.addChild(q),H.tooltip=J.children.length-1,techMarginX+=A,H.mouseover=function(){this.isOver=!0,J.children[this.tooltip].show(),this.alphaWas=this.alpha,this.alpha=1,this.isdown},H.mouseout=function(){this.isOver=!1,J.children[this.tooltip].hide(),this.alpha=this.alphaWas,this.isdown}}if("undefined"!=typeof t.Resource){var N=PIXI.Sprite.fromFrame(t.Resource.toLowerCase().replace(/ /g,"-")+".png");N.position.x=techMarginX,N.position.y=iconOffsetY+3,N.interactive=!0,N.alpha=1===I[i]?M:E,e.addChild(N),e.iconLookup[t.Resource]=e.children.length-1;var U=new Tooltip;U.build(t.Resource,1,!1,"resource",S),U.position.x=e.position.x+N.position.x+F,U.position.y=e.position.y+N.position.y+z,U.name=t.Resource,J.addChild(U),N.tooltip=J.children.length-1,techMarginX+=A,N.mouseover=function(i){this.isOver=!0,J.children[this.tooltip].show(i),this.alphaWas=this.alpha,this.alpha=1,this.isdown},N.mouseout=function(i){this.isOver=!1,J.children[this.tooltip].hide(i),this.alpha=this.alphaWas,this.isdown}}if("undefined"!=typeof t["Tile Improvement"])for(var B in t["Tile Improvement"]){var G=PIXI.Sprite.fromFrame(B.toLowerCase().replace(/ /g,"-")+".png");G.position.x=techMarginX,G.position.y=iconOffsetY,G.interactive=!0,G.alpha=1===I[i]?M:E,e.addChild(G),e.iconLookup[B]=e.children.length-1;var K=new Tooltip;K.build(B,1,improvementData[B],"improvement",S),K.position.x=e.position.x+G.position.x+F,K.position.y=e.position.y+G.position.y+z,K.name=B,J.addChild(K),G.tooltip=J.children.length-1,techMarginX+=A,G.mouseover=function(){this.isOver=!0,J.children[this.tooltip].show(),this.alphaWas=this.alpha,this.alpha=1,this.isdown},G.mouseout=function(){this.isOver=!1,J.children[this.tooltip].hide(),this.alpha=this.alphaWas,this.isdown}}if("undefined"!=typeof t.Effect)for(var _ in t.Effect){var Q=PIXI.Sprite.fromFrame("effect.png");Q.position.x=techMarginX,Q.position.y=iconOffsetY+3,Q.interactive=!0,Q.alpha=1===I[i]?M:E,e.addChild(Q),e.iconLookup[t.Effect[_]]=e.children.length-1;var V=new Tooltip;V.build(_,1,t.Effect[_],"effect",S),V.position.x=e.position.x+Q.position.x+F,V.position.y=e.position.y+Q.position.y+z,V.name=t.Effect[_],J.addChild(V),Q.tooltip=J.children.length-1,techMarginX+=A,Q.mouseover=function(){this.isOver=!0,J.children[this.tooltip].show(),this.alphaWas=this.alpha,this.alpha=1,this.isdown},Q.mouseout=function(){this.isOver=!1,J.children[this.tooltip].hide(),this.alpha=this.alphaWas,this.isdown}}var Z=new Tooltip;return Z.build(i,I[i],t,"tech",S),Z.position.x=e.position.x+40,Z.position.y=e.position.y+40,J.addChild(Z),P.tooltip=J.children.length-1,P.mouseover=function(){this.isOver=!0,J.children[this.tooltip].show(),this.alphaWas=this.alpha,this.alpha=1,this.isdown},P.mouseout=function(){this.isOver=!1,J.children[this.tooltip].hide(),this.alpha=this.alphaWas,this.isdown},e.offset="undefined"!=typeof e.techData.Node?1:2,"undefined"!=typeof I[e.name]&&(1===I[e.name]&&(e.getChildAt(e.offset+4).alpha=M,e.getChildAt(e.offset+4).alphaWas=M),.5===I[e.name]&&(e.getChildAt(e.offset+4).alpha=W,e.getChildAt(e.offset+4).alphaWas=W)),e.turnOff=function(){if("undefined"!=typeof b[this.name])return 0;if(0===I[this.name])return 0;I[this.name]=0;var i=x.indexOf(this.name);-1!=i&&(x=x.slice(0,i))},e.turnOn=function(){return 1===I[this.name]?0:(I[this.name]=1,this.isOn=!0,this.isEnabled=!1,x.push(this.name),void 0)},e.turnEnabled=function(i){if(.5===I[this.name])return 0;if("Habitation"===this.name)return 0;if(I[this.name]=.5,this.isOn=!1,this.isEnabled=!0,i){var t=x.indexOf(this.name);-1!=t&&(x=x.slice(0,t))}},e}function a(){s(),tw.ui.resetAffinity(),P=0,C=[],h("Habitation");for(var i in x)h(x[i]);tw.ui.science.children[tw.ui.science.textId].setText(P),f()}function s(){for(var i in techs)"Habitation"!==i&&r(i)}function h(i){if(d(i),techPtr=_.getChildAt(y[i]),techPtr.getChildAt(techPtr.offset+2).alpha=1,techPtr.getChildAt(techPtr.offset+1).alpha=0,techPtr.getChildAt(techPtr.offset).alpha=0,techPtr.getChildAt(techPtr.offset+4).alpha=M,techPtr.getChildAt(techPtr.offset+4).alphaWas=M,techPtr.isOn=!0,techPtr.isEnabled=!1,I[i]=1,C[i]=!0,"Habitation"!==i&&(P+=techs[i].Science,"undefined"!=typeof techs[i].Affinity))for(var t in affinityData)"undefined"!=typeof techs[i].Affinity[t]&&tw.ui.updateAffinity(t,techs[i].Affinity[t]);techPtr.getChildAt(techPtr.orderedId).position.x="undefined"!=typeof techPtr.techData.Leaf?x.indexOf(i)+1<10?275:260:x.indexOf(i)+1<10?260:245,techPtr.getChildAt(techPtr.orderedId).setText(x.indexOf(i)+1),"Habitation"!==i&&(techPtr.getChildAt(techPtr.orderedId).visible=!0)}function l(i){var t=_.getChildAt(y[i]);t.getChildAt(t.offset+2).alpha=0,t.getChildAt(t.offset+1).alpha=1,t.getChildAt(t.offset).alpha=0,t.getChildAt(t.offset+4).alpha=W,t.getChildAt(t.offset+4).alphaWas=W,t.isOn=!1,t.isEnabled=!0,I[i]=.5,C[i]=!0,t.getChildAt(t.orderedId).setText("0"),t.getChildAt(t.orderedId).visible=!1}function r(i){var t=_.getChildAt(y[i]);t.getChildAt(t.offset+2).alpha=0,t.getChildAt(t.offset+1).alpha=0,t.getChildAt(t.offset).alpha=1,t.getChildAt(t.offset+4).alpha=E,t.getChildAt(t.offset+4).alphaWas=E,t.isOn=!1,t.isEnabled=!1,I[i]=0,C[i]=!1,t.getChildAt(t.orderedId).setText("0"),t.getChildAt(t.orderedId).visible=!1}function d(i){var t=_.getChildAt(y[i]);for(var e in t.techData.Enables)"undefined"==typeof C[e]&&l(e);for(var e in t.techData.Leaf)C[e]||l(e)}function p(i,t,e,o){if(t>i)var n=i+t;else var n=t+i;if("undefined"==typeof v[n]){var e=e,a=_.children[y[i]].position.x,s=_.children[y[i]].position.y,h=_.children[y[t]].position.x,l=_.children[y[t]].position.y;c(n,4,e,o,a,s,h,l)}}function c(i,t,e,o,n,a,s,h){var l=34,r=34,d=new PIXI.Graphics;d.lineStyle(t,e,o),d.moveTo(n+l,a+r),d.lineTo(s+l,h+r),d.name=i,K.addChild(d)}function f(){K.removeAll();var i="0xFFFFFF",t=.25;for(var e in y){var o=_.children[y[e]];if("undefined"!=typeof o.techData&&"undefined"!=typeof o.techData.Enables)for(var n in o.techData.Enables)1===I[e]&&1===I[n]?(i=w.selected.color,t=w.selected.alpha):.5===I[e]&&1===I[n]||1===I[e]&&.5===I[n]?(i=w.enabled.color,t=w.enabled.alpha):(i=w.disabled.color,t=w.disabled.alpha),p(e,n,i,t)}}function u(i){var t=-40,e=i.Oclock,o=i.Leaf;o&&(t+=9);var n=2*Math.PI*e/12;return t+=400*i.Node*Math.sin(n),Math.round(t)}function m(i){var t=-30,e=i.Oclock,o=i.Leaf;1===o?t+=69:2===o?t+=123:3===o&&(t+=177);var n=2*Math.PI*e/12;return t+=-240*i.Node*Math.cos(n),Math.round(t)}function g(i){return i.mousedown=i.touchstart=function(){this.isdown=!0,this.isOn?this.turnEnabled(!0):this.isEnabled?this.turnOn():this.turnEnabled(!1),a()},i.mouseup=i.touchend=i.mouseupoutside=i.touchendoutside=function(){this.isdown=!1},i.mouseover=function(){this.isOver=!0,this.alphaWas=this.alpha,this.alpha=1,this.isdown},i.mouseout=function(){this.isOver=!1,this.alpha=this.alphaWas,this.isdown},i}var v=[],w={selected:{color:"0xA6AFD6",alpha:1},enabled:{color:"0x592EA8",alpha:1},disabled:{color:"0xFFFFFF",alpha:.25}},y=[],x=[],I={Habitation:1,Pioneering:.5,"Planetary Survey":.5,Engineering:.5,Physics:.5,Chemistry:.5,Genetics:.5,Ecology:.5},C=[],b=I,P=0,O=i,X=t,A=O/2,F=X/2,S=309,M=.9,W=.7,E=.5,z=!0,L=new PIXI.Stage(0,z),T=new PIXI.CanvasRenderer(O,X,document.getElementById("techWebCanvas"),!1);document.body.appendChild(T.view),T.view.style.position=techWebPositioning,T.view.style.top=techWebTop+"px",T.view.style.left=techWebLeft+"px";var D=new PIXI.DisplayObjectContainer;D.position.x=A,D.position.y=F;var k=PIXI.Texture.fromImage(assetsPath+"background.jpg"),j=new PIXI.Sprite(k);j.anchor.x=.5,j.anchor.y=.5,D.addChild(j);var R=new PIXI.DisplayObjectContainer;R.position.x=A,R.position.y=F;var Y=O/1920,H=X/1080;if(Y>H)var q=Y;else var q=H;R.scale.x=q,R.scale.y=q;var N=PIXI.Texture.fromImage(assetsPath+"loading.jpg"),U=new PIXI.Sprite(N);U.anchor.x=.5,U.anchor.y=.5,R.addChild(U);var B=[assetsPath+"sprites.json"],G=new PIXI.AssetLoader(B);G.onComplete=o,G.load();var K=new PIXI.DisplayObjectContainer;K.position.x=A,K.position.y=F;var _=new PIXI.DisplayObjectContainer;this.tl=_,_.interactive=!0,_.hitArea=new PIXI.Rectangle(-6e3,-6e3,2e4,2e4),_.position.x=Math.floor(_.position.x),_.position.y=Math.floor(_.position.y);var J=new PIXI.DisplayObjectContainer;J.position.x=A,J.position.y=F;var Q=PIXI.Texture.fromImage("img/rings.png"),V=new PIXI.Sprite(Q);V.anchor.x=.5,V.anchor.y=.5,_.addChild(V);var Z=1;this.zoomin=function(){1.5>Z&&(Z+=.05,_.scale.x=Z,_.scale.y=Z,K.scale.x=Z,K.scale.y=Z,J.scale.x=Z,J.scale.y=Z),tw.ui.zoomin.alpha=Z>=1.5?.2:1,tw.ui.zoomout.alpha=1},this.zoomout=function(){Z>.5&&(Z-=.05,_.scale.x=Z,_.scale.y=Z,K.scale.x=Z,K.scale.y=Z,J.scale.x=Z,J.scale.y=Z),tw.ui.zoomout.alpha=.5>=Z?.2:1,tw.ui.zoomin.alpha=1},this.unzoom=function(){Z=1,_.scale.x=Z,_.scale.y=Z,K.scale.x=Z,K.scale.y=Z,J.scale.x=Z,J.scale.y=Z,tw.ui.zoomin.alpha=1,tw.ui.zoomout.alpha=1},Mousetrap.bind("+",this.zoomin),Mousetrap.bind("-",this.zoomout),this.fullscreen=function(){this.originalWidth=T.width,this.originalHeight=T.height;var i=document.fullScreenElement&&null!==document.fullScreenElement||document.mozFullScreen||document.webkitIsFullScreen;i||(T.view.requestFullscreen?T.view.requestFullscreen():T.view.mozRequestFullScreen?T.view.mozRequestFullScreen():T.view.webkitRequestFullScreen&&T.view.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT),T.resize(screen.width,screen.height),D.scale.x=screen.width/O,D.scale.y=screen.height/O+.1,R.scale.x=screen.width/O,R.scale.y=screen.height/O,this.ui.fullscreen.position.x=T.width-35,this.ui.notfullscreen.position.x=T.width-35,this.ui.science.position.x=T.width-135,this.ui.zoomin.position.x=T.width/2-60,this.ui.zoomtxt.position.x=T.width/2-25,this.ui.zoomout.position.x=T.width/2+20)},this.nofullscreen=function(){var i=document.cancelFullScreen||document.webkitCancelFullScreen||document.mozCancelFullScreen||document.exitFullscreen;if(i)i.call(document);else if("undefined"!=typeof window.ActiveXObject){var t=new ActiveXObject("WScript.Shell");null!==t&&t.SendKeys("{F11}")}return T.resize(this.originalWidth,this.originalHeight),this.ui.fullscreen.position.x=T.width-35,this.ui.notfullscreen.position.x=T.width-35,this.ui.zoomin.position.x=T.width/2-60,this.ui.zoomtxt.position.x=T.width/2-25,this.ui.zoomout.position.x=T.width/2+20,this.ui.science.position.x=T.width-135,!1},_.mousedown=_.touchstart=function(i){i.originalEvent.preventDefault(),this.data=i,this.dragging=!0,this.sx=this.data.getLocalPosition(this).x*this.scale.x,this.sy=this.data.getLocalPosition(this).y*this.scale.y},_.mouseup=_.mouseupoutside=_.touchend=_.touchendoutside=function(){this.alpha=1,this.dragging=!1,this.data=null},_.mousemove=_.touchmove=function(){if(this.dragging){var i=this.data.getLocalPosition(this.parent);(i.y-this.sy)/this.scale.y<1600&&(i.y-this.sy)/this.scale.y>-1600&&(this.position.y=Math.round(i.y-this.sy),K.position.y=Math.round(this.position.y),J.position.y=Math.round(this.position.y)),(i.x-this.sx)/this.scale.x<2400&&(i.x-this.sx)/this.scale.x>-2400&&(this.position.x=Math.round(i.x-this.sx),K.position.x=Math.round(this.position.x),J.position.x=Math.round(this.position.x))}},R.alpha=1,L.addChild(D),L.addChild(K),L.addChild(_),L.addChild(J),L.addChild(R)}PIXI.DisplayObjectContainer.prototype.removeAll=function(){for(var i=this.children.length-1;i>=0;--i)this.removeChild(this.children[i])};var tw=new TechWeb(w,h);mouseOutFrame=function(){tw.tl.alpha=1,tw.tl.dragging=!1,tw.tl.data=null},inIframe=function(){try{return window.self!==window.top}catch(i){return!0}};
+var UiCounter = function () {
+  PIXI.DisplayObjectContainer.call(this)
+};
+UiCounter.prototype = Object.create(PIXI.DisplayObjectContainer.prototype), UiCounter.prototype.constructor = UiCounter, UiCounter.prototype.build = function (t, i, o, s, h) {
+  this.name = t, this.interactive = !0;
+  var n = 309;
+  if ("left" === s) {
+    this.separator = PIXI.Sprite.fromFrame("ui-bar-separator.png"), this.separator.position.x = h, this.separator.position.y = 0, this.addChild(this.separator), this.icon = PIXI.Sprite.fromFrame("tip-" + t.toLowerCase() + ".png"), this.icon.position.x = h + 10, this.icon.position.y = 2, this.icon.interactive = !0, this.addChild(this.icon), this.txt = new PIXI.Text(i, {
+      font: "16px Arial",
+      fill: o,
+      align: "left"
+    }), this.txt.position.x = h + 35, this.txt.position.y = 6, this.addChild(this.txt), this.textId = this.children.length - 1;
+    var e = 30;
+    this.tooltip = new Tooltip, this.tooltip.parentPtr = this, this.tooltip.build(t, 1, affinityBonuses[t], "affinityCounter", n), this.tooltip.position.x = this.icon.position.x + e, this.tooltip.position.y = this.icon.position.y + e, this.tooltip.name = t, this.addChild(this.tooltip), this.tooltip.id = this.children.length - 1, this.icon.mouseover = function () {
+      this.parent.isOver = !0, this.parent.children[this.parent.tooltip.id].show(), this.parent.alphaWas = this.parent.alpha, this.parent.alpha = 1
+    }, this.icon.mouseout = function () {
+      this.parent.isOver = !1, this.parent.children[this.parent.tooltip.id].hide(), this.parent.alpha = this.parent.alphaWas
+    }
+  } else this.separator = PIXI.Sprite.fromFrame("ui-bar-separator-right.png"), this.separator.position.x = -h, this.separator.position.y = 0, this.addChild(this.separator), this.icon = PIXI.Sprite.fromFrame("tip-" + t.toLowerCase() + ".png"), this.icon.position.x = -h + 10, this.icon.position.y = 2, this.icon.interactive = !0, this.addChild(this.icon), this.txt = new PIXI.Text(i, {
+    font: "16px Arial",
+    fill: o,
+    align: "left"
+  }), this.txt.position.x = -h + 35, this.txt.position.y = 6, this.addChild(this.txt), this.textId = this.children.length - 1
+};
+var Tooltip = function () {
+  PIXI.DisplayObjectContainer.call(this)
+};
+Tooltip.prototype = Object.create(PIXI.DisplayObjectContainer.prototype), Tooltip.prototype.constructor = Tooltip, Tooltip.prototype.build = function (t, e, i, o, p) {
+  this.name = t, this.alpha = 0, this.alphaStep = .05, this.alphaWait = 200, this.xOffset = 32, this.yOffset = 32, this.offsetStep = this.xOffset * this.alphaStep, this.xDirection = 1, this.yDirection = 1, this.position.x = this.xOffset * this.xDirection, this.position.y = this.yOffset * this.yDirection, this.width = 309;
+  var s = 19, n = 10, r = 10, u = "#FFFFFF", h = "#DD3333", a = "#559955", l = "#FF8899", y = "#92A8CE", f = "#CEADD8", x = "#D9E288", c = "#D6B084", d = {
+    white: "#FFFFFF",
+    red: "#DD3333",
+    green: "#559955",
+    pink: "#FF8899",
+    blue: "#92A8CE",
+    purple: "#CEADD8",
+    yellow: "#D9E288",
+    orange: "#D6B084"
+  }, w = [], m = !1, v = !1;
+  if ("tech" === o) {
+    var g = !1;
+    if (w.push({
+        type: "text",
+        text: t.toUpperCase(),
+        color: "white"
+      }), 1 === e ? (w.push({type: "newline"}), w.push({
+        type: "text",
+        text: "RESEARCHED",
+        color: a
+      })) : (w.push({type: "newline"}), w.push({
+        type: "text",
+        text: "0 / " + i.Science,
+        color: u
+      }), w.push({
+        type: "icon",
+        name: "tip-science.png"
+      })), "undefined" != typeof i.Affinity)for (affinity in i.Affinity)w.push({type: "newline"}), w.push({
+      type: "text",
+      text: "+" + i.Affinity[affinity] + " Affinity XP towards",
+      color: u
+    }), w.push({type: "xAdjust", adjust: -3}), w.push({
+      type: "icon",
+      name: "tip-" + affinity.toLowerCase().replace(/ /g, "-") + ".png"
+    }), w.push({type: "xAdjust", adjust: -3}), w.push({type: "text", text: affinity, color: u});
+    w.push({type: "newline"}), w.push({type: "newline"});
+    var A = 0, j = 0, C = [], D = [];
+    if ("undefined" != typeof i.Buildings) {
+      for (var E in i.Buildings)"undefined" != typeof buildingData[E] && ("undefined" != typeof buildingData[E].Wonder ? D[A++] = E : C[j++] = E);
+      if (j) {
+        var b = 0, T = "";
+        g = !0, w.push({type: "text", text: "Allows the", color: u});
+        for (building in C)b && w.push({type: "text", text: "and", color: u}), w.push({
+          type: "text",
+          text: C[building],
+          color: y
+        }), b++;
+        b > 1 && (T = "s"), w.push({type: "text", text: "building" + T + ".", color: u})
+      }
+      if (A) {
+        var F = 0;
+        T = "", g = !0, w.push({type: "text", text: "Unlocks the", color: u});
+        for (wonder in D)F && w.push({type: "text", text: "and", color: u}), w.push({
+          type: "text",
+          text: D[wonder],
+          color: f
+        }), F++;
+        F > 1 && (T = "s"), w.push({type: "text", text: "Wonder" + T + ".", color: u})
+      }
+    }
+    var I = 0;
+    if ("undefined" != typeof i.Units) {
+      var P = !1, S = !1, k = !1, L = !1;
+      w.push({type: "text", text: "Allows the", color: u});
+      for (unit in i.Units)I > 0 ? (I++, T = "s", w.push({
+        type: "text",
+        text: "and",
+        color: u
+      })) : (I++, T = ""), w.push({
+        type: "text",
+        text: unit,
+        color: l
+      }), "undefined" != typeof unitData[unit] && ("undefined" != typeof unitData[unit].Domain && ("Orbital" === unitData[unit].Domain && (P = !0), "Melee" === unitData[unit].Type || "Ranged" === unitData[unit].Type || "Siege" === unitData[unit].Type ? k = !0 : L = !0), "undefined" != typeof unitData[unit].Unique && (S = unitData[unit].Unique));
+      S ? w.push({type: "text", text: "unique", color: u}) : P ? w.push({
+        type: "text",
+        text: "orbital",
+        color: u
+      }) : k && !L && w.push({type: "text", text: "military", color: u}), w.push({
+        type: "text",
+        text: "unit" + T + ".",
+        color: u
+      })
+    }
+    var R = 0;
+    if ("undefined" != typeof i.Effect)for (var M in i.Effect)"undefined" == typeof improvementLookup[M] && ("Embark" === M && (w.push({
+      type: "text",
+      text: "Allows units to",
+      color: u
+    }), w.push({type: "text", text: "Embark", color: a}), w.push({
+      type: "text",
+      text: "and cross deep water.",
+      color: u
+    })), "Immunity to Miasma damage" === M && (w.push({
+      type: "text",
+      text: "Grants Worker units",
+      color: u
+    }), w.push({type: "text", text: "immunity to Miasma damage", color: x}), w.push({type: "period"})));
+    var _ = 0;
+    if ("undefined" != typeof i["Tile Improvement"]) {
+      count = 0;
+      for (improvement in i["Tile Improvement"])0 === count && (w.push("Add Miasma" === improvement ? {
+        type: "text",
+        text: "Allows Workers to",
+        color: u
+      } : {type: "text", text: "Allows Workers to build the", color: u}), count++), _ && w.push({
+        type: "text",
+        text: "and",
+        color: u
+      }), w.push({type: "text", text: improvement, color: x}), _++;
+      T = _ > 1 ? "s" : "", w.push("Add Miasma" === improvement ? {
+        type: "text",
+        text: "on any tile.",
+        color: u
+      } : {type: "text", text: "tile improvement" + T + ".", color: u})
+    }
+    if ("undefined" != typeof i.Resource && (w.push({
+        type: "text",
+        text: "Reveals the",
+        color: u
+      }), w.push({type: "text", text: i.Resource, color: c}), w.push({
+        type: "text",
+        text: "resource on the map.",
+        color: u
+      })), "undefined" != typeof i.Description && w.push({
+        type: "colorText",
+        text: i.Description,
+        color: u
+      }), R = 0, "undefined" != typeof i.Effect)for (var M in i.Effect)if ("undefined" != typeof improvementLookup[M])for (var q in i.Effect[M])w.push(R ? {
+      type: "text",
+      text: "and the ",
+      color: u
+    } : {type: "text", text: "Improves the ", color: u}), R++, w.push({
+      type: "xAdjust",
+      adjust: -8
+    }), w.push({type: "tip-icon", name: "tip-" + q.toLowerCase().replace(/ /g, "-") + ".png"}), w.push({
+      type: "xAdjust",
+      adjust: -4
+    }), w.push({type: "text", text: q, color: u}), w.push({
+      type: "text",
+      text: "output of your",
+      color: u
+    }), "ry" == M.match("ry$") && (M = M.substring(0, M.length - 1), M += "ie"), w.push({
+      type: "text",
+      text: M + "s",
+      color: x
+    })
+  } else if ("building" === o) {
+    w.push({type: "text", text: t.toUpperCase(), color: "white"}), w.push({type: "linebreak"});
+    for (var B in i.Cost)m && w.push({type: "newline"}), m = !0, v = !1, "Production" === B ? (w.push({
+      type: "text",
+      text: "Cost:",
+      color: "white"
+    }), w.push({type: "xAdjust", adjust: 3}), w.push({
+      type: "icon",
+      name: "tip-production.png"
+    }), w.push({type: "xAdjust", adjust: 2}), w.push({
+      type: "text",
+      text: i.Cost[B],
+      color: "white"
+    })) : "Maintenance" !== B ? (w.push({type: "text", text: B + ":", color: "white"}), w.push({
+      type: "xAdjust",
+      adjust: 3
+    }), w.push({type: "icon", name: "tip-" + B.toLowerCase().replace(/ /g, "-") + ".png"}), w.push({
+      type: "xAdjust",
+      adjust: 2
+    }), w.push({type: "text", text: i.Cost[B], color: "white"})) : "Maintenance" === B && (w.push({
+      type: "text",
+      text: "Maintenance:",
+      color: "white"
+    }), w.push({type: "xAdjust", adjust: 3}), w.push({type: "icon", name: "tip-energy.png"}), w.push({
+      type: "xAdjust",
+      adjust: 2
+    }), w.push({type: "text", text: i.Cost[B], color: "white"}));
+    if (w.push({type: "linebreak"}), m = !1, v = !1, "undefined" != typeof i.Effect)if ("undefined" != typeof i.Effect.City) {
+      for (var X in i.Effect.City)if ("Production" === X || "Energy" === X || "Culture" === X || "Food" === X || "Science" === X || "Health" === X || "pMod" === X || "eMod" === X || "sMod" === X || "hMod" === X || "cMod" === X || "Hit Points" === X || "Defense" === X) {
+        var U = i.Effect.City[X];
+        if ("pMod" === X) {
+          U = Math.floor(100 * U);
+          var H = "production", O = "Production: +" + U + "%"
+        } else if ("eMod" === X) {
+          U = Math.floor(100 * U);
+          var H = "energy", O = "Energy: +" + U + "%"
+        } else if ("sMod" === X) {
+          U = Math.floor(100 * U);
+          var H = "science", O = "Science: +" + U + "%"
+        } else if ("hMod" === X) {
+          U = Math.floor(100 * U);
+          var H = "health", O = "Health: +" + U + "%"
+        } else if ("cMod" === X) {
+          U = Math.floor(100 * U);
+          var H = "culture", O = "Culture: +" + U + "%"
+        } else if ("Hit Points" === X)var H = "strength", O = "City Hit Points: +" + U; else if ("Defense" === X)var H = "strength", O = "City Defense: +" + U; else var H = X.toLowerCase().replace(/ /g, "-"), O = X + ": +" + U;
+        "undefined" != typeof i.Effect.City.Restriction ? (m && w.push({type: "newline"}), m = !0, w.push({
+          type: "text",
+          text: "+" + U + "%",
+          color: "white"
+        }), w.push({type: "xAdjust", adjust: 0}), w.push({
+          type: "icon",
+          name: "tip-" + H + ".png"
+        }), w.push({type: "xAdjust", adjust: 0}), w.push({
+          type: "text",
+          text: H.charAt(0).toUpperCase() + H.slice(1) + " for " + i.Effect.City.Restriction + "s.",
+          color: "white"
+        })) : (m && w.push({type: "newline"}), m = !0, w.push({type: "xAdjust", adjust: 0}), w.push({
+          type: "icon",
+          name: "tip-" + H + ".png"
+        }), w.push({type: "xAdjust", adjust: 0}), w.push({type: "text", text: O, color: "white"})), v = !0
+      } else"Trade Routes" === X ? (w.push({type: "newline"}), w.push({type: "newline"}), w.push({
+        type: "text",
+        text: "Allows " + i.Effect.City[X] + " " + X + " to be established from this City.",
+        color: "white"
+      })) : "Water" === X && (w.push({type: "newline"}), w.push({type: "newline"}), w.push({
+        type: "text",
+        text: "Allows " + i.Restriction.Description,
+        color: h
+      }));
+      for (var W in improvementLookup)if ("undefined" != typeof i.Effect[W])for (var q in i.Effect[W]) {
+        var U = i.Effect[W][q];
+        v ? (w.push({type: "newline"}), w.push({type: "newline"})) : m && w.push({type: "newline"}), v = !1, m = !1, w.push({
+          type: "text",
+          text: "All",
+          color: "white"
+        }), "y" == W.match("y$") && (W = W.substring(0, W.length - 1), W += "ie"), w.push({
+          type: "text",
+          text: W + "s",
+          color: x
+        }), w.push({type: "text", text: "produce +" + U, color: "white"}), w.push({
+          type: "xAdjust",
+          adjust: 0
+        }), w.push({type: "icon", name: "tip-" + q.toLowerCase().replace(/ /g, "-") + ".png"}), w.push({
+          type: "xAdjust",
+          adjust: 0
+        }), w.push({type: "text", text: q, color: "white"})
+      }
+      for (var N in resourceLookup)if ("undefined" != typeof i.Effect.City[N])for (var q in i.Effect.City[N]) {
+        var U = i.Effect.City[N][q];
+        v && (w.push({type: "newline"}), w.push({type: "newline"})), v = !1, m = !0, w.push({
+          type: "text",
+          text: "+" + U,
+          color: "white"
+        }), w.push({type: "xAdjust", adjust: 0}), w.push({
+          type: "icon",
+          name: "tip-" + q.toLowerCase().replace(/ /g, "-") + ".png"
+        }), w.push({type: "xAdjust", adjust: 0}), w.push({type: "text", text: q, color: "white"}), w.push({
+          type: "text",
+          text: "from",
+          color: "white"
+        }), "Tundra" != N && (w.push({type: "xAdjust", adjust: 0}), w.push({
+          type: "icon",
+          name: "tip-" + N.toLowerCase().replace(/ /g, "-") + ".png"
+        }), w.push({type: "xAdjust", adjust: 0})), w.push({type: "text", text: N, color: "white"})
+      }
+      if ("undefined" != typeof i.Description && (v ? (w.push({type: "newline"}), w.push({type: "newline"})) : m && w.push({type: "newline"}), w.push({
+          type: "colorText",
+          text: i.Description,
+          color: "white"
+        }), v = !1, m = !0), "undefined" != typeof i.Effect.City.Specialist)for (var G in i.Effect.City.Specialist) {
+        var q, U = i.Effect.City.Specialist[G];
+        "Trader" === G ? q = "energy" : "Scientist" === G ? q = "science" : "Engineer" === G ? q = "production" : "Grower" === G ? q = "food" : "Artist" === G && (q = "culture"), v ? (w.push({type: "newline"}), w.push({type: "newline"})) : m && w.push({type: "newline"}), v = !1, m = !1, w.push({
+          type: "text",
+          text: U,
+          color: "white"
+        }), w.push({type: "xAdjust", adjust: 0}), w.push({
+          type: "icon",
+          name: "tip-" + q + ".png"
+        }), w.push({type: "xAdjust", adjust: 0}), w.push({type: "text", text: G + " Specialist slots", color: "white"})
+      }
+    } else"undefined" != typeof i.Effect.Strike && w.push({type: "colorText", text: i.Description, color: "white"});
+    if ("undefined" != typeof i.Requires) {
+      w.push({type: "linebreak"}), isNewline = !1;
+      for (var $ in i.Requires)if ("Purity" === $ || "Harmony" === $ || "Supremacy" === $) {
+        if (isNewline && w.push({type: "newline"}), isNewline = !0, "Purity" === $)var z = "#F10B38"; else if ("Supremacy" === $)var z = "#E7AC21"; else if ("Harmony" === $)var z = "#21C5BA";
+        w.push({type: "text", text: "Requires:", color: "white"}), w.push({
+          type: "text",
+          text: "Level " + i.Requires[$] + " in",
+          color: z
+        }), w.push({type: "xAdjust", adjust: -1}), w.push({
+          type: "icon",
+          name: "tip-" + $.toLowerCase() + ".png"
+        }), w.push({type: "xAdjust", adjust: -1}), w.push({type: "text", text: $, color: z})
+      } else"Description" === $ ? (isNewline && w.push({type: "newline"}), isNewline = !0, w.push({
+        type: "text",
+        text: i.Requires[$],
+        color: h
+      })) : "City" !== $ && (isNewline && w.push({type: "newline"}), isNewline = !0, w.push({
+        type: "text",
+        text: "Requires a workable, improved source of",
+        color: h
+      }), w.push({type: "xAdjust", adjust: -1}), w.push({
+        type: "icon",
+        name: "tip-" + $.toLowerCase().replace(/ /g, "-") + ".png"
+      }), w.push({type: "xAdjust", adjust: -1}), w.push({type: "text", text: $, color: h}))
+    }
+  } else if ("unit" === o) {
+    var J = {Cost: 1, Moves: 1, "Attack Range": 1, Duration: 1, "Effect Range": 1, "Ranged Strength": 1, Strength: 1};
+    w.push({type: "text", text: t.toUpperCase(), color: "white"}), w.push({type: "linebreak"});
+    for (var K in J)if ("undefined" != typeof i[K]) {
+      U = i[K], m && w.push({type: "newline"}), m = !0;
+      var Q = K;
+      "Moves" === K ? Q = "movement" : "Cost" === K && (Q = "production"), w.push({
+        type: "xAdjust",
+        adjust: 3
+      }), w.push({type: "icon", name: "tip-" + Q.toLowerCase().replace(/ /g, "-") + ".png"}), w.push({
+        type: "xAdjust",
+        adjust: 2
+      }), w.push({type: "text", text: K + ":", color: "white"}), w.push({type: "text", text: i[K], color: "white"})
+    }
+    if ("undefined" != typeof i.Requires)for (var $ in i.Requires)if (U = i.Requires[$], m && w.push({type: "newline"}), m = !0, "undefined" != typeof affinityData[$]) {
+      if ("Harmony" === $)var z = "#21C5BA"; else if ("Supremacy" === $)var z = "#E7AC21"; else if ("Purity" === $)var z = "#F10B38";
+      w.push({type: "text", text: "Requires", color: u}), w.push({
+        type: "text",
+        text: "Level " + i.Requires[$] + " in",
+        color: z
+      }), w.push({type: "xAdjust", adjust: -2}), w.push({
+        type: "icon",
+        name: "tip-" + $.toLowerCase().replace(/ /g, "-") + ".png"
+      }), w.push({type: "xAdjust", adjust: -2}), w.push({type: "text", text: $, color: z})
+    } else w.push({type: "xAdjust", adjust: 3}), w.push({
+      type: "icon",
+      name: "tip-list-item.png"
+    }), w.push({type: "xAdjust", adjust: 2}), w.push({type: "text", text: "Required:", color: u}), w.push({
+      type: "text",
+      text: i.Requires[$],
+      color: u
+    }), w.push({type: "xAdjust", adjust: 3}), w.push({
+      type: "icon",
+      name: "tip-" + $.toLowerCase().replace(/ /g, "-") + ".png"
+    }), w.push({type: "xAdjust", adjust: 2}), w.push({type: "text", text: $, color: u});
+    if (w.push({type: "linebreak"}), "undefined" != typeof i.Unique) {
+      var V = i.Unique;
+      if ("Harmony" === V)var z = "#21C5BA"; else if ("Supremacy" === V)var z = "#E7AC21"; else if ("Purity" === V)var z = "#F10B38";
+      "undefined" != typeof i.Ultimate && w.push({type: "text", text: "Ultimate", color: z}), w.push({
+        type: "xAdjust",
+        adjust: -2
+      }), w.push({type: "icon", name: "tip-" + V.toLowerCase().replace(/ /g, "-") + ".png"}), w.push({
+        type: "xAdjust",
+        adjust: -2
+      }), w.push({type: "text", text: V, color: z}), w.push({
+        type: "text",
+        text: "Unique unit",
+        color: z
+      }), w.push({type: "period"})
+    } else"undefined" != typeof i.Type && "undefined" != typeof i.Domain && w.push("Orbital" === i.Domain ? {
+      type: "text",
+      text: i.Domain + " unit.",
+      color: u
+    } : {type: "text", text: i.Type + " unit.", color: u});
+    "undefined" != typeof i.Description && w.push({type: "colorText", text: i.Description, color: u})
+  } else if ("improvement" === o)"undefined" != typeof i && w.push({
+    type: "colorText",
+    text: i.Description,
+    color: "white"
+  }); else if ("resource" === o)w.push({
+    type: "text",
+    text: "Reveals " + t + " on the map.",
+    color: "white"
+  }); else if ("effect" === o)if ("undefined" != typeof improvementLookup[t])for (eff in i)w.push({
+    type: "text",
+    text: "+" + i[eff],
+    color: u
+  }), w.push({type: "xAdjust", adjust: 3}), w.push({
+    type: "icon",
+    name: "tip-" + eff.toLowerCase().replace(/ /g, "-") + ".png"
+  }), w.push({type: "xAdjust", adjust: 3}), w.push({type: "text", text: eff + " from", color: u}), w.push({
+    type: "text",
+    text: t,
+    color: x
+  }), w.push({
+    type: "text",
+    text: "Improvements.",
+    color: u
+  }); else("Miasma" === t || "City" === t || "Units" === t) && "undefined" != typeof i.Description && w.push({
+    type: "colorText",
+    text: i.Description,
+    color: u
+  }); else if ("affinity" === o) {
+    if ("Purity" === t)var z = "#F10B38"; else if ("Supremacy" === t)var z = "#E7AC21"; else if ("Harmony" === t)var z = "#21C5BA";
+    w.push({type: "text", text: t, color: z}), w.push({
+      type: "text",
+      text: "Affinity",
+      color: z
+    }), w.push({type: "newline"}), w.push({type: "newline"}), w.push({
+      type: "colorText",
+      text: i.Description,
+      color: "white"
+    })
+  } else if ("affinityCounter" === o) {
+    var Y = this.parentPtr.parentPtr, Y = this.parentPtr.parentPtr, Z = Y.affinity.dominant[t], te = Y.affinity.levels[t], ee = te + 1, ie = affinityLevels[Z][te], oe = affinityLevels[Z][ee] - ie, pe = Y.affinity.points[t] - ie;
+    if ("Purity" === t)var z = "#F10B38"; else if ("Supremacy" === t)var z = "#E7AC21"; else if ("Harmony" === t)var z = "#21C5BA";
+    w.push({type: "icon", name: "tip-" + t.toLowerCase() + ".png"}), w.push({
+      type: "text",
+      text: t,
+      color: z
+    }), w.push({
+      type: "text",
+      text: "Level " + Y.affinity.levels[t],
+      color: "white"
+    }), w.push({type: "newline"}), w.push({type: "newline"});
+    for (var V in affinityBonuses[t])w.push({
+      type: "colorText",
+      text: affinityBonuses[t].Description,
+      color: "white"
+    }), w.push({type: "newline"});
+    w.push({type: "newline"}), w.push({type: "text", text: pe + "/" + oe, color: "white"}), w.push({
+      type: "xAdjust",
+      adjust: 5
+    }), w.push({type: "text", text: "Affinity XP towards next Level", color: "white"})
+  } else if ("science" === o) {
+    var z = "#0000FF";
+    w.push({type: "text", text: t, color: z}), w.push({
+      type: "text",
+      text: "Affinity",
+      color: z
+    }), w.push({type: "newline"}), w.push({type: "newline"}), w.push({
+      type: "colorText",
+      text: i.Description,
+      color: "white"
+    })
+  }
+  this.background = PIXI.Sprite.fromFrame("tooltip-background.png"), this.background.width = p, this.addChild(this.background);
+  var se = n, ne = r, re = 4, ue = 4, he = 20;
+  for (var H in w) {
+    var ae = w[H];
+    if ("xAdjust" === ae.type && (se += ae.adjust), "linebreak" === ae.type)se > he && (he = se), ne += s / 2, se = n, text = new PIXI.Text("_______", {
+      font: "14px Arial",
+      fill: "white",
+      align: "left"
+    }), text.position.x = se, text.position.y = ne, this.addChild(text), ne += s + s / 2; else if ("newline" === ae.type)se > he && (he = se), ne += s, se = n; else if ("icon" === ae.type)icon = PIXI.Sprite.fromFrame(ae.name), icon.position.x = se, icon.position.y = ne - ue, this.addChild(icon), se += icon.width + re, se > he && (he = se); else if ("tip-icon" === ae.type)icon = PIXI.Sprite.fromFrame(ae.name), icon.position.x = se, icon.position.y = ne - ue, this.addChild(icon), se += icon.width + re + re, se > he && (he = se); else if ("period" === ae.type)text = new PIXI.Text(".", {
+      font: "13px Arial",
+      fill: "white",
+      align: "left"
+    }), text.position.x = se - re, text.position.y = ne, this.addChild(text), se += text.width + re, se > he && (he = se); else if ("colorText" === ae.type) {
+      var le = ae.text.toString().split(/[ ]+/), ye = "#FFFFFF";
+      for (word in le)if ("{" === le[word].charAt(0))ye = d[le[word].slice(1, -1)]; else if ("[" === le[word].charAt(0) && "[newline]" === le[word])se = n, ne += s; else if ("[" === le[word].charAt(0) && "[linebreak]" === le[word])ne += s / 2, se = n, text = new PIXI.Text("_______", {
+        font: "14px Arial",
+        fill: "white",
+        align: "left"
+      }), text.position.x = se, text.position.y = ne, this.addChild(text), ne += s + s / 2; else if ("[" === le[word].charAt(0) && "[object" !== le[word]) {
+        var Q = le[word].slice(1, -1);
+        "ranged" === le[word].slice(1, -1) && (Q = "ranged-strength"), icon = PIXI.Sprite.fromFrame("tip-" + Q + ".png"), icon.position.x = se, icon.position.y = ne - ue, this.addChild(icon), se += icon.width + re + re, "list-item" === Q && (se -= 5), se > he && (he = se)
+      } else text = new PIXI.Text(le[word], {
+        font: "13px Arial",
+        fill: ye,
+        align: "left"
+      }), se + text.width + n > this.width && (se = n, ne += s), text.position.x = se, text.position.y = ne, this.addChild(text), se += text.width + re, se > he && (he = se)
+    } else if ("text" === ae.type) {
+      var le = ae.text.toString().split(/[ ]+/);
+      for (word in le)if ("{" === le[word].charAt(0)) {
+        var fe = le[word].slice(1, -1), xe = fe.toLowerCase();
+        if ("undefined" !== improvementLookup[xe])var ce = x;
+        text = new PIXI.Text(fe, {
+          font: "13px Arial",
+          fill: ce,
+          align: "left"
+        }), se + text.width + n > this.width && (se = n, ne += s), text.position.x = se, text.position.y = ne, this.addChild(text), se += text.width + re, se > he && (he = se)
+      } else if ("[" === le[word].charAt(0) && "[newline]" === le[word])se = n, ne += s; else if ("[" === le[word].charAt(0) && "[linebreak]" === le[word])ne += s / 2, se = n, text = new PIXI.Text("_______", {
+        font: "14px Arial",
+        fill: "white",
+        align: "left"
+      }), text.position.x = se, text.position.y = ne, this.addChild(text), ne += s + s / 2; else if ("[" === le[word].charAt(0) && "[object" !== le[word]) {
+        var Q = le[word].slice(1, -1);
+        "ranged" === le[word].slice(1, -1) && (Q = "ranged-strength"), icon = PIXI.Sprite.fromFrame("tip-" + Q + ".png"), icon.position.x = se, icon.position.y = ne - ue, this.addChild(icon), se += icon.width + re + re, se > he && (he = se)
+      } else text = new PIXI.Text(le[word], {
+        font: "13px Arial",
+        fill: ae.color,
+        align: "left"
+      }), se + text.width + n > this.width && (se = n, ne += s), text.position.x = se, text.position.y = ne, this.addChild(text), se += text.width + re, se > he && (he = se)
+    }
+  }
+  this.background.height = ne + s + r, this.background.width = he + n
+}, Tooltip.prototype.show = function () {
+  this.hiding = !1, this.showing = !0, this.alpha < 1 && (this.alpha += this.alphaStep, this.alpha > 1 && (this.alpha = 1), setTimeout(this.show(this.xDirection), this.alphaWait))
+}, Tooltip.prototype.hide = function () {
+  this.hiding = !0, this.showing = !1, this.alpha > 0 && (this.alpha -= this.alphaStep, this.alpha < 0 && (this.alpha = 0), setTimeout(this.hide(this.xDirection), this.alphaWait))
+};
+
+var UI = function () {
+  PIXI.DisplayObjectContainer.call(this)
+};
+UI.prototype = Object.create(PIXI.DisplayObjectContainer.prototype), UI.prototype.constructor = UI, UI.prototype.build = function () {
+  var i = "#F10B38", t = "#E7AC21", n = "#21C5BA";
+  this.affinity = {}, this.affinity.names = {
+    Harmony: !0,
+    Purity: !0,
+    Supremacy: !0
+  }, this.affinity.points = {Harmony: 0, Purity: 0, Supremacy: 0}, this.affinity.levels = {
+    Harmony: 0,
+    Purity: 0,
+    Supremacy: 0
+  }, this.affinity.dominant = {
+    Harmony: "Dominant",
+    Purity: "Dominant",
+    Supremacy: "Dominant"
+  }, this.affinity.ids = {Harmony: 0, Purity: 0, Supremacy: 0};
+  var e = 12;
+  this.bar = PIXI.Sprite.fromFrame("ui-bar.png"), this.bar.position.x = -200, this.bar.position.y = 0, this.bar.width = screen.width + 400, this.addChild(this.bar), this.harmony = new UiCounter, this.harmony.parentPtr = this, this.harmony.build("Harmony", 0, n, "left", e), this.addChild(this.harmony), this.affinity.ids.Harmony = this.children.length - 1, this.purity = new UiCounter, this.purity.parentPtr = this, this.purity.build("Purity", 0, i, "left", e + 56), this.addChild(this.purity), this.affinity.ids.Purity = this.children.length - 1, this.supremacy = new UiCounter, this.supremacy.parentPtr = this, this.supremacy.build("Supremacy", 0, t, "left", e + 112), this.addChild(this.supremacy), this.affinity.ids.Supremacy = this.children.length - 1, this.zoomin = PIXI.Sprite.fromFrame("plus.png"), this.zoomin.position.y = 0, this.zoomin.interactive = !0, this.addChild(this.zoomin), this.zoomin.mousedown = this.zoomin.touchstart = function () {
+    tw.zoomin()
+  }, this.zoomtxt = new PIXI.Text("Zoom", {
+    font: "16px Arial",
+    fill: "#808080",
+    align: "left"
+  }), this.zoomtxt.position.y = 6, this.zoomtxt.interactive = !0, this.addChild(this.zoomtxt), this.zoomtxt.mousedown = this.zoomtxt.touchstart = function () {
+    tw.unzoom()
+  }, this.zoomout = PIXI.Sprite.fromFrame("minus.png"), this.zoomout.position.y = 0, this.zoomout.interactive = !0, this.addChild(this.zoomout), this.zoomout.mousedown = this.zoomout.touchstart = function () {
+    tw.zoomout()
+  }, this.fullscreen = !1, this.fullscreen = PIXI.Sprite.fromFrame("full-screen.png"), this.fullscreen.position.y = 3, this.fullscreen.interactive = !0, inIframe() && (this.fullscreen.visible = !1), this.addChild(this.fullscreen), this.notfullscreen = PIXI.Sprite.fromFrame("no-full-screen.png"), this.notfullscreen.position.y = 3, this.notfullscreen.visible = !1, this.notfullscreen.mousedown = this.notfullscreen.touchstart = function () {
+    tw.nofullscreen(), this.parent.fullscreen.visible = !0, this.parent.fullscreen.interactive = !0, this.parent.notfullscreen.visible = !1, this.parent.notfullscreen.interactive = !1
+  }, this.fullscreen.mousedown = this.fullscreen.touchstart = function () {
+    tw.fullscreen(), this.parent.fullscreen.visible = !1, this.parent.fullscreen.interactive = !1, this.parent.notfullscreen.visible = !0, this.parent.notfullscreen.interactive = !0
+  }, this.addChild(this.notfullscreen), this.science = new UiCounter, this.science.parentPtr = this, this.science.build("Science", 0, "#0099DD", "right", 10), this.science.interactive = !0, this.addChild(this.science)
+}, UI.prototype.resetAffinity = function () {
+  for (var i in this.affinity.names)this.affinity.points[i] = 0, this.affinity.levels[i] = 0, this.affinity.dominant[i] = "Dominant";
+  this.updateAffinityText()
+}, UI.prototype.updateAffinityText = function () {
+  this.harmony.children[2].setText(this.affinity.levels.Harmony), this.purity.children[2].setText(this.affinity.levels.Purity), this.supremacy.children[2].setText(this.affinity.levels.Supremacy), this.updateAffinityTooltip("Harmony", this.affinity.levels.Harmony, this.affinity.points.Harmony, this.harmony.children[this.harmony.tooltip.id]), this.updateAffinityTooltip("Purity", this.affinity.levels.Purity, this.affinity.points.Purity, this.purity.children[this.purity.tooltip.id]), this.updateAffinityTooltip("Supremacy", this.affinity.levels.Supremacy, this.affinity.points.Supremacy, this.supremacy.children[this.supremacy.tooltip.id])
+}, UI.prototype.updateAffinityTooltip = function (i, t, n, e) {
+  var s = this.affinity.dominant[i], o = affinityLevels[s][t + 1];
+  e.children[4].setText(this.affinity.levels[i]), e.children[e.children.length - 6].setText(isNaN(o) ? "0/0" : n + "/" + o)
+}, UI.prototype.updateDominant = function (i) {
+  if ("Dominant" !== this.affinity.dominant[i]) {
+    var t = 0, n = 0;
+    for (var e in this.affinity.levels)t < this.affinity.levels[e] ? (t = this.affinity.levels[e], n = this.affinity.points[e]) : t === this.affinity.levels[e] && n < this.affinity.points[e] && (n = this.affinity.points[e]);
+    for (var e in this.affinity.levels)this.affinity.dominant[e] = this.affinity.levels[e] < t ? "NonDominant" : this.affinity.levels[e] === t && this.affinity.points[e] < n ? "NonDominant" : "Dominant"
+  } else for (var e in this.affinity.dominant)e != i && (this.affinity.dominant[e] = "NonDominant")
+}, UI.prototype.updateAffinity = function (i, t) {
+  for (var n = affinityLevels[this.affinity.dominant[i]][this.affinity.levels[i] + 1] - this.affinity.points[i], e = 0; t >= e; e++)e === n ? (this.affinity.levels[i]++, this.affinity.points[i] = 0, this.updateDominant(i), n += affinityLevels[this.affinity.dominant[i]][this.affinity.levels[i] + 1]) : (this.affinity.points[i]++, this.updateDominant(i));
+  this.updateAffinityText()
+};
+
+function TechWeb(i, t) {
+  function e() {
+    1 === R.alpha ? (T.render(L), setTimeout(e, 2e3), T.render(L), R.alpha -= .05) : R.alpha > .1 ? (T.render(L), setTimeout(e, 30), R.alpha -= .05, T.render(L)) : (R.visible = !1, requestAnimFrame(e), T.render(L))
+  }
+
+  function o() {
+    tw.ui = new UI, tw.ui.build(), tw.ui.zoomin.position.x = T.width / 2 - 60, tw.ui.zoomtxt.position.x = T.width / 2 - 25, tw.ui.zoomout.position.x = T.width / 2 + 20, L.addChild(tw.ui), tw.ui.fullscreen.position.x = T.width - 35, tw.ui.notfullscreen.position.x = T.width - 35, tw.ui.science.position.x = T.width - 190;
+    for (var i in techs) {
+      var t = n(i, techs[i]);
+      _.addChild(t)
+    }
+    for (var i in _.children) {
+      var o = _.children[i].name;
+      y[o] = i
+    }
+    f(), _.position.x = Math.floor(A), _.position.y = Math.floor(F), requestAnimFrame(e)
+  }
+
+  function n(i, t) {
+    var e = new PIXI.DisplayObjectContainer;
+    e.interactive = !0, e = g(e), e.techData = t, e.name = i;
+    var o = [0, 0, 6, 0], n = [12, 11, 11, 4], a = [39, 0, 31, 0], s = [39, 33, 0, 0], h = PIXI.Sprite.fromFrame("tech-disabled.png"), l = PIXI.Sprite.fromFrame("tech-disabled-small.png"), r = PIXI.Sprite.fromFrame("tech-enabled.png"), d = PIXI.Sprite.fromFrame("tech-enabled-small.png"), p = PIXI.Sprite.fromFrame("tech-selected.png"), c = PIXI.Sprite.fromFrame("tech-selected-small.png"), f = PIXI.Sprite.fromFrame("leaf-title.png"), v = PIXI.Sprite.fromFrame("node-icons.png"), w = PIXI.Sprite.fromFrame("node-title.png");
+    if (f.alpha = 1, h.name = "tech-disabled.png", l.name = "tech-disabled-small.png", r.name = "tech-enabled.png", d.name = "tech-enabled-small.png", p.name = "tech-selected.png", c.name = "tech-selected-small.png", f.name = "leaf-title.png", v.name = "node-icons.png", w.name = "node-title.png", l.position.x = o[2], d.position.x = o[2], c.position.x = o[2], w.position.x = a[0], w.position.y = a[1], v.position.x = s[0], v.position.y = s[1], f.position.x = a[2], f.position.y = a[3], r.alpha = 0, d.alpha = 0, p.alpha = 0, c.alpha = 0, e.isOn = !1, e.isEnabled = !1, "Habitation" === i ? e.isOn = !0 : "undefined" != typeof I[i] && (e.isEnabled = !0), "undefined" != typeof t.Node) {
+      var y = 2, C = t.Node.toLowerCase().replace(/ /g, "-") + ".png";
+      d.alpha = e.isEnabled, c.alpha = e.isOn, e.addChild(f), e.addChild(l), e.addChild(d), e.addChild(c)
+    } else {
+      var y = 0, C = i.toLowerCase().replace(/ /g, "-") + ".png";
+      r.alpha = e.isEnabled, p.alpha = e.isOn, e.addChild(w), e.addChild(v), e.addChild(h), e.addChild(r), e.addChild(p)
+    }
+    var P = PIXI.Sprite.fromFrame(C);
+    P.position.x = n[y], P.position.y = n[y + 1], P.interactive = !0, P.alpha = .5, P.alphaWas = .5, e.position.x = u(e.techData.Position), e.position.y = m(e.techData.Position);
+    var O = new PIXI.Text(i.toUpperCase(), {
+      font: "14px Arial",
+      fill: "white",
+      align: "left"
+    }), X = new PIXI.Text("0", {font: "28px Arial", fill: "white", align: "right"});
+    X.visible = !1, "undefined" != typeof t.Node ? (iconOffsetY = 22, techMarginX = 62, techMarginY = 7, X.position.x = 245, X.position.y = 1) : (iconOffsetY = 33, techMarginX = 71, techMarginY = 7, X.position.x = 262, X.position.y = 1), O.position.x = techMarginX, O.position.y = techMarginY, e.addChild(O), e.addChild(P), e.addChild(X), e.orderedId = e.children.length - 1, e.tooltipLookup = [], e.iconLookup = [];
+    var A = 40, F = 30, z = 30;
+    if ("undefined" != typeof t.Affinity)for (var L in t.Affinity) {
+      var T = PIXI.Sprite.fromFrame(L.toLowerCase().replace(/ /g, "-") + ".png");
+      T.position.x = techMarginX, T.position.y = iconOffsetY + 1, T.interactive = !0, T.alpha = 1 === I[i] ? M : W, e.addChild(T), e.iconLookup[L] = e.children.length - 1;
+      var D = new Tooltip;
+      D.build(L, 1, affinityData[L], "affinity", S), D.position.x = e.position.x + T.position.x + F, D.position.y = e.position.y + T.position.y + z, D.name = L, J.addChild(D), T.tooltip = J.children.length - 1, techMarginX += A, T.mouseover = function () {
+        this.isOver = !0, J.children[this.tooltip].show(), this.alphaWas = this.alpha, this.alpha = 1, this.isdown
+      }, T.mouseout = function () {
+        this.isOver = !1, J.children[this.tooltip].hide(), this.alpha = this.alphaWas, this.isdown
+      }
+    }
+    if ("undefined" != typeof t.Units)for (var k in t.Units) {
+      var j = PIXI.Sprite.fromFrame(k.toLowerCase().replace(/ /g, "-") + ".png");
+      j.position.x = techMarginX, j.position.y = iconOffsetY + 2, j.interactive = !0, j.alpha = 1 === I[i] ? M : E, e.addChild(j), e.iconLookup[k] = e.children.length - 1;
+      var R = new Tooltip;
+      R.build(k, 1, unitData[k], "unit", S), R.position.x = e.position.x + j.position.x + F, R.position.y = e.position.y + j.position.y + z, R.name = k, J.addChild(R), j.tooltip = J.children.length - 1, techMarginX += A, j.mouseover = function () {
+        this.isOver = !0, J.children[this.tooltip].show(), this.alphaWas = this.alpha, this.alpha = 1, this.isdown
+      }, j.mouseout = function () {
+        this.isOver = !1, J.children[this.tooltip].hide(), this.alpha = this.alphaWas, this.isdown
+      }
+    }
+    if ("undefined" != typeof t.Buildings)for (var Y in t.Buildings) {
+      var H = PIXI.Sprite.fromFrame(Y.toLowerCase().replace(/ /g, "-") + ".png");
+      H.position.x = techMarginX, H.position.y = iconOffsetY, H.interactive = !0, H.alpha = 1 === I[i] ? M : E, e.addChild(H), e.iconLookup[Y] = e.children.length - 1;
+      var q = new Tooltip;
+      q.build(Y, 1, buildingData[Y], "building", S), q.position.x = e.position.x + H.position.x + F, q.position.y = e.position.y + H.position.y + z, q.name = Y, J.addChild(q), H.tooltip = J.children.length - 1, techMarginX += A, H.mouseover = function () {
+        this.isOver = !0, J.children[this.tooltip].show(), this.alphaWas = this.alpha, this.alpha = 1, this.isdown
+      }, H.mouseout = function () {
+        this.isOver = !1, J.children[this.tooltip].hide(), this.alpha = this.alphaWas, this.isdown
+      }
+    }
+    if ("undefined" != typeof t.Resource) {
+      var N = PIXI.Sprite.fromFrame(t.Resource.toLowerCase().replace(/ /g, "-") + ".png");
+      N.position.x = techMarginX, N.position.y = iconOffsetY + 3, N.interactive = !0, N.alpha = 1 === I[i] ? M : E, e.addChild(N), e.iconLookup[t.Resource] = e.children.length - 1;
+      var U = new Tooltip;
+      U.build(t.Resource, 1, !1, "resource", S), U.position.x = e.position.x + N.position.x + F, U.position.y = e.position.y + N.position.y + z, U.name = t.Resource, J.addChild(U), N.tooltip = J.children.length - 1, techMarginX += A, N.mouseover = function (i) {
+        this.isOver = !0, J.children[this.tooltip].show(i), this.alphaWas = this.alpha, this.alpha = 1, this.isdown
+      }, N.mouseout = function (i) {
+        this.isOver = !1, J.children[this.tooltip].hide(i), this.alpha = this.alphaWas, this.isdown
+      }
+    }
+    if ("undefined" != typeof t["Tile Improvement"])for (var B in t["Tile Improvement"]) {
+      var G = PIXI.Sprite.fromFrame(B.toLowerCase().replace(/ /g, "-") + ".png");
+      G.position.x = techMarginX, G.position.y = iconOffsetY, G.interactive = !0, G.alpha = 1 === I[i] ? M : E, e.addChild(G), e.iconLookup[B] = e.children.length - 1;
+      var K = new Tooltip;
+      K.build(B, 1, improvementData[B], "improvement", S), K.position.x = e.position.x + G.position.x + F, K.position.y = e.position.y + G.position.y + z, K.name = B, J.addChild(K), G.tooltip = J.children.length - 1, techMarginX += A, G.mouseover = function () {
+        this.isOver = !0, J.children[this.tooltip].show(), this.alphaWas = this.alpha, this.alpha = 1, this.isdown
+      }, G.mouseout = function () {
+        this.isOver = !1, J.children[this.tooltip].hide(), this.alpha = this.alphaWas, this.isdown
+      }
+    }
+    if ("undefined" != typeof t.Effect)for (var _ in t.Effect) {
+      var Q = PIXI.Sprite.fromFrame("effect.png");
+      Q.position.x = techMarginX, Q.position.y = iconOffsetY + 3, Q.interactive = !0, Q.alpha = 1 === I[i] ? M : E, e.addChild(Q), e.iconLookup[t.Effect[_]] = e.children.length - 1;
+      var V = new Tooltip;
+      V.build(_, 1, t.Effect[_], "effect", S), V.position.x = e.position.x + Q.position.x + F, V.position.y = e.position.y + Q.position.y + z, V.name = t.Effect[_], J.addChild(V), Q.tooltip = J.children.length - 1, techMarginX += A, Q.mouseover = function () {
+        this.isOver = !0, J.children[this.tooltip].show(), this.alphaWas = this.alpha, this.alpha = 1, this.isdown
+      }, Q.mouseout = function () {
+        this.isOver = !1, J.children[this.tooltip].hide(), this.alpha = this.alphaWas, this.isdown
+      }
+    }
+    var Z = new Tooltip;
+    return Z.build(i, I[i], t, "tech", S), Z.position.x = e.position.x + 40, Z.position.y = e.position.y + 40, J.addChild(Z), P.tooltip = J.children.length - 1, P.mouseover = function () {
+      this.isOver = !0, J.children[this.tooltip].show(), this.alphaWas = this.alpha, this.alpha = 1, this.isdown
+    }, P.mouseout = function () {
+      this.isOver = !1, J.children[this.tooltip].hide(), this.alpha = this.alphaWas, this.isdown
+    }, e.offset = "undefined" != typeof e.techData.Node ? 1 : 2, "undefined" != typeof I[e.name] && (1 === I[e.name] && (e.getChildAt(e.offset + 4).alpha = M, e.getChildAt(e.offset + 4).alphaWas = M), .5 === I[e.name] && (e.getChildAt(e.offset + 4).alpha = W, e.getChildAt(e.offset + 4).alphaWas = W)), e.turnOff = function () {
+      if ("undefined" != typeof b[this.name])return 0;
+      if (0 === I[this.name])return 0;
+      I[this.name] = 0;
+      var i = x.indexOf(this.name);
+      -1 != i && (x = x.slice(0, i))
+    }, e.turnOn = function () {
+      return 1 === I[this.name] ? 0 : (I[this.name] = 1, this.isOn = !0, this.isEnabled = !1, x.push(this.name), void 0)
+    }, e.turnEnabled = function (i) {
+      if (.5 === I[this.name])return 0;
+      if ("Habitation" === this.name)return 0;
+      if (I[this.name] = .5, this.isOn = !1, this.isEnabled = !0, i) {
+        var t = x.indexOf(this.name);
+        -1 != t && (x = x.slice(0, t))
+      }
+    }, e
+  }
+
+  function a() {
+    s(), tw.ui.resetAffinity(), P = 0, C = [], h("Habitation");
+    for (var i in x)h(x[i]);
+    tw.ui.science.children[tw.ui.science.textId].setText(P), f()
+  }
+
+  function s() {
+    for (var i in techs)"Habitation" !== i && r(i)
+  }
+
+  function h(i) {
+    if (d(i), techPtr = _.getChildAt(y[i]), techPtr.getChildAt(techPtr.offset + 2).alpha = 1, techPtr.getChildAt(techPtr.offset + 1).alpha = 0, techPtr.getChildAt(techPtr.offset).alpha = 0, techPtr.getChildAt(techPtr.offset + 4).alpha = M, techPtr.getChildAt(techPtr.offset + 4).alphaWas = M, techPtr.isOn = !0, techPtr.isEnabled = !1, I[i] = 1, C[i] = !0, "Habitation" !== i && (P += techs[i].Science, "undefined" != typeof techs[i].Affinity))for (var t in affinityData)"undefined" != typeof techs[i].Affinity[t] && tw.ui.updateAffinity(t, techs[i].Affinity[t]);
+    techPtr.getChildAt(techPtr.orderedId).position.x = "undefined" != typeof techPtr.techData.Leaf ? x.indexOf(i) + 1 < 10 ? 275 : 260 : x.indexOf(i) + 1 < 10 ? 260 : 245, techPtr.getChildAt(techPtr.orderedId).setText(x.indexOf(i) + 1), "Habitation" !== i && (techPtr.getChildAt(techPtr.orderedId).visible = !0)
+  }
+
+  function l(i) {
+    var t = _.getChildAt(y[i]);
+    t.getChildAt(t.offset + 2).alpha = 0, t.getChildAt(t.offset + 1).alpha = 1, t.getChildAt(t.offset).alpha = 0, t.getChildAt(t.offset + 4).alpha = W, t.getChildAt(t.offset + 4).alphaWas = W, t.isOn = !1, t.isEnabled = !0, I[i] = .5, C[i] = !0, t.getChildAt(t.orderedId).setText("0"), t.getChildAt(t.orderedId).visible = !1
+  }
+
+  function r(i) {
+    var t = _.getChildAt(y[i]);
+    t.getChildAt(t.offset + 2).alpha = 0, t.getChildAt(t.offset + 1).alpha = 0, t.getChildAt(t.offset).alpha = 1, t.getChildAt(t.offset + 4).alpha = E, t.getChildAt(t.offset + 4).alphaWas = E, t.isOn = !1, t.isEnabled = !1, I[i] = 0, C[i] = !1, t.getChildAt(t.orderedId).setText("0"), t.getChildAt(t.orderedId).visible = !1
+  }
+
+  function d(i) {
+    var t = _.getChildAt(y[i]);
+    for (var e in t.techData.Enables)"undefined" == typeof C[e] && l(e);
+    for (var e in t.techData.Leaf)C[e] || l(e)
+  }
+
+  function p(i, t, e, o) {
+    if (t > i)var n = i + t; else var n = t + i;
+    if ("undefined" == typeof v[n]) {
+      var e = e, a = _.children[y[i]].position.x, s = _.children[y[i]].position.y, h = _.children[y[t]].position.x, l = _.children[y[t]].position.y;
+      c(n, 4, e, o, a, s, h, l)
+    }
+  }
+
+  function c(i, t, e, o, n, a, s, h) {
+    var l = 34, r = 34, d = new PIXI.Graphics;
+    d.lineStyle(t, e, o), d.moveTo(n + l, a + r), d.lineTo(s + l, h + r), d.name = i, K.addChild(d)
+  }
+
+  function f() {
+    K.removeAll();
+    var i = "0xFFFFFF", t = .25;
+    for (var e in y) {
+      var o = _.children[y[e]];
+      if ("undefined" != typeof o.techData && "undefined" != typeof o.techData.Enables)for (var n in o.techData.Enables)1 === I[e] && 1 === I[n] ? (i = w.selected.color, t = w.selected.alpha) : .5 === I[e] && 1 === I[n] || 1 === I[e] && .5 === I[n] ? (i = w.enabled.color, t = w.enabled.alpha) : (i = w.disabled.color, t = w.disabled.alpha), p(e, n, i, t)
+    }
+  }
+
+  function u(i) {
+    var t = -40, e = i.Oclock, o = i.Leaf;
+    o && (t += 9);
+    var n = 2 * Math.PI * e / 12;
+    return t += 400 * i.Node * Math.sin(n), Math.round(t)
+  }
+
+  function m(i) {
+    var t = -30, e = i.Oclock, o = i.Leaf;
+    1 === o ? t += 69 : 2 === o ? t += 123 : 3 === o && (t += 177);
+    var n = 2 * Math.PI * e / 12;
+    return t += -240 * i.Node * Math.cos(n), Math.round(t)
+  }
+
+  function g(i) {
+    return i.mousedown = i.touchstart = function () {
+      this.isdown = !0, this.isOn ? this.turnEnabled(!0) : this.isEnabled ? this.turnOn() : this.turnEnabled(!1), a()
+    }, i.mouseup = i.touchend = i.mouseupoutside = i.touchendoutside = function () {
+      this.isdown = !1
+    }, i.mouseover = function () {
+      this.isOver = !0, this.alphaWas = this.alpha, this.alpha = 1, this.isdown
+    }, i.mouseout = function () {
+      this.isOver = !1, this.alpha = this.alphaWas, this.isdown
+    }, i
+  }
+
+  var v = [], w = {
+    selected: {color: "0xA6AFD6", alpha: 1},
+    enabled: {color: "0x592EA8", alpha: 1},
+    disabled: {color: "0xFFFFFF", alpha: .25}
+  }, y = [], x = [], I = {
+    Habitation: 1,
+    Pioneering: .5,
+    "Planetary Survey": .5,
+    Engineering: .5,
+    Physics: .5,
+    Chemistry: .5,
+    Genetics: .5,
+    Ecology: .5
+  }, C = [], b = I, P = 0, O = i, X = t, A = O / 2, F = X / 2, S = 309, M = .9, W = .7, E = .5, z = !0, L = new PIXI.Stage(0, z), T = new PIXI.CanvasRenderer(O, X, document.getElementById("techWebCanvas"), !1);
+  document.body.appendChild(T.view), T.view.style.position = techWebPositioning, T.view.style.top = techWebTop + "px", T.view.style.left = techWebLeft + "px";
+  var D = new PIXI.DisplayObjectContainer;
+  D.position.x = A, D.position.y = F;
+  var k = PIXI.Texture.fromImage(assetsPath + "background.jpg"), j = new PIXI.Sprite(k);
+  j.anchor.x = .5, j.anchor.y = .5, D.addChild(j);
+  var R = new PIXI.DisplayObjectContainer;
+  R.position.x = A, R.position.y = F;
+  var Y = O / 1920, H = X / 1080;
+  if (Y > H)var q = Y; else var q = H;
+  R.scale.x = q, R.scale.y = q;
+  var N = PIXI.Texture.fromImage(assetsPath + "loading.jpg"), U = new PIXI.Sprite(N);
+  U.anchor.x = .5, U.anchor.y = .5, R.addChild(U);
+  var B = [assetsPath + "sprites.json"], G = new PIXI.AssetLoader(B);
+  G.onComplete = o, G.load();
+  var K = new PIXI.DisplayObjectContainer;
+  K.position.x = A, K.position.y = F;
+  var _ = new PIXI.DisplayObjectContainer;
+  this.tl = _, _.interactive = !0, _.hitArea = new PIXI.Rectangle(-6e3, -6e3, 2e4, 2e4), _.position.x = Math.floor(_.position.x), _.position.y = Math.floor(_.position.y);
+  var J = new PIXI.DisplayObjectContainer;
+  J.position.x = A, J.position.y = F;
+  var Q = PIXI.Texture.fromImage("img/rings.png"), V = new PIXI.Sprite(Q);
+  V.anchor.x = .5, V.anchor.y = .5, _.addChild(V);
+  var Z = 1;
+  this.zoomin = function () {
+    1.5 > Z && (Z += .05, _.scale.x = Z, _.scale.y = Z, K.scale.x = Z, K.scale.y = Z, J.scale.x = Z, J.scale.y = Z), tw.ui.zoomin.alpha = Z >= 1.5 ? .2 : 1, tw.ui.zoomout.alpha = 1
+  }, this.zoomout = function () {
+    Z > .5 && (Z -= .05, _.scale.x = Z, _.scale.y = Z, K.scale.x = Z, K.scale.y = Z, J.scale.x = Z, J.scale.y = Z), tw.ui.zoomout.alpha = .5 >= Z ? .2 : 1, tw.ui.zoomin.alpha = 1
+  }, this.unzoom = function () {
+    Z = 1, _.scale.x = Z, _.scale.y = Z, K.scale.x = Z, K.scale.y = Z, J.scale.x = Z, J.scale.y = Z, tw.ui.zoomin.alpha = 1, tw.ui.zoomout.alpha = 1
+  }, Mousetrap.bind("+", this.zoomin), Mousetrap.bind("-", this.zoomout), this.fullscreen = function () {
+    this.originalWidth = T.width, this.originalHeight = T.height;
+    var i = document.fullScreenElement && null !== document.fullScreenElement || document.mozFullScreen || document.webkitIsFullScreen;
+    i || (T.view.requestFullscreen ? T.view.requestFullscreen() : T.view.mozRequestFullScreen ? T.view.mozRequestFullScreen() : T.view.webkitRequestFullScreen && T.view.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT), T.resize(screen.width, screen.height), D.scale.x = screen.width / O, D.scale.y = screen.height / O + .1, R.scale.x = screen.width / O, R.scale.y = screen.height / O, this.ui.fullscreen.position.x = T.width - 35, this.ui.notfullscreen.position.x = T.width - 35, this.ui.science.position.x = T.width - 135, this.ui.zoomin.position.x = T.width / 2 - 60, this.ui.zoomtxt.position.x = T.width / 2 - 25, this.ui.zoomout.position.x = T.width / 2 + 20)
+  }, this.nofullscreen = function () {
+    var i = document.cancelFullScreen || document.webkitCancelFullScreen || document.mozCancelFullScreen || document.exitFullscreen;
+    if (i)i.call(document); else if ("undefined" != typeof window.ActiveXObject) {
+      var t = new ActiveXObject("WScript.Shell");
+      null !== t && t.SendKeys("{F11}")
+    }
+    return T.resize(this.originalWidth, this.originalHeight), this.ui.fullscreen.position.x = T.width - 35, this.ui.notfullscreen.position.x = T.width - 35, this.ui.zoomin.position.x = T.width / 2 - 60, this.ui.zoomtxt.position.x = T.width / 2 - 25, this.ui.zoomout.position.x = T.width / 2 + 20, this.ui.science.position.x = T.width - 135, !1
+  }, _.mousedown = _.touchstart = function (i) {
+    i.originalEvent.preventDefault(), this.data = i, this.dragging = !0, this.sx = this.data.getLocalPosition(this).x * this.scale.x, this.sy = this.data.getLocalPosition(this).y * this.scale.y
+  }, _.mouseup = _.mouseupoutside = _.touchend = _.touchendoutside = function () {
+    this.alpha = 1, this.dragging = !1, this.data = null
+  }, _.mousemove = _.touchmove = function () {
+    if (this.dragging) {
+      var i = this.data.getLocalPosition(this.parent);
+      (i.y - this.sy) / this.scale.y < 1600 && (i.y - this.sy) / this.scale.y > -1600 && (this.position.y = Math.round(i.y - this.sy), K.position.y = Math.round(this.position.y), J.position.y = Math.round(this.position.y)), (i.x - this.sx) / this.scale.x < 2400 && (i.x - this.sx) / this.scale.x > -2400 && (this.position.x = Math.round(i.x - this.sx), K.position.x = Math.round(this.position.x), J.position.x = Math.round(this.position.x))
+    }
+  }, R.alpha = 1, L.addChild(D), L.addChild(K), L.addChild(_), L.addChild(J), L.addChild(R)
+}
+PIXI.DisplayObjectContainer.prototype.removeAll = function () {
+  for (var i = this.children.length - 1; i >= 0; --i)this.removeChild(this.children[i])
+};
+var tw = new TechWeb(w, h);
+mouseOutFrame = function () {
+  tw.tl.alpha = 1, tw.tl.dragging = !1, tw.tl.data = null
+}, inIframe = function () {
+  try {
+    return window.self !== window.top
+  } catch (i) {
+    return !0
+  }
+};
