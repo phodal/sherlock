@@ -9,7 +9,7 @@ define(['d3', 'lib/knockout', 'text!templates/example.html'], function (d3, ko, 
       });
 
     var svg = d3.select("body").append("svg")
-      .attr("width", radius * 2)
+      .attr("width", radius * 3)
       .attr("height", radius * 2)
       .append("g")
       .attr("transform", "translate(" + radius + "," + radius + ")");
