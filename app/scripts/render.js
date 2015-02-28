@@ -41,8 +41,8 @@ define(['d3', 'lib/knockout', 'text!templates/example.html'], function (d3, ko, 
       .attr("r", 2);
 
     node.append("foreignObject")
-      .attr("width", 480)
-      .attr("height", 500)
+      .attr("width", 240)
+      .attr("height", 300)
       .style("font", "14px 'Helvetica Neue'")
       .html(example);
 

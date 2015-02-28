@@ -1,4 +1,4 @@
-define(['lib/knockout'], function (ko) {
+define(['lib/knockout', 'scripts/Skill'], function (ko, Skill) {
   'use strict';
 
   var Talent = function (_e) {
@@ -7,6 +7,11 @@ define(['lib/knockout'], function (ko) {
       title: 'world',
       value: 'hello'
     }];
+    console.log(_e);
+    self.skills = ko.observableArray(ko.utils.arrayMap(_e.children, function (item) {
+      console.log(item.id);
+      return new Skill(item);
+    }));
     self.sample = function () {
       console.log("click");
     };

@@ -1,3 +1,9 @@
+
+<!--ko foreach: skills-->
+<div data-bind="attr: { 'data-skill-id': id }"></div>
+<!--/ko-->
+
+<div class="skill">
 <!--ko foreach: stats-->
 <li>
   <span class="value">
@@ -7,3 +13,4 @@
   <span data-bind="	text: title" class="title"></span>
 </li>
 <!--/ko-->
+</div>

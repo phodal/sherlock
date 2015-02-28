@@ -13,6 +13,15 @@
 text.skill {
   font-size: 18pt;
 }
+
+.skill {
+  background: #006600;
+  width:100px;
+  height:50px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
 text.skill.active {
   -moz-opacity: 0;
   -khtml-opacity: 0;
