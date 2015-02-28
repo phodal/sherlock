@@ -7,19 +7,19 @@ digraph tree
     node [style="rounded,filled", width=0, height=0, shape=box, fillcolor="#E5E5E5", concentrate=true]
 
     computer [label="熟悉基本计算机操作" shape=box, width=3]
-    computer -> "Java" -> "Web Server-Side"
+
+    Web -> "Java" -> "Web Server-Side"
     "Java" -> "Spring" -> "Web Server-Side"
-    computer -> "JavaScript" -> "Web Front-End"
-    computer -> "HTML" -> "Web Front-End"
-    computer -> "CSS" -> "Web Front-End"
+    Web -> "JavaScript" -> "Web Front-End"
+    Web -> "HTML" -> "Web Front-End"
+    Web -> "CSS" -> "Web Front-End"
     "CSS" -> "CSS Tools"
     "JavaScript" -> "Node.js" -> "Web Server-Side"
     "JavaScript" -> "JS库/框架使用"
-    computer -> "SQL/NoSQL" -> "Web Server-Side"
+    Web -> "SQL/NoSQL" -> "Web Server-Side"
     "Web Server-Side" -> "Web Development"
     "Web Front-End" -> "Web Development"
 
-    computer -> "编程语言"
     "编程语言" -> "设计模式" -> "领域模式"
     "编程语言" -> "测试"
     "测试" -> "TDD"

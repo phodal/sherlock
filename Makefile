@@ -1,2 +1,2 @@
 all:
-	dot -Tpng tree/tree.dot -o screenshot/tree.png
+	dot -Tjpg tree/tree.dot -o screenshot/tree.jpg
