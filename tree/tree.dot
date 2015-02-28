@@ -1,0 +1,37 @@
+digraph tree
+{
+    nodesep=0.5;
+    charset="UTF-8";
+    rankdir=LR;
+    fixedsize=true;
+    node [style="rounded,filled", width=0, height=0, shape=box, fillcolor="#E5E5E5", concentrate=true]
+
+    computer [label="熟悉基本计算机操作" shape=box, width=3]
+    computer -> "Java" -> "Web Server-Side"
+    "Java" -> "Spring" -> "Web Server-Side"
+    computer -> "JavaScript" -> "Web Front-End"
+    computer -> "HTML" -> "Web Front-End"
+    computer -> "CSS" -> "Web Front-End"
+    "CSS" -> "CSS Tools"
+    "JavaScript" -> "Node.js" -> "Web Server-Side"
+    "JavaScript" -> "JS库/框架使用"
+    computer -> "SQL/NoSQL" -> "Web Server-Side"
+    "Web Server-Side" -> "Web Development"
+    "Web Front-End" -> "Web Development"
+
+    computer -> "编程语言"
+    "编程语言" -> "设计模式" -> "领域模式"
+    "编程语言" -> "测试"
+    "测试" -> "TDD"
+    "编程语言" -> "Clean Code"
+    "Clean Code" -> "重构"
+    "分析" -> "领域知识" -> "领域模式"
+    "分析" -> "SEO" -> "SEM"
+    "编程语言" -> "程序语言设计" -> "DSL" -> "领域语言"
+
+    computer -> "包管理" -> "部署"
+    computer -> "CLI" -> "部署"
+    computer -> "脚本语言(Bash,Perl,Ruby,Python etc)" -> "部署"
+    computer -> "*nix" -> "软件编译" -> "部署"
+    computer -> "C语言" -> "软件编译" -> "部署"
+}
