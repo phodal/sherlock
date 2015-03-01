@@ -2,27 +2,26 @@
   "skills": [
     {
       "id": 1,
-      "name": "Web"
+      "name": "Web",
+      "description": "Web"
     },
     {
       "id": 2,
       "name": "HTML",
+      "description": "Internet主要由从服务器通过HTTP协议向浏览器发送的HTML文档组成。HTML被用来结构化信息——例如标题、段落和列表等等，也可用来在一定程度上描述文档的外观和语义。",
       "depends": [1]
     },
     {
       "id": 3,
       "name": "CSS",
+      "description": "CSS能够对网页中的对象的位置排版进行像素级的精确控制，支持几乎所有的字体字号样式，拥有对网页对象和模型样式编辑的能力，并能够进行初步交互设计。",
       "depends": [1]
     },
     {
       "id": 4,
       "name": "JavaScript",
+      "description": "JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型。它的解释器被称为JavaScript引擎，为浏览器的一部分，广泛用于客户端的脚本语言，最早是在HTML（标准通用标记语言下的一个应用）网页上使用，用来给HTML网页增加动态功能。",
       "depends": [1]
-    },
-    {
-      "id": 5,
-      "name": "Node.js",
-      "depends": [4]
     }
   ]
 }

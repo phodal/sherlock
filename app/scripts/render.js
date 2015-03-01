@@ -1,88 +1,55 @@
-define(['d3', 'lib/knockout','scripts/Utils', 'text!templates/example.html'], function (d3, ko, Utils, example) {
-  'use strict';
-  function renderPage(skills_data) {
-    var links = Utils.parseDepends(skills_data.skills);
-    var w = 960,
-      h = 500;
+define(['d3', 'lib/knockout', 'scripts/Utils', 'text!templates/example.html', 'dagre-d3', 'jquery', 'jquery.tipsy'],
+  function (d3, ko, Utils, example, dagreD3, $) {
+    'use strict';
+    function renderPage(skills_data) {
+      var g = new dagreD3.graphlib.Graph().setGraph({});
 
-    var vis = d3.select('body').append('svg:svg')
-      .attr('width', w)
-      .attr('height', h);
-
-    var force = d3.layout.force()
-      .nodes(skills_data.skills)
-      .links(links)
-      .gravity(0.05)
-      .distance(100)
-      .charge(-100)
-      .size([w, h])
-      .start();
-
-    var link = vis.selectAll('line.link')
-      .data(links)
-      .enter().append('svg:line')
-      .attr('class', 'link')
-      .attr('x1', function (d) {
-        return d.source.x;
-      })
-      .attr('y1', function (d) {
-        return d.source.y;
-      })
-      .attr('x2', function (d) {
-        return d.target.x;
-      })
-      .attr('y2', function (d) {
-        return d.target.y;
+      (skills_data.skills).forEach(function (skill) {
+        var value = skill;
+        value.label = skill.name;
+        value.rx = value.ry = 5;
+        g.setNode(skill.name, value);
       });
 
-    var node = vis.selectAll('g.node')
-      .data(skills_data.skills)
-      .enter().append('svg:g')
-      .attr('class', 'node');
+      //g.setEdge("HTML", "Web", {label: "open"});
+      g.setEdge("Web", "HTML", {label: ""});
+      g.setEdge("Web", "CSS", {label: ""});
+      g.setEdge("Web", "JavaScript", {label: ""});
 
-    node.append('svg:text')
-      .attr('class', 'nodetext')
-      .attr('dx', 12)
-      .attr('dy', '.35em')
-      .attr('data-bind', function () {
-        return 'click: sample';
-      })
-      .text(function (d) {
-        return d.name;
+      var render = new dagreD3.render();
+
+      var svg = d3.select("svg"),
+        inner = svg.append("g");
+
+      var zoom = d3.behavior.zoom().on("zoom", function () {
+        inner.attr("transform", "translate(" + d3.event.translate + ")" +
+        "scale(" + d3.event.scale + ")");
       });
+      svg.call(zoom);
 
-    node.append('foreignObject')
-      .attr('width', 280)
-      .attr('height', 500)
-      .style('font', '14px "Helvetica Neue"');
-      //.html(example);
+      var styleTooltip = function (name, description) {
+        return "<p class='name'>" + name + "</p><p class='description'>" + description + "</p>";
+      };
 
-    node.append('circle')
-      .attr('r', 4.5);
+      render(inner, g);
 
-    function tick() {
-      link.attr('x1', function (d) {
-        return d.source.x;
-      })
-        .attr('y1', function (d) {
-          return d.source.y;
+      inner.selectAll("g.node")
+        .attr("title", function (v) {
+          return styleTooltip(v, g.node(v).description)
         })
-        .attr('x2', function (d) {
-          return d.target.x;
-        })
-        .attr('y2', function (d) {
-          return d.target.y;
+        .each(function (v) {
+          $(this).tipsy({gravity: "w", opacity: 1, html: true});
         });
 
-      node.attr('transform', function (d) {
-        return 'translate(' + d.x + ',' + d.y + ')';
-      });
+      var initialScale = 0.75;
+      zoom
+        .translate([(svg.attr("width") - g.graph().width * initialScale) / 2, 20])
+        .scale(initialScale)
+        .event(svg);
+      svg.attr('height', g.graph().height * initialScale + 40);
     }
 
-    force.on('tick', tick);
-  }
-
-  return {
-    renderPage: renderPage
-  };
-});
+    return {
+      renderPage: renderPage
+    };
+  });

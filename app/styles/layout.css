@@ -23,7 +23,6 @@ section p {
 }
 
 svg {
-  border: 1px solid #ccc;
   overflow: hidden;
   margin: 0 auto;
 }
