@@ -14,6 +14,6 @@ require(['lib/knockout', 'scripts/Talent', 'scripts/render', 'json!../data/examp
 
     render.renderPage(example);
 
-    //var vm = new Talent(skills_data);
-    //ko.applyBindings(vm);
+    var vm = new Talent(example);
+    ko.applyBindings(vm);
   });

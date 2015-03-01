@@ -1,7 +1,7 @@
 define(['d3', 'lib/knockout', 'text!templates/example.html'], function (d3, ko, example) {
   function renderPage(skills_data) {
     var w = 960,
-      h = 500
+      h = 500;
 
     var vis = d3.select("body").append("svg:svg")
       .attr("width", w)
@@ -67,12 +67,22 @@ define(['d3', 'lib/knockout', 'text!templates/example.html'], function (d3, ko, 
       .attr("class", "nodetext")
       .attr("dx", 12)
       .attr("dy", ".35em")
+      .attr("data-bind", function () {
+        return "click: sample";
+      })
       .text(function (d) {
         return d.name
       });
 
+    node.append("foreignObject")
+      .attr("width", 280)
+      .attr("height", 500)
+      .append("xhtml:body")
+      .style("font", "14px 'Helvetica Neue'")
+      //.html(example);
+
     node.append("circle")
-      .attr("r", 3);
+      .attr("r", 4.5);
 
     force.on("tick", tick);
 
@@ -93,7 +103,7 @@ define(['d3', 'lib/knockout', 'text!templates/example.html'], function (d3, ko, 
       node.attr("transform", function (d) {
         return "translate(" + d.x + "," + d.y + ")";
       });
-    };
+    }
   }
 
   return {

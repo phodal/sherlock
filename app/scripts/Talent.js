@@ -9,7 +9,6 @@ define(['lib/knockout', 'scripts/Skill'], function (ko, Skill) {
     }];
     console.log(_e);
     self.skills = ko.observableArray(ko.utils.arrayMap(_e.children, function (item) {
-      console.log(item.id);
       return new Skill(item);
     }));
     self.sample = function () {

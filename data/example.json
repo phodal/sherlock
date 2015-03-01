@@ -1,31 +1,28 @@
 {
   "nodes": [
     {
-      "name": "Myriel",
+      "id": 1,
+      "name": "Web",
       "group": 1
     },
     {
-      "name": "Napoleon",
+      "id": 2,
+      "name": "HTML",
       "group": 1
     },
     {
-      "name": "Mlle.Baptistine",
+      "id": 3,
+      "name": "CSS",
       "group": 1
     },
     {
-      "name": "Mme.Magloire",
+      "id": 4,
+      "name": "JavaScript",
       "group": 1
     },
     {
-      "name": "CountessdeLo",
-      "group": 1
-    },
-    {
-      "name": "Geborand",
-      "group": 1
-    },
-    {
-      "name": "Champtercier",
+      "id": 5,
+      "name": "Node.js",
       "group": 1
     }
   ],
@@ -47,7 +44,7 @@
     },
     {
       "source": 4,
-      "target": 1,
+      "target": 3,
       "value": 1
     }
   ]
