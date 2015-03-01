@@ -3,7 +3,7 @@ require.config({
   paths: {
     jquery: 'lib/jquery',
     json: 'lib/json',
-    d3: 'lib/d3',
+    d3: 'lib/d3.min',
     text: 'lib/text'
   }
 });
