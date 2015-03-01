@@ -4,7 +4,18 @@ require.config({
     jquery: 'lib/jquery',
     json: 'lib/json',
     d3: 'lib/d3.min',
-    text: 'lib/text'
+    'dagre-d3': 'lib/dagre-d3.min',
+    text: 'lib/text',
+    jquery: 'lib/jquery',
+    'jquery.tipsy': 'lib/jquery.tipsy'
+  },
+  "shim": {
+    "jquery.tipsy": {
+      deps: ["jquery"]
+    },
+    'dagre-d3': {
+      deps: ["d3"]
+    }
   }
 });
 
