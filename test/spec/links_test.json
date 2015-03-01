@@ -1,0 +1,13 @@
+{
+  "skills": [
+    {
+      "id": 1,
+      "name": "Web"
+    },
+    {
+      "id": 2,
+      "name": "HTML",
+      "depends": [1]
+    }
+  ]
+}

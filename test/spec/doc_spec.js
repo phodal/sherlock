@@ -1,4 +1,4 @@
-/* global describe, it */
+/* global describe, it, before */
 
 var requirejs = require("requirejs");
 var assert = require("assert");

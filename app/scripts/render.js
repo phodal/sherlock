@@ -1,21 +1,7 @@
-define(['d3', 'lib/knockout', 'text!templates/example.html'], function (d3, ko, example) {
+define(['d3', 'lib/knockout','scripts/Utils', 'text!templates/example.html'], function (d3, ko, Utils, example) {
   'use strict';
   function renderPage(skills_data) {
-    var links =[];
-
-    ko.utils.arrayForEach(skills_data.skills, function (node) {
-      var skill_id = node.id;
-      if(node.depends !== undefined){
-        ko.utils.arrayForEach(node.depends, function (id) {
-	        var link = {
-            'source': skill_id - 1,
-            'target': id - 1
-          };
-          links.push(link);
-        });
-      }
-    });
-
+    var links = Utils.parseDepends(skills_data.skills);
     var w = 960,
       h = 500;
 
