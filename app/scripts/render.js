@@ -1,5 +1,18 @@
 define(['d3', 'lib/knockout', 'text!templates/example.html'], function (d3, ko, example) {
   function renderPage(skills_data) {
+
+    var links =[];
+
+    ko.utils.arrayForEach(skills_data.skills, function (node) {
+      if(node.links !== undefined){
+        ko.utils.arrayForEach(node.links, function (link) {
+          links.push(link);
+        });
+      }
+    });
+    console.log(links);
+    console.log(skills_data.skills);
+
     var w = 960,
       h = 500;
 
@@ -8,8 +21,8 @@ define(['d3', 'lib/knockout', 'text!templates/example.html'], function (d3, ko, 
       .attr("height", h);
 
     var force = self.force = d3.layout.force()
-      .nodes(skills_data.nodes)
-      .links(skills_data.links)
+      .nodes(skills_data.skills)
+      .links(links)
       .gravity(.05)
       .distance(100)
       .charge(-100)
@@ -17,7 +30,7 @@ define(['d3', 'lib/knockout', 'text!templates/example.html'], function (d3, ko, 
       .start();
 
     var link = vis.selectAll("line.link")
-      .data(skills_data.links)
+      .data(links)
       .enter().append("svg:line")
       .attr("class", "link")
       .attr("x1", function (d) {
@@ -33,35 +46,10 @@ define(['d3', 'lib/knockout', 'text!templates/example.html'], function (d3, ko, 
         return d.target.y;
       });
 
-    var node_drag = d3.behavior.drag()
-      .on("dragstart", dragstart)
-      .on("drag", dragmove)
-      .on("dragend", dragend);
-
-    function dragstart(d, i) {
-      force.stop() // stops the force auto positioning before you start dragging
-    }
-
-    function dragmove(d, i) {
-      d.px += d3.event.dx;
-      d.py += d3.event.dy;
-      d.x += d3.event.dx;
-      d.y += d3.event.dy;
-      tick(); // this is the key to make it work together with updating both px,py,x,y on d !
-    }
-
-    function dragend(d, i) {
-      d.fixed = true; // of course set the node to fixed so the force doesn't include the node in its auto positioning stuff
-      tick();
-      force.resume();
-    }
-
-
     var node = vis.selectAll("g.node")
-      .data(skills_data.nodes)
+      .data(skills_data.skills)
       .enter().append("svg:g")
-      .attr("class", "node")
-      .call(node_drag);
+      .attr("class", "node");
 
     node.append("svg:text")
       .attr("class", "nodetext")
@@ -77,7 +65,6 @@ define(['d3', 'lib/knockout', 'text!templates/example.html'], function (d3, ko, 
     node.append("foreignObject")
       .attr("width", 280)
       .attr("height", 500)
-      .append("xhtml:body")
       .style("font", "14px 'Helvetica Neue'")
       //.html(example);
 
