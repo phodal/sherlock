@@ -11,7 +11,7 @@ define(['lib/knockout', 'scripts/Skill'], function (ko, Skill) {
       return new Skill(item);
     }));
     self.sample = function () {
-      console.log("click");
+      console.log('click');
     };
   };
 
