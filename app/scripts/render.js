@@ -11,10 +11,16 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'text!templates/example.html', 'd
         g.setNode(skill.name, value);
       });
 
-      //g.setEdge("HTML", "Web", {label: "open"});
-      g.setEdge("Web", "HTML", {label: ""});
-      g.setEdge("Web", "CSS", {label: ""});
-      g.setEdge("Web", "JavaScript", {label: ""});
+      ko.utils.arrayForEach(skills_data.skills, function (node) {
+        var skill_id = node.id;
+        if (node.depends !== undefined) {
+          ko.utils.arrayForEach(node.depends, function (id) {
+	          var dependents_name = skills_data.skills[id - 1].name;
+	          var skill_name = skills_data.skills[skill_id - 1].name;
+            g.setEdge(dependents_name, skill_name, {label: ""});
+          });
+        }
+      });
 
       var render = new dagreD3.render();
 
