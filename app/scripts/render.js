@@ -4,14 +4,17 @@ define(['d3', 'lib/knockout', 'text!templates/example.html'], function (d3, ko, 
     var links =[];
 
     ko.utils.arrayForEach(skills_data.skills, function (node) {
-      if(node.links !== undefined){
-        ko.utils.arrayForEach(node.links, function (link) {
+      var skill_id = node.id;
+      if(node.depends !== undefined){
+        ko.utils.arrayForEach(node.depends, function (id) {
+	        var link = {
+            "source": skill_id - 1,
+            "target": id - 1
+          };
           links.push(link);
         });
       }
     });
-    console.log(links);
-    console.log(skills_data.skills);
 
     var w = 960,
       h = 500;
@@ -65,7 +68,7 @@ define(['d3', 'lib/knockout', 'text!templates/example.html'], function (d3, ko, 
     node.append("foreignObject")
       .attr("width", 280)
       .attr("height", 500)
-      .style("font", "14px 'Helvetica Neue'")
+      .style("font", "14px 'Helvetica Neue'");
       //.html(example);
 
     node.append("circle")

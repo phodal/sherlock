@@ -9,41 +9,25 @@
       "id": 2,
       "name": "HTML",
       "group": 1,
-      "links": [
-        {
-          "source": 1,
-          "target": 0
-        }]
+      "depends": [1]
     },
     {
       "id": 3,
       "name": "CSS",
       "group": 1,
-      "links": [
-        {
-          "source": 2,
-          "target": 0
-        }]
+      "depends": [1]
     },
     {
       "id": 4,
       "name": "JavaScript",
       "group": 1,
-      "links": [
-        {
-          "source": 3,
-          "target": 0
-        }]
+      "depends": [1]
     },
     {
       "id": 5,
       "name": "Node.js",
       "group": 1,
-      "links": [
-        {
-          "source": 4,
-          "target": 3
-        }]
+      "depends": [4]
     }
   ]
 }
