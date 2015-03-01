@@ -2,31 +2,26 @@
   "skills": [
     {
       "id": 1,
-      "name": "Web",
-      "group": 1
+      "name": "Web"
     },
     {
       "id": 2,
       "name": "HTML",
-      "group": 1,
       "depends": [1]
     },
     {
       "id": 3,
       "name": "CSS",
-      "group": 1,
       "depends": [1]
     },
     {
       "id": 4,
       "name": "JavaScript",
-      "group": 1,
       "depends": [1]
     },
     {
       "id": 5,
       "name": "Node.js",
-      "group": 1,
       "depends": [4]
     }
   ]
