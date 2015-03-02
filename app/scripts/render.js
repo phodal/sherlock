@@ -4,7 +4,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'text!templates/example.html', 'd
     function renderPage(skills_data) {
       var g = new dagreD3.graphlib.Graph().setGraph({});
 
-      (skills_data.skills).forEach(function (skill) {
+      ko.utils.arrayForEach(skills_data.skills, function (skill) {
         var value = skill;
         value.label = skill.name;
         value.rx = value.ry = 5;
