@@ -6,6 +6,7 @@ require.config({
     d3: 'lib/d3.min',
     'dagre-d3': 'lib/dagre-d3.min',
     text: 'lib/text',
+    lettuce: 'lib/lettuce',
     jquery: 'lib/jquery',
     'jquery.tipsy': 'lib/jquery.tipsy'
   },

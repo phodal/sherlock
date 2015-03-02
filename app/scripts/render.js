@@ -1,7 +1,8 @@
-define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'jquery.tipsy'],
-  function (d3, ko, Utils, dagreD3, $) {
+define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery','lettuce', 'jquery.tipsy'],
+  function (d3, ko, Utils, dagreD3, $, lettuce) {
     'use strict';
     function renderPage(skills_data) {
+      var Lettuce = new lettuce();
       var g = new dagreD3.graphlib.Graph().setGraph({});
 
       ko.utils.arrayForEach(skills_data.skills, function (skill) {
@@ -41,7 +42,12 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'jquery.tip
 
       inner.selectAll("g.node")
         .attr("title", function (v) {
-          return styleTooltip(v, g.node(v).description)
+          var data = {
+            name: v,
+            description: g.node(v).description
+          };
+		      var results = Lettuce.Template.tmpl("<p class='name'>{%=o.name%}</p><p class='description'>{%=o.description%}</p>", data);
+            return results;
         })
         .each(function (v) {
           $(this).tipsy({gravity: "s", opacity: 1, html: true});
