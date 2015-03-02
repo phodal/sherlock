@@ -47,12 +47,12 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'jquery.tip
           $(this).tipsy({gravity: "w", opacity: 1, html: true});
         });
 
-      var initialScale = 0.75;
+      var initialScale = 1;
       zoom
-        .translate([(svg.attr("width") - g.graph().width * initialScale) / 2, 20])
+        .translate([(svg.attr("width") - g.graph().width * initialScale) / 2, 120])
         .scale(initialScale)
         .event(svg);
-      svg.attr('height', g.graph().height * initialScale + 40);
+      svg.attr('height', g.graph().height * initialScale + 120);
     }
 
     return {

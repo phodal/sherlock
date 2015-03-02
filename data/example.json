@@ -2,32 +2,125 @@
   "skills": [
     {
       "id": 1,
-      "name": "Web",
-      "description": "Web"
+      "name": "Developer",
+      "description": "Developer"
     },
     {
       "id": 2,
       "name": "HTML",
-      "description": "Internet主要由从服务器通过HTTP协议向浏览器发送的HTML文档组成。HTML被用来结构化信息——例如标题、段落和列表等等，也可用来在一定程度上描述文档的外观和语义。",
-      "depends": [1]
+      "description": "Internet主要由从服务器通过HTTP协议向浏览器发送的HTML文档组成。HTML被用来结构化信息——例如标题、段落和列表等等，也可用来在一定程度上描述文档的外观和语义。"
     },
     {
       "id": 3,
       "name": "CSS",
-      "description": "CSS能够对网页中的对象的位置排版进行像素级的精确控制，支持几乎所有的字体字号样式，拥有对网页对象和模型样式编辑的能力，并能够进行初步交互设计。",
-      "depends": [1]
+      "description": "CSS能够对网页中的对象的位置排版进行像素级的精确控制，支持几乎所有的字体字号样式，拥有对网页对象和模型样式编辑的能力，并能够进行初步交互设计。"
     },
     {
       "id": 4,
       "name": "JavaScript",
-      "description": "JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型。它的解释器被称为JavaScript引擎，为浏览器的一部分，广泛用于客户端的脚本语言，最早是在HTML（标准通用标记语言下的一个应用）网页上使用，用来给HTML网页增加动态功能。",
-      "depends": [1]
+      "description": "JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型。它的解释器被称为JavaScript引擎，为浏览器的一部分，广泛用于客户端的脚本语言，最早是在HTML（标准通用标记语言下的一个应用）网页上使用，用来给HTML网页增加动态功能。"
     },
     {
       "id": 5,
       "name": "Node.js",
       "description": "Node.js",
       "depends": [4]
+    },
+    {
+      "id": 6,
+      "name": "编程语言",
+      "description": "编程语言"
+    },
+    {
+      "id": 7,
+      "name": "CGI",
+      "description": "CGI意思为Common Gateway Interface，一种基于浏览器的输入、在Web服务器上运行的程序方法。"
+    },
+    {
+      "id": 8,
+      "name": "服务端编程",
+      "description": "",
+      "depends": [6, 7, 16]
+    },
+    {
+      "id": 9,
+      "name": "服务端框架",
+      "description": "",
+      "depends": [8]
+    },
+    {
+      "id": 10,
+      "name": "JS框架",
+      "description": "",
+      "depends": [4]
+    },
+    {
+      "id": 11,
+      "name": "CSS工具",
+      "description": "",
+      "depends": [3]
+    },
+    {
+      "id": 12,
+      "name": "分析",
+      "description": ""
+    },
+    {
+      "id": 13,
+      "name": "SEO",
+      "description": "",
+      "depends": [12]
+    },
+    {
+      "id": 14,
+      "name": "SEM",
+      "description": "",
+      "depends": [13]
+    },
+    {
+      "id": 15,
+      "name": "前端开发",
+      "description": "",
+      "depends": [2, 3, 4]
+    },
+    {
+      "id": 16,
+      "name": "数据库开发",
+      "description": ""
+    },
+    {
+      "id": 17,
+      "name": "网站开发",
+      "description": "",
+      "depends": [15,8]
+    },
+    {
+      "id": 18,
+      "name": "精通Web开发",
+      "description": "",
+      "depends": [17, 14, 19, 21]
+    },
+    {
+      "id": 19,
+      "name": "重构",
+      "description": "",
+      "depends": [20]
+    },
+    {
+      "id": 20,
+      "name": "Clean Code",
+      "description": ""
+    },
+    {
+      "id": 21,
+      "name": "TDD",
+      "description": "",
+      "depends": [19, 22]
+    },
+    {
+      "id": 22,
+      "name": "Test",
+      "description": ""
     }
   ]
 }
