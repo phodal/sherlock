@@ -11,10 +11,10 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'text!templates/example.html', 'd
         g.setNode(skill.name, value);
       });
 
-      ko.utils.arrayForEach(skills_data.skills, function (node) {
-        var skill_id = node.id;
-        if (node.depends !== undefined) {
-          ko.utils.arrayForEach(node.depends, function (id) {
+      ko.utils.arrayForEach(skills_data.skills, function (skill) {
+        var skill_id = skill.id;
+        if (skill.depends) {
+          ko.utils.arrayForEach(skill.depends, function (id) {
 	          var dependents_name = skills_data.skills[id - 1].name;
 	          var skill_name = skills_data.skills[skill_id - 1].name;
             g.setEdge(dependents_name, skill_name, {label: ""});
