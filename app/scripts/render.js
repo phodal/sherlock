@@ -17,7 +17,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'jquery.tip
           ko.utils.arrayForEach(skill.depends, function (id) {
 	          var dependents_name = skills_data.skills[id - 1].name;
 	          var skill_name = skills_data.skills[skill_id - 1].name;
-            g.setEdge(dependents_name, skill_name, {label: ""});
+            g.setEdge(dependents_name, skill_name, {label: "",lineInterpolate: 'basis'});
           });
         }
       });
