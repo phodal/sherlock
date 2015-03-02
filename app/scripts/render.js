@@ -44,7 +44,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'jquery.tip
           return styleTooltip(v, g.node(v).description)
         })
         .each(function (v) {
-          $(this).tipsy({gravity: "w", opacity: 1, html: true});
+          $(this).tipsy({gravity: "s", opacity: 1, html: true});
         });
 
       var initialScale = 1;
