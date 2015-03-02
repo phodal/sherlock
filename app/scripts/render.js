@@ -1,5 +1,5 @@
-define(['d3', 'lib/knockout', 'scripts/Utils', 'text!templates/example.html', 'dagre-d3', 'jquery', 'jquery.tipsy'],
-  function (d3, ko, Utils, example, dagreD3, $) {
+define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'jquery.tipsy'],
+  function (d3, ko, Utils, dagreD3, $) {
     'use strict';
     function renderPage(skills_data) {
       var g = new dagreD3.graphlib.Graph().setGraph({});
