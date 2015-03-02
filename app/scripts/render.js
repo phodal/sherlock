@@ -26,12 +26,12 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'jquery.tip
 
       var svg = d3.select("svg"),
         inner = svg.append("g");
-
-      var zoom = d3.behavior.zoom().on("zoom", function () {
-        inner.attr("transform", "translate(" + d3.event.translate + ")" +
-        "scale(" + d3.event.scale + ")");
-      });
-      svg.call(zoom);
+      //
+      //var zoom = d3.behavior.zoom().on("zoom", function () {
+      //  inner.attr("transform", "translate(" + d3.event.translate + ")" +
+      //  "scale(" + d3.event.scale + ")");
+      //});
+      //svg.call(zoom);
 
       var styleTooltip = function (name, description) {
         return "<p class='name'>" + name + "</p><p class='description'>" + description + "</p>";
@@ -48,10 +48,10 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'jquery.tip
         });
 
       var initialScale = 1;
-      zoom
-        .translate([(svg.attr("width") - g.graph().width * initialScale) / 2, 120])
-        .scale(initialScale)
-        .event(svg);
+      //zoom
+      //  .translate([(svg.attr("width") - g.graph().width * initialScale) / 2, 120])
+      //  .scale(initialScale)
+      //  .event(svg);
       svg.attr('height', g.graph().height * initialScale + 120);
     }
 

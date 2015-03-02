@@ -2,8 +2,8 @@
   "skills": [
     {
       "id": 1,
-      "name": "Developer",
-      "description": "Developer"
+      "name": "CLI",
+      "description": "CLI"
     },
     {
       "id": 2,
@@ -121,6 +121,33 @@
       "id": 22,
       "name": "Test",
       "description": ""
+    },
+    {
+      "id": 23,
+      "name": "包管理",
+      "description": ""
+    },
+    {
+      "id": 24,
+      "name": "版本管理",
+      "description": ""
+    },
+    {
+      "id": 25,
+      "name": "依赖管理",
+      "description": ""
+    },
+    {
+      "id": 26,
+      "name": "持续集成",
+      "description": "",
+      "depends": [23, 24, 25]
+    },
+    {
+      "id": 27,
+      "name": "自动测试",
+      "description": "",
+      "depends": [22]
     }
   ]
 }

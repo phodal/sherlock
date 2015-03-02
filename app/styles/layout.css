@@ -1,5 +1,5 @@
 body {
-  width: 1600px;
+  width: 1440px;
   margin: 0 auto;
   color: #333;
   font-weight: 300;
@@ -22,12 +22,6 @@ section {
 
 section p {
   text-align: justify;
-}
-
-svg {
-  border: 1px solid #ccc;
-  overflow: hidden;
-  margin: 0 auto;
 }
 
 pre {
@@ -62,10 +56,7 @@ section p {
 svg {
   overflow: hidden;
   margin: 0 auto;
-}
-
-pre {
-  border: 1px solid #ccc;
+  margin-top: 150px;
 }
 
 text {
