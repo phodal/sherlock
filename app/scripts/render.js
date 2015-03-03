@@ -34,10 +34,6 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery','lettuce', '
       //});
       //svg.call(zoom);
 
-      var styleTooltip = function (name, description) {
-        return "<p class='name'>" + name + "</p><p class='description'>" + description + "</p>";
-      };
-
       render(inner, g);
 
       inner.selectAll("g.node")
