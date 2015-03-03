@@ -1,8 +1,6 @@
 #Sherlock
 
-Skill Tree + Book Shelf = ShelfLock -> SherLock
-
-> As you know, as we know
+> 人的如同一间空空的阁楼，应该有选择地把一些家具装进去。 
 
 ##Tree
 
