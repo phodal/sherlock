@@ -28,4 +28,9 @@ describe('Utils', function () {
       Utils.parseDepends(all_skills.skills).toString().should.equal([{source: 1, target: 0}].toString())
     });
   });
+  describe('Get Skill By id', function () {
+    it('should return correct skill information by id', function () {
+      Utils.getSkillById(all_skills.skills, 1).toString().should.equal({ id: 1, name: 'Web' }.toString())
+    });
+  });
 });
