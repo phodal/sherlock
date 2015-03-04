@@ -1,11 +1,6 @@
 {
   "skills": [
     {
-      "id": 1,
-      "name": "CLI",
-      "description": "CLI"
-    },
-    {
       "id": 2,
       "name": "HTML",
       "description": "Internet主要由从服务器通过HTTP协议向浏览器发送的HTML文档组成。HTML被用来结构化信息——例如标题、段落和列表等等，也可用来在一定程度上描述文档的外观和语义。"
@@ -121,27 +116,6 @@
       "id": 22,
       "name": "Test",
       "description": ""
-    },
-    {
-      "id": 23,
-      "name": "包管理",
-      "description": ""
-    },
-    {
-      "id": 24,
-      "name": "版本管理",
-      "description": ""
-    },
-    {
-      "id": 25,
-      "name": "依赖管理",
-      "description": ""
-    },
-    {
-      "id": 26,
-      "name": "持续集成",
-      "description": "",
-      "depends": [23, 24, 25]
     },
     {
       "id": 27,

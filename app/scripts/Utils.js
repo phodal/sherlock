@@ -16,7 +16,19 @@ define(['lib/knockout'], function(ko) {
     });
     return links;
   }
+
+  function getSkillById(skills, id) {
+    var result = [];
+    ko.utils.arrayForEach(skills, function (skill) {
+      if(skill.id === id){
+        result = skill;
+      }
+    });
+    return result;
+  }
+
   return {
-    parseDepends: parseDepends
+    parseDepends: parseDepends,
+    getSkillById: getSkillById
   };
 });
