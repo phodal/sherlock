@@ -12,12 +12,22 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery','lettuce', '
         g.setNode(skill.name, value);
       });
 
+      function getSkillById(skills, id) {
+        var result = [];
+        ko.utils.arrayForEach(skills, function (skill) {
+          if(skill.id === id){
+            result = skill;
+          }
+        });
+        return result;
+      }
+
       ko.utils.arrayForEach(skills_data.skills, function (skill) {
         var skill_id = skill.id;
         if (skill.depends) {
           ko.utils.arrayForEach(skill.depends, function (id) {
-	          var dependents_name = skills_data.skills[id - 1].name;
-	          var skill_name = skills_data.skills[skill_id - 1].name;
+	          var dependents_name = getSkillById(skills_data.skills, id).name;
+	          var skill_name = getSkillById(skills_data.skills, skill_id).name;
             g.setEdge(dependents_name, skill_name, {label: '',lineInterpolate: 'basis'});
           });
         }

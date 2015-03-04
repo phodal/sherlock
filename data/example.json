@@ -128,26 +128,26 @@
       "description": ""
     },
     {
-      "id": 24,
-      "name": "版本管理",
-      "description": ""
-    },
-    {
       "id": 25,
       "name": "依赖管理",
       "description": ""
     },
     {
-      "id": 26,
-      "name": "持续集成",
-      "description": "",
-      "depends": [23, 24, 25]
+      "id": 24,
+      "name": "版本管理",
+      "description": ""
     },
     {
       "id": 27,
       "name": "自动测试",
       "description": "",
       "depends": [22]
+    },
+    {
+      "id": 26,
+      "name": "持续集成",
+      "description": "",
+      "depends": [23, 24, 25]
     }
   ]
 }
