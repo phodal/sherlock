@@ -1,7 +1,7 @@
 require.config({
   baseUrl: 'app',
   paths: {
-    jquery: 'lib/jquery',
+    jquery: 'lib/jquery-2.1.3',
     json: 'lib/json',
     d3: 'lib/d3.min',
     'dagre-d3': 'lib/dagre-d3.min',
