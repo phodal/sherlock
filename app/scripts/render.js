@@ -6,6 +6,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery','lettuce', '
         ko.utils.arrayForEach(skills_data.skills, function (skill) {
           var value = skill;
           value.label = skill.name;
+          value.height = value.width = 60;
           value.rx = value.ry = 5;
           g.setNode(skill.name, value);
         });
@@ -28,6 +29,11 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery','lettuce', '
       var g = new dagreD3.graphlib.Graph().setGraph({});
       setSkillNode();
       setSkillEdge();
+      g.nodes().forEach(function(v) {
+        var node = g.node(v);
+        console.log(node);
+      });
+
       var render = new dagreD3.render();
 
       var svg = d3.select('svg'),
