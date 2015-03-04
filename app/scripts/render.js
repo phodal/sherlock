@@ -50,8 +50,10 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery','lettuce', '
 		      var results = lettuce.Template.tmpl('<p class="name">{%=o.name%}</p><p class="description">{%=o.description%}</p>', data);
           return results;
         })
-        .on("click", console.log("========"))
         .each(function (v) {
+          $(this).on('click', function () {
+            console.log(v)
+          });
           $(this).tipsy({gravity: 's', opacity: 1, html: true});
         });
 
