@@ -1,8 +1,8 @@
 define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery','lettuce', 'jquery.tipsy'],
-  function (d3, ko, Utils, dagreD3, $, lettuce) {
+  function (d3, ko, Utils, dagreD3, $, Lettuce) {
     'use strict';
     function renderPage(skills_data) {
-      var Lettuce = new lettuce();
+      var lettuce = new Lettuce();
       var g = new dagreD3.graphlib.Graph().setGraph({});
 
       ko.utils.arrayForEach(skills_data.skills, function (skill) {
@@ -18,15 +18,15 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery','lettuce', '
           ko.utils.arrayForEach(skill.depends, function (id) {
 	          var dependents_name = skills_data.skills[id - 1].name;
 	          var skill_name = skills_data.skills[skill_id - 1].name;
-            g.setEdge(dependents_name, skill_name, {label: "",lineInterpolate: 'basis'});
+            g.setEdge(dependents_name, skill_name, {label: '',lineInterpolate: 'basis'});
           });
         }
       });
 
       var render = new dagreD3.render();
 
-      var svg = d3.select("svg"),
-        inner = svg.append("g");
+      var svg = d3.select('svg'),
+        inner = svg.append('g');
       //
       //var zoom = d3.behavior.zoom().on("zoom", function () {
       //  inner.attr("transform", "translate(" + d3.event.translate + ")" +
@@ -36,17 +36,17 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery','lettuce', '
 
       render(inner, g);
 
-      inner.selectAll("g.node")
-        .attr("title", function (v) {
+      inner.selectAll('g.node')
+        .attr('title', function (v) {
           var data = {
             name: v,
             description: g.node(v).description
           };
-		      var results = Lettuce.Template.tmpl("<p class='name'>{%=o.name%}</p><p class='description'>{%=o.description%}</p>", data);
+		      var results = lettuce.Template.tmpl('<p class="name">{%=o.name%}</p><p class="description">{%=o.description%}</p>', data);
             return results;
         })
         .each(function (v) {
-          $(this).tipsy({gravity: "s", opacity: 1, html: true});
+          $(this).tipsy({gravity: 's', opacity: 1, html: true});
         });
 
       var initialScale = 1;

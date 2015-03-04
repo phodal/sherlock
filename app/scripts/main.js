@@ -7,15 +7,14 @@ require.config({
     'dagre-d3': 'lib/dagre-d3.min',
     text: 'lib/text',
     lettuce: 'lib/lettuce',
-    jquery: 'lib/jquery',
     'jquery.tipsy': 'lib/jquery.tipsy'
   },
-  "shim": {
-    "jquery.tipsy": {
-      deps: ["jquery"]
+  'shim': {
+    'jquery.tipsy': {
+      deps: ['jquery']
     },
     'dagre-d3': {
-      deps: ["d3"]
+      deps: ['d3']
     }
   }
 });
