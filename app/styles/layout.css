@@ -16,17 +16,6 @@ h2 {
   font-weight: 300;
 }
 
-.node text {
-  font: 18px sans-serif;
-  background: #000;
-}
-
-.link {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 1.5px;
-}
-
 section {
   margin-bottom: 3em;
 }
@@ -73,7 +62,7 @@ rect.selection {
 .edgePath path {
   stroke: #333;
   fill: #333;
-  stroke-width: 1.5px;
+  stroke-width: 3px;
 }
 
 .node text {

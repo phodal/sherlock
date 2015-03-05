@@ -7,7 +7,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
           var value = skill;
           value.label = skill.name;
           value.height = value.width = 60;
-          value.rx = value.ry = 5;
+          value.rx = value.ry = 15;
           g.setNode(skill.name, value);
         });
       }
@@ -31,33 +31,30 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       setSkillEdge();
       g.nodes().forEach(function (v) {
         var node = g.node(v);
-        //console.log(node);
+        console.log(node);
       });
 
       var render = new dagreD3.render();
-
       var svg = d3.select('svg');
 
-      svg.append("defs")
-        .append("pattern")
-        .attr("id", "image")
-        .attr("width", 40)
-        .attr("height", 40)
-        .append("svg:image")
-        .attr("xlink:href", "/app/logo/js.png")
-        .attr("width", 40)
-        .attr("height", 40)
-        .attr("x", 0)
-        .attr("y", 0);
+      g.nodes().forEach(function (v) {
+        var node = g.node(v);
+        if( node.logo){
+          svg.append("defs")
+            .append("pattern")
+            .attr("id", node.id)
+            .attr("width", 80)
+            .attr("height", 80)
+            .append("svg:image")
+            .attr("xlink:href", "/app/logo/" + node.logo)
+            .attr("width", 80)
+            .attr("height", 80)
+            .attr("x", 0)
+            .attr("y", 0);
+        }
+      });
 
       var inner = svg.append('g');
-
-      svg.append("circle")
-        .attr("class", "logo")
-        .attr("cx", 225)
-        .attr("cy", 225)
-        .attr("r", 20)
-        .style("fill", "url(#image)");
 
       render(inner, g);
       console.log(inner.selectAll('g.node'));
@@ -65,26 +62,12 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       inner.selectAll('rect')
         .attr('class', 'inner');
 
-      inner.selectAll('g.node')
-        .append('rect')
-        .attr({
-          width: 84,
-          height: 84,
-          class: 'outer'
-        });
+      inner.selectAll('g.node rect')
+        .style("fill", "url(#2)");
 
       inner.selectAll('g.node')
         .on("click", function (d, i) {
-          var e = d3.event,
-            g = this,
-            isSelected = d3.select(g).classed('selected');
-
-          //if (!e.ctrlKey) {
-          //  d3.selectAll('g.selected').classed("selected", false);
-          //}
-
-          d3.select(g).classed('selected', !isSelected);
-          this.parentNode.appendChild(g);
+          d3.select(this).style('opacity', '0.5');
         })
         .on('mouseover', function () {
           d3.select(this).style('fill', 'red');
