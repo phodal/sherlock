@@ -43,19 +43,31 @@ svg {
 }
 
 g.node rect {
-  stroke  : gray;
-  cursor  : pointer;
+  stroke: gray;
+  cursor: pointer;
 }
 
 g.node rect.inner {
-  fill    : white;
+  fill: white;
+}
+
+g.node rect.outer {
+  position: absolute;
+  display: none;
+  stroke-dasharray: 4px;
+  stroke-opacity: 0.5;
+  fill: transparent;
+}
+
+g.selected rect.outer {
+  display: inline;
 }
 
 rect.selection {
-  stroke          : gray;
+  stroke: gray;
   stroke-dasharray: 4px;
-  stroke-opacity  : 0.5;
-  fill            : transparent;
+  stroke-opacity: 0.5;
+  fill: transparent;
 }
 
 .edgePath path {
@@ -68,17 +80,16 @@ rect.selection {
   pointer-events: none;
 }
 
-
 /* disable text selection */
 svg *::selection {
-  background : transparent;
+  background: transparent;
 }
 
 svg *::-moz-selection {
-  background:transparent;
+  background: transparent;
 }
 
 svg *::-webkit-selection {
-  background:transparent;
+  background: transparent;
 }
 

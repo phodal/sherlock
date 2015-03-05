@@ -1,4 +1,4 @@
-define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery','lettuce', 'jquery.tipsy'],
+define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 'jquery.tipsy'],
   function (d3, ko, Utils, dagreD3, $, Lettuce) {
     'use strict';
     function renderPage(skills_data) {
@@ -29,9 +29,9 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery','lettuce', '
       var g = new dagreD3.graphlib.Graph().setGraph({});
       setSkillNode();
       setSkillEdge();
-      g.nodes().forEach(function(v) {
+      g.nodes().forEach(function (v) {
         var node = g.node(v);
-        console.log(node);
+        //console.log(node);
       });
 
       var render = new dagreD3.render();
@@ -42,25 +42,35 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery','lettuce', '
       render(inner, g);
       console.log(inner.selectAll('g.node'));
 
+      inner.selectAll('rect')
+        .attr('class', 'inner');
+
       inner.selectAll('g.node')
-        .on( "click", function( d, i) {
-          console.log(d, i)
+        .append('rect')
+        .attr({
+          width: 84,
+          height: 84,
+          class: 'outer'
+        });
+
+      inner.selectAll('g.node')
+        .on("click", function (d, i) {
           var e = d3.event,
             g = this,
-            isSelected = d3.select(g).classed( "selected");
+            isSelected = d3.select(g).classed('selected');
 
-          if( !e.ctrlKey) {
-            d3.selectAll( 'g.selected').classed( "selected", false);
-          }
+          //if (!e.ctrlKey) {
+          //  d3.selectAll('g.selected').classed("selected", false);
+          //}
 
-          d3.select( g).classed( "selected", !isSelected);
-          g.parentNode.appendChild(g);
+          d3.select(g).classed('selected', !isSelected);
+          this.parentNode.appendChild(g);
         })
-        .on("mouseover", function(){
-          d3.select(this).style( "fill", "red");
+        .on('mouseover', function () {
+          d3.select(this).style('fill', 'red');
         })
-        .on("mouseout", function() {
-          d3.select(this).style("fill", "black");
+        .on('mouseout', function () {
+          d3.select(this).style('fill', 'black');
         });
 
       inner.selectAll('g.node')
@@ -69,7 +79,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery','lettuce', '
             name: v,
             description: g.node(v).description
           };
-		      var results = lettuce.Template.tmpl('<p class="name">{%=o.name%}</p><p class="description">{%=o.description%}</p>', data);
+          var results = lettuce.Template.tmpl('<p class="name">{%=o.name%}</p><p class="description">{%=o.description%}</p>', data);
           return results;
         })
         .each(function (v) {
