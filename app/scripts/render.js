@@ -37,7 +37,20 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       var render = new dagreD3.render();
 
       var svg = d3.select('svg');
-      var  inner = svg.append('g');
+
+      svg.append("defs")
+        .append("pattern")
+        .attr("id", "image")
+        .attr("width", 40)
+        .attr("height", 40)
+        .append("svg:image")
+        .attr("xlink:href", "/app/logo/js.png")
+        .attr("width", 40)
+        .attr("height", 40)
+        .attr("x", 0)
+        .attr("y", 0);
+
+      var inner = svg.append('g');
 
       svg.append("circle")
         .attr("class", "logo")
