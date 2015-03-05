@@ -5,7 +5,6 @@
   <link href="app/styles/layout.css" rel="stylesheet">
   <link href="app/styles/tipsy.css" rel="stylesheet">
   <style>
-    /* This styles the title of the tooltip */
     .tipsy .name {
       font-size: 1.5em;
       font-weight: bold;
@@ -13,14 +12,19 @@
       margin: 0;
     }
 
-    /* This styles the body of the tooltip */
     .tipsy .description {
       font-size: 1.2em;
     }
   </style>
 </head>
 <body>
-<svg width=1600 height=960></svg>
+<svg width=1600 height=960>
+  <defs id="mdef">
+    <pattern id="image" x="0" y="0" height="40" width="40">
+      <image x="0" y="0" width="40" height="40" xlink:href="/app/logo/js.png"></image>
+    </pattern>
+  </defs>
+</svg>
 </body>
 <script type="text/javascript" data-main="app/scripts/main.js" src="app/lib/require.js"></script>
 </html>
