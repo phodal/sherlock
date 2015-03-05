@@ -80,3 +80,17 @@ text {
   pointer-events: none;
 }
 
+
+/* disable text selection */
+svg *::selection {
+  background : transparent;
+}
+
+svg *::-moz-selection {
+  background:transparent;
+}
+
+svg *::-webkit-selection {
+  background:transparent;
+}
+
