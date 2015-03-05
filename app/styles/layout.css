@@ -16,24 +16,6 @@ h2 {
   font-weight: 300;
 }
 
-section {
-  margin-bottom: 3em;
-}
-
-section p {
-  text-align: justify;
-}
-
-pre {
-  border: 1px solid #ccc;
-}
-
-.node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}
-
 .node text {
   font: 18px sans-serif;
   background: #000;
@@ -49,25 +31,31 @@ section {
   margin-bottom: 3em;
 }
 
-section p {
-  text-align: justify;
-}
-
 svg {
   overflow: hidden;
   margin: 0 auto;
   margin-top: 150px;
 }
 
-text {
-  font-weight: 300;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
-  font-size: 14px;
-}
-
 .node rect {
   stroke: #333;
   fill: #fff;
+}
+
+g.node rect {
+  stroke  : gray;
+  cursor  : pointer;
+}
+
+g.node rect.inner {
+  fill    : white;
+}
+
+rect.selection {
+  stroke          : gray;
+  stroke-dasharray: 4px;
+  stroke-opacity  : 0.5;
+  fill            : transparent;
 }
 
 .edgePath path {
