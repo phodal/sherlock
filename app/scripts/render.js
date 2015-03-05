@@ -40,6 +40,28 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery','lettuce', '
         inner = svg.append('g');
 
       render(inner, g);
+      console.log(inner.selectAll('g.node'));
+
+      inner.selectAll('g.node')
+        .on( "click", function( d, i) {
+          console.log(d, i)
+          var e = d3.event,
+            g = this,
+            isSelected = d3.select(g).classed( "selected");
+
+          if( !e.ctrlKey) {
+            d3.selectAll( 'g.selected').classed( "selected", false);
+          }
+
+          d3.select( g).classed( "selected", !isSelected);
+          g.parentNode.appendChild(g);
+        })
+        .on("mouseover", function(){
+          d3.select(this).style( "fill", "red");
+        })
+        .on("mouseout", function() {
+          d3.select(this).style("fill", "black");
+        });
 
       inner.selectAll('g.node')
         .attr('title', function (v) {
@@ -51,9 +73,6 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery','lettuce', '
           return results;
         })
         .each(function (v) {
-          $(this).on('click', function () {
-            console.log(v)
-          });
           $(this).tipsy({gravity: 's', opacity: 1, html: true});
         });
 
