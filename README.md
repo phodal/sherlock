@@ -6,7 +6,7 @@
 
 Basis On: [https://github.com/phodal/awesome-developer](https://github.com/phodal/awesome-developer)
 
-![Tree](https://raw.githubusercontent.com/phodal/awesome-developer/master/images/tree.jpg)
+![Tree](https://raw.githubusercontent.com/phodal/awesome-developer/master/images/tree.gif)
 
 ##技术栈
 
