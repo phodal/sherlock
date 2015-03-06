@@ -46,7 +46,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
             .attr("width", 80)
             .attr("height", 80)
             .append("svg:image")
-            .attr("xlink:href", "/app/logo/" + node.logo)
+            .attr("xlink:href", "./app/logo/" + node.logo)
             .attr("width", 80)
             .attr("height", 80)
             .attr("x", 0)
