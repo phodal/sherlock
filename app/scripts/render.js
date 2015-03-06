@@ -37,6 +37,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       var render = new dagreD3.render();
       var svg = d3.select('svg');
 
+      /* append image */
       g.nodes().forEach(function (v) {
         var node = g.node(v);
         if( node.logo){
@@ -61,19 +62,15 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       inner.selectAll('rect')
         .attr('class', 'inner');
 
-      g.nodes().forEach(function (v) {
-        var node = g.node(v);
-        if( node.logo) {
-          inner.selectAll('g.node rect')
-            .style("fill", "url(#" + node.id + ")");
-
-          //inner.select("rect[id='" + node.id + "']")
-          //  .attr("fill", "url(#" + node.id + ")");
+      /* fill background */
+      var rect = inner.selectAll('g.node rect' );
+      rect.style("fill", function (d, i) {
+        var node = g.node(d);
+        if(node.logo) {
+          return "url(#" + node.id + ")" ;
         }
+        return "";
       });
-
-      //inner.selectAll('g.node rect')
-      //  .style("fill", "url(#2)");
 
       inner.selectAll('g.node')
         .on("click", function (d, i) {
