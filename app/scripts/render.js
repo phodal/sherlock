@@ -6,8 +6,8 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
         ko.utils.arrayForEach(skills_data.skills, function (skill) {
           var value = skill;
           value.label = skill.name;
-          value.height = value.width = 60;
-          value.rx = value.ry = 15;
+          value.height = value.width = 40;
+          value.rx = value.ry = 5;
           g.setNode(skill.name, value);
         });
       }
@@ -44,12 +44,12 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
           svg.append("defs")
             .append("pattern")
             .attr("id", node.id)
-            .attr("width", 80)
-            .attr("height", 80)
+            .attr("width", 60)
+            .attr("height", 60)
             .append("svg:image")
             .attr("xlink:href", "./app/logo/" + node.logo)
-            .attr("width", 80)
-            .attr("height", 80)
+            .attr("width", 60)
+            .attr("height", 60)
             .attr("x", 0)
             .attr("y", 0);
         }

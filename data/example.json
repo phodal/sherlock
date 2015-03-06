@@ -57,12 +57,14 @@
     {
       "id": 11,
       "name": "CSS工具",
+      "logo": "sass.png",
       "description": "",
       "depends": [3]
     },
     {
       "id": 12,
       "name": "分析",
+      "logo": "ga.png",
       "description": ""
     },
     {
