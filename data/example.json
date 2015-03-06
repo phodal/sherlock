@@ -99,7 +99,7 @@
     },
     {
       "id": 18,
-      "name": "精通Web开发",
+      "name": "精通Web",
       "description": "",
       "depends": [17, 14, 19, 21]
     },
