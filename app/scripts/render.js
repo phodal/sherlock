@@ -63,26 +63,24 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
         .attr('class', 'inner');
 
       /* fill background */
+      var rect = inner.selectAll('g.node')
+        .attr('data-bind', function(){
+          return "css: { 'can-add-points': canAddPoints, 'has-points': hasPoints, 'has-max-points': hasMaxPoints }"
+        });
+
       var rect = inner.selectAll('g.node rect' );
       rect.style("fill", function (d, i) {
         var node = g.node(d);
         if(node.logo) {
+          console.log(node);
           return "url(#" + node.id + ")" ;
         }
         return "";
+      }).attr("data-bind", function () {
+        return "click: addPoint, rightClick: removePoint";
       });
 
-      inner.selectAll('g.node')
-        .on("click", function (d, i) {
-          d3.select(this).style('opacity', '0.5');
-        })
-        .on('mouseover', function () {
-          d3.select(this).style('fill', 'red');
-        })
-        .on('mouseout', function () {
-          d3.select(this).style('fill', 'black');
-        });
-
+      /* add tips */
       inner.selectAll('g.node')
         .attr('title', function (v) {
           var data = {

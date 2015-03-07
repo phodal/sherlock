@@ -19,12 +19,12 @@ require.config({
   }
 });
 
-require(['lib/knockout', 'scripts/Talent', 'scripts/render', 'json!../data/example.json'],
-  function (ko, Talent, render, example) {
+require(['lib/knockout', 'scripts/Skill', 'scripts/render', 'json!../data/example.json'],
+  function (ko, Skill, render, example) {
     'use strict';
 
     render.renderPage(example);
 
-    var vm = new Talent(example);
+    var vm = new Skill(example);
     ko.applyBindings(vm);
   });
