@@ -41,17 +41,17 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       g.nodes().forEach(function (v) {
         var node = g.node(v);
         if( node.logo){
-          svg.append("defs")
-            .append("pattern")
-            .attr("id", node.id)
-            .attr("width", 60)
-            .attr("height", 60)
-            .append("svg:image")
-            .attr("xlink:href", "./app/logo/" + node.logo)
-            .attr("width", 60)
-            .attr("height", 60)
-            .attr("x", 0)
-            .attr("y", 0);
+          svg.append('defs')
+            .append('pattern')
+            .attr('id', node.id)
+            .attr('width', 60)
+            .attr('height', 60)
+            .append('svg:image')
+            .attr('xlink:href', './app/logo/' + node.logo)
+            .attr('width', 60)
+            .attr('height', 60)
+            .attr('x', 0)
+            .attr('y', 0);
         }
       });
 
@@ -65,19 +65,18 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       /* fill background */
       var rect = inner.selectAll('g.node')
         .attr('data-bind', function(){
-          return "css: { 'can-add-points': canAddPoints, 'has-points': hasPoints, 'has-max-points': hasMaxPoints }"
+          return 'css: { \'can-add-points\': canAddPoints, \'has-points\': hasPoints, \'has-max-points\': hasMaxPoints }';
         });
 
-      var rect = inner.selectAll('g.node rect' );
-      rect.style("fill", function (d, i) {
+      rect.style('fill', function (d, i) {
         var node = g.node(d);
         if(node.logo) {
           console.log(node);
-          return "url(#" + node.id + ")" ;
+          return 'url(#' + node.id + ')' ;
         }
-        return "";
-      }).attr("data-bind", function () {
-        return "click: addPoint, rightClick: removePoint";
+        return '';
+      }).attr('data-bind', function () {
+        return 'click: addPoint, rightClick: removePoint';
       });
 
       /* add tips */

@@ -1,4 +1,4 @@
-define(['lib/knockout', 'scripts/Skill', 'scripts/Book', 'scripts/Link'], function (ko, Skill, Book, Link) {
+define(['lib/knockout', 'scripts/Book', 'scripts/Link', 'scripts/Utils'], function (ko, Book, Link) {
   'use strict';
 
   var Skill = function (_e) {
@@ -65,20 +65,6 @@ define(['lib/knockout', 'scripts/Skill', 'scripts/Book', 'scripts/Link'], functi
     });
     self.canRemovePoints = ko.computed(function () {
       return (self.dependentsUsed() && self.hasMultiplePoints()) || (!self.dependentsUsed() && self.hasPoints());
-    });
-    self.helpMessage = ko.computed(function () {
-      if (!self.dependenciesFulfilled()) {
-        var s = [];
-        ko.utils.arrayForEach(self.dependencies(), function (item) {
-          if (!item.hasMaxPoints()) {
-            s.push(item.title);
-          }
-        });
-        return '学习 ' + Utils.prettyJoin(s) + ' 才能解锁.';
-      } else if (self.canAddPoints()) {
-        return '点击添加技能点';
-      }
-      return '';
     });
     self.talentSummary = ko.computed(function () {
       return self.talents.join(', ');
