@@ -63,12 +63,13 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
         .attr('class', 'inner');
 
       /* fill background */
-      var rect = inner.selectAll('g.node')
+      inner.selectAll('g.node')
         .attr('data-bind', function(){
           return 'css: { \'can-add-points\': canAddPoints, \'has-points\': hasPoints, \'has-max-points\': hasMaxPoints }';
         });
 
-      rect.style('fill', function (d, i) {
+      inner.selectAll('g.node rect')
+        .style('fill', function (d, i) {
         var node = g.node(d);
         if(node.logo) {
           console.log(node);
