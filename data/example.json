@@ -4,18 +4,24 @@
       "id": 2,
       "name": "HTML",
       "logo": "html.png",
+      "books": [],
+      "links": [],
       "description": "Internet主要由从服务器通过HTTP协议向浏览器发送的HTML文档组成。HTML被用来结构化信息——例如标题、段落和列表等等，也可用来在一定程度上描述文档的外观和语义。"
     },
     {
       "id": 3,
       "name": "CSS",
       "logo": "css.png",
+      "books": [],
+      "links": [],
       "description": "CSS能够对网页中的对象的位置排版进行像素级的精确控制，支持几乎所有的字体字号样式，拥有对网页对象和模型样式编辑的能力，并能够进行初步交互设计。"
     },
     {
       "id": 4,
       "name": "JavaScript",
       "logo": "js.png",
+      "books": [],
+      "links": [],
       "description": "JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型。它的解释器被称为JavaScript引擎，为浏览器的一部分，广泛用于客户端的脚本语言，最早是在HTML（标准通用标记语言下的一个应用）网页上使用，用来给HTML网页增加动态功能。"
     },
     {
@@ -23,18 +29,24 @@
       "name": "Node.js",
       "description": "Node.js",
       "logo": "node.png",
+      "books": [],
+      "links": [],
       "depends": [4]
     },
     {
       "id": 6,
       "name": "编程语言",
       "logo": "language.png",
+      "books": [],
+      "links": [],
       "description": "编程语言"
     },
     {
       "id": 7,
       "name": "CGI",
       "logo": "cgi.png",
+      "books": [],
+      "links": [],
       "description": "CGI意思为Common Gateway Interface，一种基于浏览器的输入、在Web服务器上运行的程序方法。"
     },
     {
@@ -42,12 +54,20 @@
       "name": "服务端编程",
       "description": "",
       "logo": "serverside.png",
-      "depends": [6, 7, 16]
+      "books": [],
+      "links": [],
+      "depends": [
+        6,
+        7,
+        16
+      ]
     },
     {
       "id": 9,
       "name": "服务端框架",
       "logo": "sprint.png",
+      "books": [],
+      "links": [],
       "description": "",
       "depends": [8]
     },
@@ -55,13 +75,57 @@
       "id": 10,
       "name": "JS框架",
       "logo": "angularjs.png",
-      "description": "",
-      "depends": [4]
+      "description": "当你熟悉了JavaScript之后，会发现有大量的库和框架可以完成相同的任务，加速你的开发",
+      "depends": [4],
+      "links": [
+        {
+          "label": "一步步搭建JavaScript框架",
+          "url": "http://www.phodal.com/blog/build-javascript-framework-init-project/"
+        },
+        {
+          "label": "Backbone.js",
+          "url": "http://backbonejs.org/"
+        },
+        {
+          "label": "jQuery",
+          "url": "http://jquery.com/"
+        }
+      ],
+      "books": [
+        {
+          "label": "用AngularJS开发下一代Web应用",
+          "url": "http://www.amazon.cn/%E7%94%A8AngularJS%E5%BC%80%E5%8F%91%E4%B8%8B%E4%B8%80…7/dp/B00G3XSBG8/ref=sr_1_6?ie=UTF8&qid=1424310373&sr=8-6&keywords=backbone"
+        },
+        {
+          "label": "单页Web应用:JavaScript从前端到后端",
+          "url": "http://www.amazon.cn/%E5%8D%95%E9%A1%B5Web%E5%BA%94%E7%94%A8-JavaScript%E4%…A/dp/B00NN8GJGA/ref=sr_1_5?ie=UTF8&qid=1424310373&sr=8-5&keywords=backbone"
+        },
+        {
+          "label": "精通jQuery",
+          "url": "http://www.amazon.cn/%E5%9B%BE%E7%81%B5%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1…%BC/dp/B00N42VIW0/ref=sr_1_3?ie=UTF8&qid=1424310743&sr=8-3&keywords=jquery"
+        }
+      ],
+      "links": [
+        {
+          "label": "一步步搭建JavaScript框架",
+          "url": "http://www.phodal.com/blog/build-javascript-framework-init-project/"
+        },
+        {
+          "label": "Backbone.js",
+          "url": "http://backbonejs.org/"
+        },
+        {
+          "label": "jQuery",
+          "url": "http://jquery.com/"
+        }
+      ]
     },
     {
       "id": 11,
       "name": "CSS工具",
       "logo": "sass.png",
+      "books": [],
+      "links": [],
       "description": "",
       "depends": [3]
     },
@@ -69,12 +133,16 @@
       "id": 12,
       "name": "分析",
       "logo": "ga.png",
+      "books": [],
+      "links": [],
       "description": ""
     },
     {
       "id": 13,
       "name": "SEO",
       "logo": "seo.png",
+      "books": [],
+      "links": [],
       "description": "",
       "depends": [12]
     },
@@ -82,6 +150,8 @@
       "id": 14,
       "name": "SEM",
       "logo": "sem.png",
+      "books": [],
+      "links": [],
       "description": "",
       "depends": [13]
     },
@@ -89,33 +159,55 @@
       "id": 15,
       "name": "前端开发",
       "logo": "web_front_develop.png",
+      "books": [],
+      "links": [],
       "description": "",
-      "depends": [2, 3, 4]
+      "depends": [
+        2,
+        3,
+        4
+      ]
     },
     {
       "id": 16,
       "name": "数据库开发",
       "logo": "database.png",
+      "books": [],
+      "links": [],
       "description": ""
     },
     {
       "id": 17,
       "name": "网站开发",
       "logo": "web_develop.png",
+      "books": [],
+      "links": [],
       "description": "",
-      "depends": [15,8]
+      "depends": [
+        15,
+        8
+      ]
     },
     {
       "id": 18,
       "name": "精通Web",
       "logo": "web.png",
+      "books": [],
+      "links": [],
       "description": "",
-      "depends": [17, 14, 19, 21]
+      "depends": [
+        17,
+        14,
+        19,
+        21
+      ]
     },
     {
       "id": 19,
       "name": "重构",
       "logo": "refactor.png",
+      "books": [],
+      "links": [],
       "description": "",
       "depends": [20]
     },
@@ -123,25 +215,36 @@
       "id": 20,
       "name": "Clean Code",
       "logo": "clean_code.png",
+      "books": [],
+      "links": [],
       "description": ""
     },
     {
       "id": 21,
       "name": "TDD",
       "logo": "tdd.png",
-      "description": "",
-      "depends": [19, 22]
+      "books": [],
+      "links": [],
+      "description": "测试驱动开发是敏捷开发中的一项核心实践和技术，也是一种设计方法论。TDD的原理是在开发功能代码之前，先编写单元测试用例代码，测试代码确定需要编写什么产品代码。TDD虽是敏捷方法的核心实践，但不只适用于XP（Extreme Programming），同样可以适用于其他开发方法和过程。",
+      "depends": [
+        19,
+        22
+      ]
     },
     {
       "id": 22,
       "name": "Test",
       "logo": "test.png",
+      "books": [],
+      "links": [],
       "description": ""
     },
     {
       "id": 27,
       "name": "自动测试",
       "logo": "auto_test.png",
+      "books": [],
+      "links": [],
       "description": "",
       "depends": [22]
     }
