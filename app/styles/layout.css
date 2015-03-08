@@ -91,9 +91,21 @@ svg *::-webkit-selection {
   margin: 0;
 }
 
+.tipsy ul li {
+  font-size: 1em;
+  color: #60b1fc;
+  list-style: none;
+  text-align: left;
+}
+
+.tipsy ul li a {
+  color:#ecf0f1;
+}
+
 /* This styles the body of the tooltip */
 .tipsy .description {
   font-size: 1.2em;
+  text-align: left;
 }
 
 .node text {

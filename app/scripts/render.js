@@ -1,5 +1,5 @@
-define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 'jquery.tipsy'],
-  function (d3, ko, Utils, dagreD3, $, Lettuce) {
+define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 'text!templates/description.html', 'jquery.tipsy'],
+  function (d3, ko, Utils, dagreD3, $, Lettuce, description_template) {
     'use strict';
     function renderPage(skills_data) {
       function setSkillNode() {
@@ -88,9 +88,11 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
         .attr('title', function (v) {
           var data = {
             name: v,
-            description: g.node(v).description
+            description: g.node(v).description,
+            books: g.node(v).books,
+            links: g.node(v).links
           };
-          var results = lettuce.Template.tmpl('<p class="name">{%=o.name%}</p><p class="description">{%=o.description%}</p>', data);
+          var results = lettuce.Template.tmpl(description_template, data);
           return results;
         })
         .each(function (v) {

@@ -1,0 +1,17 @@
+<p class="name">{%=o.name%}</p>
+<p class="description">{%=o.description%}</p>
+<h3>相关博客</h3>
+<ul>
+  {% for (var i=0; i<o.links.length; i++) { %}
+  <li><a href='{%=o.links[i].url%}'>{%=o.links[i].label%}</a></li>
+  {% } %}
+</ul>
+
+<h3>相关书籍</h3>
+<ul>
+{% for (var i=0; i<o.books.length; i++) { %}
+<li><a href='{%=o.books[i].url%}'>{%=o.books[i].label%}</a></li>
+{% } %}
+</ul>
+
+
