@@ -7,7 +7,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
           var value = skill;
           value.label = skill.name;
           value.height = value.width = 40;
-          value.rx = value.ry = 5;
+          value.rx = value.ry = 10;
           g.setNode(skill.name, value);
         });
       }
