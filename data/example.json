@@ -22,22 +22,26 @@
       "id": 5,
       "name": "Node.js",
       "description": "Node.js",
+      "logo": "node.png",
       "depends": [4]
     },
     {
       "id": 6,
       "name": "编程语言",
+      "logo": "language.png",
       "description": "编程语言"
     },
     {
       "id": 7,
       "name": "CGI",
+      "logo": "cgi.png",
       "description": "CGI意思为Common Gateway Interface，一种基于浏览器的输入、在Web服务器上运行的程序方法。"
     },
     {
       "id": 8,
       "name": "服务端编程",
       "description": "",
+      "logo": "serverside.png",
       "depends": [6, 7, 16]
     },
     {
@@ -77,57 +81,67 @@
     {
       "id": 14,
       "name": "SEM",
+      "logo": "sem.png",
       "description": "",
       "depends": [13]
     },
     {
       "id": 15,
       "name": "前端开发",
+      "logo": "web_front_develop.png",
       "description": "",
       "depends": [2, 3, 4]
     },
     {
       "id": 16,
       "name": "数据库开发",
+      "logo": "database.png",
       "description": ""
     },
     {
       "id": 17,
       "name": "网站开发",
+      "logo": "web_develop.png",
       "description": "",
       "depends": [15,8]
     },
     {
       "id": 18,
       "name": "精通Web",
+      "logo": "web.png",
       "description": "",
       "depends": [17, 14, 19, 21]
     },
     {
       "id": 19,
       "name": "重构",
+      "logo": "refactor.png",
       "description": "",
       "depends": [20]
     },
     {
       "id": 20,
       "name": "Clean Code",
+      "logo": "clean_code.png",
       "description": ""
     },
     {
       "id": 21,
       "name": "TDD",
+      "logo": "tdd.png",
       "description": "",
       "depends": [19, 22]
     },
     {
       "id": 22,
       "name": "Test",
+      "logo": "test.png",
       "description": ""
     },
     {
       "id": 27,
       "name": "自动测试",
+      "logo": "auto_test.png",
       "description": "",
       "depends": [22]
     }
