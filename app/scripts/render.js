@@ -72,13 +72,16 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
         .style('fill', function (d, i) {
         var node = g.node(d);
         if(node.logo) {
-          console.log(node);
+          //console.log(node);
           return 'url(#' + node.id + ')' ;
         }
         return '';
       }).attr('data-bind', function () {
         return 'click: addPoint, rightClick: removePoint';
       });
+
+      inner.selectAll('g.node text')
+        .remove();
 
       /* add tips */
       inner.selectAll('g.node')

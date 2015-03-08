@@ -62,7 +62,7 @@ rect.selection {
 .edgePath path {
   stroke: #333;
   fill: #333;
-  stroke-width: 3px;
+  stroke-width: 1.5px;
 }
 
 .node text {
