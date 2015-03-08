@@ -51,8 +51,12 @@ gulp.task('watch', ['connect'], function () {
 
   gulp.watch([
     'index.html',
-    'app/scripts/**/*.js',
-    'app/images/**/*'
+    'app/scripts/**.js',
+    'app/images/**/*',
+    'app/styles/**/*',
+    'app/templates/**.html',
+    'app/logo/**/*',
+    'data/**.json'
   ]).on('change', $.livereload.changed);
 });
 
