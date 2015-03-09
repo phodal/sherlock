@@ -61,8 +61,8 @@ rect.selection {
 }
 
 .edgePath path {
-  stroke: #333;
-  fill: #333;
+  stroke: gray;
+  fill: gray;
   stroke-width: 1.5px;
 }
 

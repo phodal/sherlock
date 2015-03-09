@@ -77,6 +77,7 @@ define(['lib/knockout', 'scripts/Book', 'scripts/Link', 'scripts/Utils'], functi
     });
 
     self.addPoint = function () {
+      console.log(this);
       if (self.canAddPoints()) {
         self.points(self.points() + 1);
       }

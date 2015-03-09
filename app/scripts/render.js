@@ -5,10 +5,10 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       function setSkillNode() {
         ko.utils.arrayForEach(skills_data.skills, function (skill) {
           var value = skill;
-          value.label = skill.name;
+          value.label = skill.title;
           value.height = value.width = 40;
           value.rx = value.ry = 10;
-          g.setNode(skill.name, value);
+          g.setNode(skill.title, value);
         });
       }
 
@@ -17,8 +17,8 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
           var skill_id = skill.id;
           if (skill.depends) {
             ko.utils.arrayForEach(skill.depends, function (id) {
-              var dependents_name = Utils.getSkillById(skills_data.skills, id).name;
-              var skill_name = Utils.getSkillById(skills_data.skills, skill_id).name;
+              var dependents_name = Utils.getSkillById(skills_data.skills, id).title;
+              var skill_name = Utils.getSkillById(skills_data.skills, skill_id).title;
               g.setEdge(dependents_name, skill_name, {label: '', lineInterpolate: 'basis'});
             });
           }
@@ -42,7 +42,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
 
       inner.selectAll('g.node')
         .attr('data-bind', function(){
-          return 'css: { \'can-add-points\': canAddPoints, \'has-points\': hasPoints, \'has-max-points\': hasMaxPoints }';
+          return 'css: { "can-add-points": canAddPoints, "has-points": hasPoints, "has-max-points": hasMaxPoints }';
         });
       inner.selectAll('g.node rect').attr('data-bind', function () {
         return 'click: addPoint, rightClick: removePoint';
@@ -51,6 +51,18 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       /* add tips */
       inner.selectAll('g.node')
         .each(function (v, id) {
+          if( !g.node(v).books) {
+            g.node(v).books = {
+              label: "",
+              url: ""
+            }
+          }
+          if( !g.node(v).links) {
+            g.node(v).links = {
+              label: "",
+              url: ""
+            }
+          }
           var data = {
             id: id,
             name: v,
@@ -60,7 +72,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
           };
           var results = lettuce.Template.tmpl(description_template, data);
           $(this).tooltipster({content: $(results), contentAsHTML: true, interactive: true});
-          $(this).find('rect').css("fill", colors[id]['font_color']);
+          $(this).find('rect').css("fill", '#ecf0f1');
         });
 
       svg.attr('height', g.graph().height + 120);
