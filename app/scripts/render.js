@@ -1,5 +1,5 @@
-define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 'text!templates/description.html', 'jquery.tooltipster'],
-  function (d3, ko, Utils, dagreD3, $, Lettuce, description_template) {
+define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 'text!templates/description.html', 'json!../../data/colors.json', 'jquery.tooltipster'],
+  function (d3, ko, Utils, dagreD3, $, Lettuce, description_template, colors) {
     'use strict';
     function renderPage(skills_data) {
       function setSkillNode() {
@@ -29,10 +29,6 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       var g = new dagreD3.graphlib.Graph().setGraph({});
       setSkillNode();
       setSkillEdge();
-      //g.nodes().forEach(function (v) {
-      //  var node = g.node(v);
-        //console.log(node);
-      //});
 
       var render = new dagreD3.render();
       var svg = d3.select('svg');
@@ -52,9 +48,6 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
         return 'click: addPoint, rightClick: removePoint';
       });
 
-      inner.selectAll('g.node text')
-        .remove();
-
       /* add tips */
       inner.selectAll('g.node')
         .each(function (v, id) {
@@ -67,7 +60,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
           };
           var results = lettuce.Template.tmpl(description_template, data);
           $(this).tooltipster({content: $(results), contentAsHTML: true, interactive: true});
-          $(this).css("background-image", "url(./app/logo/html.png)");
+          $(this).find('rect').css("fill", colors[id]['font_color']);
         });
 
       svg.attr('height', g.graph().height + 120);
