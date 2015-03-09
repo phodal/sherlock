@@ -107,7 +107,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
           var results = lettuce.Template.tmpl(description_template, data);
           console.log(v, id);
           console.log($('g#' + id));
-          $('g#' + id).tooltipster({content: $(results)});
+          $(this).tooltipster({content: $(results)});
         });
 
       svg.attr('height', g.graph().height + 120);
