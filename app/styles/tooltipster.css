@@ -1,8 +1,8 @@
 /* This is the default Tooltipster theme (feel free to modify or duplicate and create multiple themes!): */
 .tooltipster-default {
 	border-radius: 5px;
-	border: 2px solid #000;
-	background: #4c4c4c;
+	border: 2px solid #ecf0f1;
+	background: #1abc9c;
 	color: #fff;
 }
 
@@ -26,13 +26,6 @@
 	cursor: help;
 	margin-left: 4px;
 }
-
-
-
-
-
-
-
 
 /* This is the base styling required to make all Tooltipsters work */
 .tooltipster-base {
@@ -288,4 +281,20 @@
 
 .tooltipster-base {
   width: 320px;
+}
+
+.tooltipster-content ul li {
+  margin-left: -20px;
+}
+.tooltipster-content ul li {
+  color: #ecf0f1;
+  list-style: none;
+}
+
+.tooltipster-content ul li  a{
+  color: #34495e;
+}
+
+.tooltipster-content ul li  a:visited{
+  color: #34495e;
 }
