@@ -1,4 +1,4 @@
-define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 'text!templates/description.html', 'jquery.tipsy'],
+define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 'text!templates/description.html', 'jquery.tooltipster'],
   function (d3, ko, Utils, dagreD3, $, Lettuce, description_template) {
     'use strict';
     function renderPage(skills_data) {
@@ -29,10 +29,10 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       var g = new dagreD3.graphlib.Graph().setGraph({});
       setSkillNode();
       setSkillEdge();
-      g.nodes().forEach(function (v) {
-        var node = g.node(v);
+      //g.nodes().forEach(function (v) {
+      //  var node = g.node(v);
         //console.log(node);
-      });
+      //});
 
       var render = new dagreD3.render();
       var svg = d3.select('svg');
@@ -85,8 +85,9 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
 
       /* add tips */
       inner.selectAll('g.node')
-        .attr('title', function (v) {
+        .attr('title', function (v, id) {
           var data = {
+            id: id,
             name: v,
             description: g.node(v).description,
             books: g.node(v).books,
@@ -95,8 +96,18 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
           var results = lettuce.Template.tmpl(description_template, data);
           return results;
         })
-        .each(function (v) {
-          $(this).tipsy({gravity: 's', opacity: 1, html: true});
+        .each(function (v, id) {
+          var data = {
+            id: id,
+            name: v,
+            description: g.node(v).description,
+            books: g.node(v).books,
+            links: g.node(v).links
+          };
+          var results = lettuce.Template.tmpl(description_template, data);
+          console.log(v, id);
+          console.log($('g#' + id));
+          $('g#' + id).tooltipster({content: $(results)});
         });
 
       svg.attr('height', g.graph().height + 120);

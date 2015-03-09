@@ -7,7 +7,7 @@ require.config({
     'dagre-d3': 'lib/dagre-d3.min',
     text: 'lib/text',
     lettuce: 'lib/lettuce',
-    'jquery.tipsy': 'lib/jquery.tipsy'
+    'jquery.tooltipster': 'lib/jquery.tooltipster.min'
   },
   'shim': {
     'jquery.tipsy': {
