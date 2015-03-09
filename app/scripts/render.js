@@ -37,24 +37,6 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       var render = new dagreD3.render();
       var svg = d3.select('svg');
 
-      /* append image */
-      g.nodes().forEach(function (v) {
-        var node = g.node(v);
-        if( node.logo){
-          svg.append('defs')
-            .append('pattern')
-            .attr('id', node.id)
-            .attr('width', 60)
-            .attr('height', 60)
-            .append('svg:image')
-            .attr('xlink:href', './app/logo/' + node.logo)
-            .attr('width', 60)
-            .attr('height', 60)
-            .attr('x', 0)
-            .attr('y', 0);
-        }
-      });
-
       var inner = svg.append('g');
 
       render(inner, g);
@@ -62,21 +44,11 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       inner.selectAll('rect')
         .attr('class', 'inner');
 
-      /* fill background */
       inner.selectAll('g.node')
         .attr('data-bind', function(){
           return 'css: { \'can-add-points\': canAddPoints, \'has-points\': hasPoints, \'has-max-points\': hasMaxPoints }';
         });
-
-      inner.selectAll('g.node rect')
-        .style('fill', function (d, i) {
-        var node = g.node(d);
-        if(node.logo) {
-          //console.log(node);
-          return 'url(#' + node.id + ')' ;
-        }
-        return '';
-      }).attr('data-bind', function () {
+      inner.selectAll('g.node rect').attr('data-bind', function () {
         return 'click: addPoint, rightClick: removePoint';
       });
 
@@ -95,6 +67,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
           };
           var results = lettuce.Template.tmpl(description_template, data);
           $(this).tooltipster({content: $(results), contentAsHTML: true, interactive: true});
+          $(this).css("background-image", "url(./app/logo/html.png)");
         });
 
       svg.attr('height', g.graph().height + 120);
