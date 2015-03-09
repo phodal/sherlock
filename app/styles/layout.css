@@ -1,6 +1,4 @@
 body {
-  width: 1440px;
-  margin: 0 auto;
   color: #333;
   font-weight: 300;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
@@ -21,9 +19,10 @@ section {
 }
 
 svg {
+  width: 1200px;
   overflow: hidden;
   margin: 0 auto;
-  margin-top: 150px;
+  margin-top: 80px;
 }
 
 .node rect {
