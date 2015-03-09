@@ -53,7 +53,7 @@ gulp.task('watch', ['connect'], function () {
     'index.html',
     'app/scripts/**.js',
     'app/images/**/*',
-    'app/styles/**/*',
+    'app/styles/**/*.css',
     'app/templates/**.html',
     'app/logo/**/*',
     'data/**.json'

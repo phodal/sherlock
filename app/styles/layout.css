@@ -32,8 +32,8 @@ svg {
 }
 
 g.node rect {
-  stroke: #ecf0f1;
-  stroke-width: 2px;
+  stroke: #bdc3c7;
+  stroke-width: 2.5px;
   cursor: pointer;
 }
 
