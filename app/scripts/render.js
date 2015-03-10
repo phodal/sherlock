@@ -39,21 +39,26 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
 
       var vm = new Node(g._nodes);
       ko.applyBindings(vm);
-      
+
       inner.selectAll('rect')
         .attr('class', 'inner')
         .on("click", function (d, i) {
-          vm.skills()[i].addPoint(1);
-          d3.select(this).style('opacity', '0.5');
+          if(vm.skills()[i].canAddPoints()){
+            vm.skills()[i].addPoint(1);
+            d3.select(this).style('opacity', '0.7');
+          }
+          if(vm.skills()[i].hasMaxPoints()){
+            d3.select(this).style('fill', '#222');
+          }
         });
 
-      //inner.selectAll('g.node')
-      //  .attr('data-bind', function(){
-      //    return 'css: { "can-add-points": canAddPoints, "has-points": hasPoints, "has-max-points": hasMaxPoints }';
-      //  });
-      //inner.selectAll('g.node rect').attr('data-bind', function () {
-      //  return 'click: addPoint, rightClick: removePoint';
-      //});
+      inner.selectAll('g.node')
+        .attr('data-bind', function(){
+          return 'css: { "can-add-points": canAddPoints, "has-points": hasPoints, "has-max-points": hasMaxPoints }';
+        });
+      inner.selectAll('g.node rect').attr('data-bind', function () {
+        return 'click: addPoint, rightClick: removePoint';
+      });
 
       //console.log(g.node('HTML'));
 
