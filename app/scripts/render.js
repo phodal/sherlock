@@ -37,9 +37,13 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
 
       render(inner, g);
 
+      var vm = new Node(g._nodes);
+      ko.applyBindings(vm);
+      
       inner.selectAll('rect')
         .attr('class', 'inner')
-        .on("click", function () {
+        .on("click", function (d, i) {
+          vm.skills()[i].addPoint(1);
           d3.select(this).style('opacity', '0.5');
         });
 
@@ -84,9 +88,6 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
             interactive: true});
           $(this).find('rect').css("fill", '#ecf0f1');
         });
-
-      var vm = new Node(g._nodes);
-      ko.applyBindings(vm);
 
       svg.attr('height', g.graph().height + 120);
     }

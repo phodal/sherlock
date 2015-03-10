@@ -6,7 +6,6 @@ define(['lib/knockout', 'scripts/Book', 'scripts/Link', 'scripts/Skill', 'jquery
 
       self.skills = ko.observableArray(ko.utils.arrayMap(_.toArray(nodes), function (item) {
 	      var skill = new Skill(item);
-        console.log(skill);
         return skill;
       }));
     };
