@@ -1,5 +1,5 @@
-define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 'text!templates/description.html', 'json!../../data/colors.json', 'jquery.tooltipster'],
-  function (d3, ko, Utils, dagreD3, $, Lettuce, description_template, colors) {
+define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 'text!templates/description.html', 'scripts/Skill', 'jquery.tooltipster'],
+  function (d3, ko, Utils, dagreD3, $, Lettuce, description_template, Skill) {
     'use strict';
     function renderPage(skills_data) {
       function setSkillNode() {
@@ -38,15 +38,22 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       render(inner, g);
 
       inner.selectAll('rect')
-        .attr('class', 'inner');
-
-      inner.selectAll('g.node')
-        .attr('data-bind', function(){
-          return 'css: { "can-add-points": canAddPoints, "has-points": hasPoints, "has-max-points": hasMaxPoints }';
+        .attr('class', 'inner')
+        .on("click", function () {
+          d3.select(this).style('opacity', '0.5');
         });
-      inner.selectAll('g.node rect').attr('data-bind', function () {
-        return 'click: addPoint, rightClick: removePoint';
-      });
+
+      //inner.selectAll('g.node')
+      //  .attr('data-bind', function(){
+      //    return 'css: { "can-add-points": canAddPoints, "has-points": hasPoints, "has-max-points": hasMaxPoints }';
+      //  });
+      //inner.selectAll('g.node rect').attr('data-bind', function () {
+      //  return 'click: addPoint, rightClick: removePoint';
+      //});
+
+      //console.log(g.node('HTML'));
+      var vm = new Skill(g.nodes());
+      ko.applyBindings(vm);
 
       /* add tips */
       inner.selectAll('g.node')
@@ -71,7 +78,12 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
             links: g.node(v).links
           };
           var results = lettuce.Template.tmpl(description_template, data);
-          $(this).tooltipster({content: $(results), contentAsHTML: true, interactive: true});
+          $(this).tooltipster({
+            content: $(results),
+            contentAsHTML: true,
+            position: 'left',
+            animation: 'grow',
+            interactive: true});
           $(this).find('rect').css("fill", '#ecf0f1');
         });
 
