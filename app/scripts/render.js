@@ -43,12 +43,13 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       inner.selectAll('rect')
         .attr('class', 'inner')
         .on("click", function (d, i) {
-          if(vm.skills()[i].canAddPoints()){
+          if(vm.skills()[i].canAddPoints() ){
             vm.skills()[i].addPoint(1);
             d3.select(this).style('opacity', '0.7');
+            d3.select(this).style('fill', '#27ae60');
           }
           if(vm.skills()[i].hasMaxPoints()){
-            d3.select(this).style('fill', '#222');
+            d3.select(this).style('fill', '#009688');
           }
         });
 
