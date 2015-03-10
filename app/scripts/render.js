@@ -1,5 +1,5 @@
-define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 'text!templates/description.html', 'scripts/Skill', 'jquery.tooltipster'],
-  function (d3, ko, Utils, dagreD3, $, Lettuce, description_template, Skill) {
+define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 'text!templates/description.html', 'scripts/Node', 'jquery.tooltipster'],
+  function (d3, ko, Utils, dagreD3, $, Lettuce, description_template, Node) {
     'use strict';
     function renderPage(skills_data) {
       function setSkillNode() {
@@ -52,8 +52,6 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       //});
 
       //console.log(g.node('HTML'));
-      var vm = new Skill(g.nodes());
-      ko.applyBindings(vm);
 
       /* add tips */
       inner.selectAll('g.node')
@@ -86,6 +84,9 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
             interactive: true});
           $(this).find('rect').css("fill", '#ecf0f1');
         });
+
+      var vm = new Node(g._nodes);
+      ko.applyBindings(vm);
 
       svg.attr('height', g.graph().height + 120);
     }

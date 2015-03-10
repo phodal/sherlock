@@ -7,6 +7,7 @@ require.config({
     'dagre-d3': 'lib/dagre-d3.min',
     text: 'lib/text',
     lettuce: 'lib/lettuce',
+    'underscore': 'lib/underscore-min',
     'jquery.tooltipster': 'lib/jquery.tooltipster.min'
   },
   'shim': {
