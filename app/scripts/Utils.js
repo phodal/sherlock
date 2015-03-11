@@ -17,6 +17,17 @@ define(['lib/knockout'], function(ko) {
     return links;
   }
 
+  function handleEmptyDocs(docs) {
+    if (!docs) {
+      return {
+        label: '',
+        url: ''
+      };
+    } else {
+      return docs;
+    }
+  }
+
   function getSkillById(skills, id) {
     var result = [];
     ko.utils.arrayForEach(skills, function (skill) {
@@ -29,6 +40,7 @@ define(['lib/knockout'], function(ko) {
 
   return {
     parseDepends: parseDepends,
-    getSkillById: getSkillById
+    getSkillById: getSkillById,
+    handleEmptyDocs: handleEmptyDocs
   };
 });

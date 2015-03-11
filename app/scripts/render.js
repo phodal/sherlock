@@ -32,7 +32,6 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
 
       var render = new dagreD3.render();
       var svg = d3.select('svg');
-
       var inner = svg.append('g');
 
       render(inner, g);
@@ -66,18 +65,11 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       /* add tips */
       inner.selectAll('g.node')
         .each(function (v, id) {
-          if( !g.node(v).books) {
-            g.node(v).books = {
-              label: '',
-              url: ''
-            };
-          }
-          if( !g.node(v).links) {
-            g.node(v).links = {
-              label: '',
-              url: ''
-            };
-          }
+
+
+          g.node(v).books = Utils.handleEmptyDocs(g.node(v).books);
+          g.node(v).links = Utils.handleEmptyDocs(g.node(v).links);
+
           var data = {
             id: id,
             name: v,
@@ -86,6 +78,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
             links: g.node(v).links
           };
           var results = lettuce.Template.tmpl(description_template, data);
+
           $(this).tooltipster({
             content: $(results),
             contentAsHTML: true,
