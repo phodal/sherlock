@@ -42,7 +42,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
 
       inner.selectAll('rect')
         .attr('class', 'inner')
-        .on("click", function (d, i) {
+        .on('click', function (d, i) {
           if(vm.skills()[i].canAddPoints() ){
             vm.skills()[i].addPoint(1);
             d3.select(this).style('opacity', '0.7');
@@ -68,15 +68,15 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
         .each(function (v, id) {
           if( !g.node(v).books) {
             g.node(v).books = {
-              label: "",
-              url: ""
-            }
+              label: '',
+              url: ''
+            };
           }
           if( !g.node(v).links) {
             g.node(v).links = {
-              label: "",
-              url: ""
-            }
+              label: '',
+              url: ''
+            };
           }
           var data = {
             id: id,
@@ -92,7 +92,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
             position: 'left',
             animation: 'grow',
             interactive: true});
-          $(this).find('rect').css("fill", '#ecf0f1');
+          $(this).find('rect').css('fill', '#ecf0f1');
         });
 
       svg.attr('height', g.graph().height + 120);
