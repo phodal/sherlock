@@ -13,6 +13,10 @@ Basis On: [https://github.com/phodal/awesome-developer](https://github.com/phoda
 ##Devel
 
 - D3.js
+- Dagre-D3.js
+- jquery.tooltipster.js
+- jQuery
+- Lettuce
 - Knockout.js
 - Require.js
 
