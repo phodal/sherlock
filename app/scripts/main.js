@@ -11,7 +11,7 @@ require.config({
     'jquery.tooltipster': 'lib/jquery.tooltipster.min'
   },
   'shim': {
-    'jquery.tipsy': {
+    'jquery.tooltipster': {
       deps: ['jquery']
     },
     'dagre-d3': {
