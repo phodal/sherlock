@@ -33,6 +33,7 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       var render = new dagreD3.render();
       var svg = d3.select('svg');
       var inner = svg.append('g');
+      var url_hash = [];
 
       render(inner, g);
 
@@ -42,6 +43,13 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       inner.selectAll('rect')
         .attr('class', 'inner')
         .on('click', function (d, i) {
+          if(vm.skills()[i].canAddPoints()){
+            url_hash.push(String.fromCharCode(i + 96));
+            if (vm.skills()[i].hasMultiplePoints()) {
+              url_hash.push(vm.skills()[i].points());
+            }
+          }
+          console.log(url_hash);
           if(vm.skills()[i].canAddPoints() ){
             vm.skills()[i].addPoint(1);
             d3.select(this).style('opacity', '0.7');
