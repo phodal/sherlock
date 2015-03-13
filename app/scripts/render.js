@@ -43,21 +43,23 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
       inner.selectAll('rect')
         .attr('class', 'inner')
         .on('click', function (d, i) {
-          if(vm.skills()[i].canAddPoints()){
-            url_hash.push(String.fromCharCode(i + 96));
-            if (vm.skills()[i].hasMultiplePoints()) {
-              url_hash.push(vm.skills()[i].points());
+		      var skill = vm.skills()[i];
+
+          if(skill.canAddPoints() ){
+            skill.addPoint(1);
+            if (skill.hasPoints()) {
+              url_hash.push(String.fromCharCode(i + 96));
+              if (skill.hasMultiplePoints()) {
+                url_hash.push(skill.points());
+              }
             }
-          }
-          console.log(url_hash);
-          if(vm.skills()[i].canAddPoints() ){
-            vm.skills()[i].addPoint(1);
             d3.select(this).style('opacity', '0.7');
             d3.select(this).style('fill', '#27ae60');
           }
-          if(vm.skills()[i].hasMaxPoints()){
+          if(skill.hasMaxPoints()){
             d3.select(this).style('fill', '#009688');
           }
+          console.log(url_hash);
         });
 
       inner.selectAll('g.node')
