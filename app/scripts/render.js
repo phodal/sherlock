@@ -59,7 +59,6 @@ define(['d3', 'lib/knockout', 'scripts/Utils', 'dagre-d3', 'jquery', 'lettuce', 
           if(skill.hasMaxPoints()){
             d3.select(this).style('fill', '#009688');
           }
-          console.log(url_hash);
         });
 
       inner.selectAll('g.node')
