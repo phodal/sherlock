@@ -1,11 +1,10 @@
 #Sherlock
 
-> 人的大脑如同一间空空的阁楼，要有选择地把一些家具装进去。 
+> 基于D3.js与KnockOut.js的数据生成的技能树。
 
-Screenshot:
+截图:
 
 ![Sherlock Screenshot](sherlock.jpg)
-
 
 ##Tree
 
@@ -24,8 +23,6 @@ Basis On: [https://github.com/phodal/awesome-developer](https://github.com/phoda
 - Lettuce
 - Knockout.js
 - Require.js
-
-###Test
 
 ## License
 
